@@ -15,5 +15,6 @@ namespace BlueWork.web.Data
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<JobListing> JobListings { get; set; }
         public DbSet<SkillDevelopment> SkillDevelopments { get; set; }
+
     }
 }
