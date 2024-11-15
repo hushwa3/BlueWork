@@ -11,7 +11,7 @@ namespace BlueWork.web.Models
         public string CompanyDescription { get; set; }
         public string Industry { get; set; }
         public string Location { get; set; }
-        public string Address { get; set; }
+      
 
         [ForeignKey("RegistrationID")]
         public int RegistrationID { get; set; }
