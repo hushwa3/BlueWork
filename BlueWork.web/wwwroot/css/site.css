@@ -32,7 +32,7 @@ body {
   padding: 0;
 }
 .navbar-brand{
-    font-weight: 700;
+    font-weight: 600;
     margin-left: 1rem;
 }
 .navbar-nav{
@@ -45,8 +45,8 @@ body {
     margin-right: 1rem;
     margin-top: 5%;
 }
-.btn-link {
-    padding: .2rem;
+.join-btn:hover{
+    background:white;
 }
 .hero{
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/assets/bg-main1.png') no-repeat;
@@ -88,6 +88,9 @@ body {
     -webkit-flex-wrap: inherit;
     flex-wrap: inherit;
 }
+.btn{
+    margin-top: .5rem;
+}
 
 .search-bar {
     display: flex;
@@ -101,8 +104,8 @@ body {
         border: none;
     }
 
-    .search-bar button {
-        padding: .7rem;
+    .search-btn {
+        padding: .7em;
         background: #3182CE;
         color: white;
         border: none;
@@ -226,7 +229,7 @@ body {
 .footer navbar{
   padding: 8px;
 }
-i{
+.footer i{
     font-size: 2rem;
 }
 /* Mobile Responsiveness */
@@ -272,3 +275,220 @@ i{
         }
 }
 
+.container-pop {
+    width: 425px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 1;
+    background-color: white;
+}
+
+.top-content {
+    padding: 20px;
+}
+
+.first-pop, .second-pop {
+    border: 1px solid black;
+    width: 25px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+
+.row-pop {
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.content1 {
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+    .content1 i {
+        margin-top: 10px;
+        margin-left: 20px;
+        overflow-y: hidden;
+    }
+
+.box {
+    margin-top: 20px;
+}
+
+.continue {
+    background-color: #4A65AD;
+    width: 100%;
+    margin-bottom: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    padding: .5rem;
+    color:white;
+}
+
+    .continue:hover {
+        background-color: #4A65AD;
+    }
+
+.agree {
+    font-size: 10px;
+    padding: 0;
+    margin-top: 10px;
+    text-align: left;
+    margin-bottom: 45px;
+    color: #B9B7B7;
+}
+
+.member {
+    font-size: 15px;
+    color: #B9B7B7;
+}
+
+a {
+    text-decoration: none;
+}
+
+.second a, .first a {
+    color: black;
+}
+.container-pop2 {
+    width: 425px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    z-index: 10;
+    background-color: white;
+}
+.pop2-btn {
+    background-color: #4A65AD;
+    width: 100%;
+    padding: .5rem;
+    color: white;
+}
+
+.content2 {
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin-bottom: 15px;
+}
+.fb, .google, .apple, .fa-b{
+    background-color: #4A65AD;
+    display: flex;
+    align-items: center;
+}
+
+.continue1 {
+    width: 100%;
+    background-color: #4A65AD;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: .5rem;
+}
+
+.fa-brands {
+    font-size: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.btn:hover {
+    background-color: #4A65AD;
+    color:white;
+}
+
+.continue1:hover {
+    background-color: #4A65AD;
+    color:white;
+}
+
+.email {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 5px;
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.line {
+    flex: 1;
+    border: none;
+    border-top: 1px solid black;
+    margin: 0 10px;
+}
+
+.line-text {
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.agree1 {
+    font-size: 10px;
+    padding: 0;
+    margin-top: 10px;
+    text-align: left;
+    margin-bottom: 30px;
+    color: #B9B7B7;
+}
+
+
+.profile-setup-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 100px;
+}
+
+.section-title {
+    color: #0066cc;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.profile-picture-section {
+    margin-top: 2rem;
+}
+
+.submit-btn {
+    background-color: #4A65AD;
+    color: white;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-hint {
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
