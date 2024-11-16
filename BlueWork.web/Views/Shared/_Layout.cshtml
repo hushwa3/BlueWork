@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BlueWork.web.styles.css" asp-append-version="true"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -29,7 +30,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Sign In</a>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-primary"><a class="btn-link nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Join">Join</a></button>
+                            <button type="button" class="btn btn-outline-primary"><a class="btn-link nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Join">Join</a></button>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +45,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - BlueWork.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+           <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Home">BlueWork</a>
+           <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
