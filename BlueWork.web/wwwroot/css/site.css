@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
 html {
   font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  overflow-x:hidden;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -19,6 +28,8 @@ html {
 
 body {
   margin-bottom: 60px;
+  margin-left: 0;
+  padding: 0;
 }
 .navbar-brand{
     font-weight: 600;
@@ -36,3 +47,127 @@ body {
 .btn-link {
     padding: .2rem;
 }
+.hero{
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/assets/bg-main1.png') no-repeat;
+    background-size: cover;
+    color: white;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    margin-top: -10px;
+    margin: 0;
+    padding: 0;
+}
+
+.first-page {
+    margin: 0;
+    padding: 0;
+}
+
+
+.hero-content {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    width: 30%;
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    -ms-flex-wrap: inherit;
+    -webkit-flex-wrap: inherit;
+    flex-wrap: inherit;
+}
+
+.search-bar {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+    .search-bar input {
+        flex: 1;
+        padding: .7rem;
+        border-radius: 10px 0 0 10px;
+        border: none;
+    }
+
+    .search-bar button {
+        padding: .7rem;
+        background: #3182CE;
+        color: white;
+        border: none;
+        border-radius: 0 10px 10px 0;
+        cursor: pointer;
+    }
+
+.categories {
+    display: flex;
+    gap: .5rem;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.category-tag {
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+}
+
+/* Features Section */
+
+
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero-content h1{
+        font-size: 1rem;
+    }
+    .hero-content{
+        width: 20%;
+       
+    }
+    .search-bar {
+        flex-direction: column;
+    }
+
+        .search-bar button {
+            width: 100%;
+        }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero-content h1{
+        font-size: 1rem;
+    }
+    .hero-content{
+        width: 20%;
+       
+    }
+    .search-bar {
+        flex-direction: column;
+    }
+
+        .search-bar button {
+            width: 100%;
+        }
+}
+
