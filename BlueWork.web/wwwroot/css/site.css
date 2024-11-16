@@ -32,7 +32,8 @@ body {
   padding: 0;
 }
 .navbar-brand{
-    font-weight: 600;
+    font-weight: 700;
+    margin-left: 1rem;
 }
 .navbar-nav{
     display: flex;
@@ -132,7 +133,6 @@ body {
     background-color: #323232;
 }
 .first, .second {
-    border: 1px solid black;
     min-height: 50vh;
     margin-bottom: 0;
     color: white;
@@ -164,11 +164,16 @@ body {
 /* Footer */
 .footer-nav {
     display: flex;
-    justify-content: space-between;
-    padding: 15rem 5% 0 5%;
+    justify-content:space-between;
+    align-items:start;
+    padding-top: 15rem;
     background: #ffffff;
-}
+    min-width: 98vw;
 
+}
+.foot-nav{
+    padding: 0;
+}
 .footer-col {
     min-width: 160px;
 }
@@ -216,6 +221,13 @@ body {
     .footer-col {
         flex: 1 1 100%;
     }
+}
+
+.footer navbar{
+  padding: 8px;
+}
+i{
+    font-size: 2rem;
 }
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
