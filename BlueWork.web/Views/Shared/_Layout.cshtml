@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - BlueWork</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BlueWork.web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BlueWork.web.styles.css" asp-append-version="true"/>
 </head>
 <body>
     <header>
@@ -17,13 +17,19 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-flex d-l-flex justify-content-end mr-3">
+                <div class="navbar-collapse collapse d-sm-flex d-l-flex justify-content-center">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
+                            <a class="nav-link text-dark d-sm-flex" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Sign In</a>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-outline-primary"><a class="btn-link nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Join">Join</a></button>
                         </li>
                     </ul>
                 </div>
