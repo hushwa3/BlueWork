@@ -74,7 +74,7 @@ joinNow1.addEventListener('click', () => {
     pop1.style.display = 'block';
 });
 
-
+const aspAction = actionBtn.getAttribute('asp-action');
 
 cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -86,10 +86,10 @@ cards.forEach(card => {
 
             if (selectedType === 'client') {
                 actionBtn.textContent = 'Join as a Client';
-                actionBtn.href = '~/Views/Home/Client_Profile.cshtml';
+                actionBtn.setAttribute('asp-action', 'Client_Profile');
             } else {
                 actionBtn.textContent = 'Apply as a Worker';
-                actionBtn.href = '~/Views/Home/WorkerProfile_Setup.cshtml';
-            }
+                actionBtn.setAttribute('asp-action', 'WorkerProfile_Setup');
+             }
      });
 });
