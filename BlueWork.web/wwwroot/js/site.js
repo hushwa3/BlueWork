@@ -22,3 +22,9 @@ signIn.addEventListener('click', () => {
     pop2.style.display = 'none';
     pop1.style.display = 'none';
 });
+
+signIn.addEventListener('click', () => {
+    pop3.style.display = 'block';
+    pop2.style.display = 'none';
+    pop1.style.display = 'none';
+});

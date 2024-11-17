@@ -112,24 +112,4 @@
         </div>
     </div>
 
-    <footer>
-        <div class="logo">BLUEWORK</div>
-        <div class="social-icons">
-            <a href="#"><i class="fas fa-map-marker-alt"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-    </footer>
-
-    <script>
-        document.querySelector('.add-experience').addEventListener('click', function() {
-            const experienceSection = document.querySelector('.experience-section').cloneNode(true);
-            const inputs = experienceSection.querySelectorAll('input, textarea');
-            inputs.forEach(input => input.value = '');
-            document.querySelector('.experience-section').parentNode.insertBefore(
-                experienceSection,
-                document.querySelector('.add-experience')
-            );
-        });
-
+   

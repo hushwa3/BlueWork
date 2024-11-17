@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 html {
   font-size: 14px;
@@ -149,13 +149,7 @@ body {
     color: #0077B6;
     margin-left: 1%;
 }
-.first-row p{
-    font-size: .8rem;
-}
-.first-row {
-    margin-top: 2%;
-    margin-left: 3%;
-}
+
 .second{
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/assets/bg-main.jpg') no-repeat;
     background-size: cover;
@@ -164,6 +158,20 @@ body {
     min-height: 50vh;
 }
 
+.feature-description {
+    color: #a0a0a0;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-left: 1rem;
+}
+.highlight {
+    color: #0077B6;
+    font-weight: 600;
+    margin-left: .5rem;
+}
 /* Footer */
 .footer-nav {
     display: flex;
