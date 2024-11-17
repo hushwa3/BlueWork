@@ -1,10 +1,25 @@
 using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+    .AddCookie()
+    .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+    {
+        options.ClientId = builder.Configuration.GetValue<string>("GoogleKeys:ClientId");
+        options.ClientSecret = builder.Configuration.GetValue<string>("GoogleKeys:ClientSecret");
+    });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 builder.Services.AddDbContext<BlueWorkDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWork")));
