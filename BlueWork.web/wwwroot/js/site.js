@@ -10,6 +10,12 @@ let signIn2 = document.getElementById('sign-in2');
 let signIn3 = document.getElementById('sign-in3');
 let joinNow1 = document.getElementById('join-now1');
 
+const cards = document.querySelectorAll('.option-card');
+const actionButton = document.getElementById('actionButton');
+const actionBtn = document.getElementById('actionBtn');
+const createBtn = document.getElementById('createAccountBtn');
+let selectedType = null;
+
 // Function to close all popups
 const closeAllPopups = () => {
     pop1.style.display = 'none';
@@ -38,16 +44,10 @@ document.addEventListener('click', (event) => {
 
 joinBtn.addEventListener('click', (event) => {
     event.stopPropagation();
-    // First close pop3 if it's open
     pop3.style.display = 'none';
-    // Then toggle pop1
     pop1.style.display = 'block';
 });
 
-continue1.addEventListener('click', () => {
-    pop2.style.display = 'block';
-    pop1.style.display = 'none';
-});
 
 signIn1.addEventListener('click', () => {
     pop3.style.display = 'block';
@@ -60,18 +60,36 @@ signIn2.addEventListener('click', () => {
     pop2.style.display = 'none';
     pop1.style.display = 'none';
 });
-
 signIn3.addEventListener('click', (event) => {
     event.stopPropagation();
-    // Toggle pop3 visibility
     pop3.style.display = pop3.style.display === 'none' || pop3.style.display === '' ? 'block' : 'none';
+    // Hide other popups
     pop2.style.display = 'none';
     pop1.style.display = 'none';
 });
+
 joinNow1.addEventListener('click', () => {
     pop3.style.display = 'none';
     pop2.style.display = 'none';
     pop1.style.display = 'block';
 });
 
+const aspAction = actionBtn.getAttribute('asp-action');
 
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedType = card.dataset.type;
+        createBtn.style.display = 'none';
+        actionBtn.style.display = 'block';
+
+            if (selectedType === 'client') {
+                actionBtn.textContent = 'Join as a Client';
+                actionBtn.setAttribute('asp-action', 'Client_Profile');
+            } else {
+                actionBtn.textContent = 'Apply as a Worker';
+                actionBtn.setAttribute('asp-action', 'WorkerProfile_Setup');
+             }
+     });
+});

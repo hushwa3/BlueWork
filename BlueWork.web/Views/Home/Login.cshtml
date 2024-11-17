@@ -7,26 +7,28 @@
         <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
         <p class="pop-p">Join as a Client or Worker</p>
         <div class="row row-pop">
-            <div class="col first-pop">
+            <div class="col first-pop option-card" data-type="client">
                 <div class="content1">
                     <i class="fa-solid fa-user-tie fa-3x"></i>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">
                         <p class="box">I'm a client looking to hire for a project</p>
+                        <div class="selected-indicator"></div>
                     </a>
                 </div>
             </div>
 
-            <div class="col second-pop">
+            <div class="col second-pop option-card" data-type="worker">
                 <div class="content1">
                     <i class="fa-solid fa-user fa-3x"></i>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="WorkerProfile_Setup"><p class="box">I'm a worker looking to work on a project</p></a>
+                        <p class="box">I'm a worker looking to work on a project</p>
+                        <div class="selected-indicator"></div>
+                      </a>
                 </div>
             </div>
         </div>
-        <button class="btn continue" id="continue1">Continue</button>
-        <p class="agree">By clicking next, I agree to register as a client/worker</p>
+        <button id="createAccountBtn" class="mb-3">Create Account</button>
+        <button class="action-button" id="actionBtn"><a id="actionButton" asp-controller="Home" asp-action=""></a></button>
         <hr>
-        <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Sign In.</span></p>
+        <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Log In.</span></p>
     </div>
 </div>
 

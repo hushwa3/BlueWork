@@ -247,16 +247,64 @@ body {
     z-index: 1;
     background-color: white;
 }
-
+.pop-p{
+    font-size: 1.3rem;
+}
+.selected-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    background-color: #4A65AD;
+    border-radius: 50%;
+    display: none;
+}
+.option-card.selected {
+    border-color: #4A65AD;
+}
+.option-card:hover {
+    border-color: #d1d5db;
+}
+.option-card.selected .selected-indicator {
+    display: block;
+}
+.action-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4A65AD;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: none;
+    transition: background-color 0.2s ease;
+}
 .top-content {
     padding: 20px;
 }
+#createAccountBtn {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: default;
+}
 
 .first-pop, .second-pop {
-    border: 1px solid black;
-    width: 25px;
-    margin-bottom: 40px;
-    border-radius: 10px;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    cursor: pointer;
+    position: relative;
+    background: white;
+    transition: all 0.2s ease;
+    margin-bottom: 1.5rem;
 }
 
 .row-pop {
