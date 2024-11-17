@@ -1,7 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "BlueWork";
+    ViewData["Title"] = "Client Profile";
 }
 <!-- Profile Setup Form -->
+<body class="client">
+<div class="client-container">
 <div class="profile-setup-container">
     <form>
         <!-- Basic Information Section -->
@@ -27,26 +29,18 @@
                 <label class="form-label">Contact Number</label>
                 <div class="row">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="Area Code">
+                        <input type="tel" class="form-control" placeholder="Area Code">
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Phone Number">
+                        <input type="tel" class="form-control" placeholder="Phone Number">
                     </div>
                 </div>
             </div>
 
             <div class="col-12 mb-3">
                 <label class="form-label">Date of Birth</label>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="Month">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="Day">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="Year">
-                    </div>
+                <div class="col-md-4 w-100">
+                    <input type="date" class="form-control" placeholder="Month">
                 </div>
             </div>
         </div>
@@ -72,19 +66,24 @@
             </div>
 
             <div class="col-12 mb-3">
-                <label class="form-label">Location</label>
-                <input type="text" class="form-control" placeholder="State">
+                        <label for="country" class="form-label">Choose your country:</label>
+                        <select id="country" name="country">
+                            <option value="">Select a Country</option>
+                            <option value="">Australia</option>
+                            <option value="">Canada</option>
+                            <option value="">Hongkong</option>
+                            <option value="">Japan</option>
+                            <option value="">Philippines</option>
+                            <option value="">United States</option>
+                        </select>
             </div>
         </div>
 
         <!-- Profile Picture Section -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="section-title mb-0">Profile Picture</div>
-                    <button type="button" class="choose-btn">Choose Photo</button>
-                </div>
-                <div class="form-hint">No File Chosen</div>
+                <div class="section-title mb-0">Profile Picture</div>
+                <input class type="file" name="photo" value="Choose Photo" />
             </div>
         </div>
 
@@ -94,3 +93,6 @@
         </div>
     </form>
 </div>
+</div>
+
+</body>

@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container-fluid container-pop h-60" id="pop1" style="display: none;">
+    <div class="top-content text-center">
+        <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
+        <p class="pop-p">Join as a Client or Worker</p>
+        <div class="row row-pop">
+            <div class="col first-pop">
+                <div class="content1">
+                    <i class="fa-solid fa-user-tie fa-3x"></i>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">
+                        <p class="box">I'm a client looking to hire for a project</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col second-pop">
+                <div class="content1">
+                    <i class="fa-solid fa-user fa-3x"></i>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="WorkerProfile_Setup"><p class="box">I'm a worker looking to work on a project</p></a>
+                </div>
+            </div>
+        </div>
+        <button class="btn continue" id="continue1">Continue</button>
+        <p class="agree">By clicking next, I agree to register as a client/worker</p>
+        <hr>
+        <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Sign In.</span></p>
+    </div>
+</div>
+
+
+<div class="container-fluid container-pop2" id="pop2" style="display: none;">
+    <div class="content2 text-center">
+        <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
+        <div class="buttons">
+            <button class="btn fb pop2-btn"><i class="fa-brands fa-facebook-f fa-b"></i> Continue with Facebook</button>
+            <button class="btn google pop2-btn"><i class="fa-brands fa-google fa-b"></i><a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a></button>
+            <button class="btn apple pop2-btn"><i class="fa-brands fa-apple fa-b"></i> Continue with Apple</button>
+        </div>
+        <div class="line-container">
+            <hr class="line">
+            <span class="line-text">OR</span>
+            <hr class="line">
+        </div>
+        <div class="email-container">
+            <input class="email mb-3" type="email" placeholder="Enter your email">
+            <button class="btn continue1">Continue</button>
+            <p class="agree1">By clicking next, I agree to register as a client/worker</p>
+            <hr>
+            <p class="member">Already a member? <span id="sign-in2" style="color: blue; cursor: pointer;">Sign In.</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-pop3 h-auto" id="pop3" style="display: none;">
+    <div class="content2 text-center">
+        <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
+        <div class="buttons">
+            <button class="btn fb pop2-btn"><i class="fa-brands fa-facebook-f fa-b"></i> Continue with Facebook</button>
+            <button class="btn google pop2-btn"><i class="fa-brands fa-google fa-b"></i><a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a></button>
+            <button class="btn apple pop2-btn"><i class="fa-brands fa-apple fa-b"></i> Continue with Apple</button>
+        </div>
+        <div class="line-container">
+            <hr class="line">
+            <span class="line-text">OR</span>
+            <hr class="line">
+        </div>
+        <div class="email-container">
+            <input class="email" type="email" placeholder="Enter your email">
+            <input class="password" type="email" placeholder="Enter your password">
+            <button class="btn continue2">Continue</button>
+            <hr>
+            <p class="member1"> Not a member yet?<span id="join-now1" style="color: blue; cursor: pointer;"> Join Now.</span></p>
+        </div>
+    </div>
+</div>

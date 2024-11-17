@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="top-nav navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Home">BlueWork</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -26,16 +26,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">Become an Employer</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Sign In</a>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-outline-dark join-btn" id="joinBtn">Join</button>
-                        </li>
+
+                        @if (!Context.Request.Path.Value.Contains("Client_Profile") && !Context.Request.Path.Value.Contains("WorkerProfile_Setup")){
+                            <li>
+                                <a class="nav-link text-dark" id="sign-in3" style="cursor: pointer;" id="sign-in3">Sign In</a>
+                            </li>
+                            <li>
+                                <div class="btn btn-outline-dark join-btn" id="joinBtn">Join</div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="p-0">
@@ -44,7 +48,7 @@
     </div>
 
     <footer class="border-top footer">
-        <nav class="foot-nav navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="foot-nav navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Home">BlueWork</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
