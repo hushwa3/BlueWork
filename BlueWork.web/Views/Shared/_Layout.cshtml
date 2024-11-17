@@ -27,8 +27,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">Become an Employer</a>
                         </li>
 
-                        @if (!User.Identity.IsAuthenticated)
-                        {
+                        @if (!User.Identity.IsAuthenticated){
                             @* User is not signed in, show "Sign In" and "Join" buttons *@
                             <li>
                                 <a class="nav-link text-dark" id="sign-in3" style="cursor: pointer;">Sign In</a>
@@ -36,9 +35,7 @@
                             <li>
                                 <div class="btn btn-outline-dark join-btn" id="joinBtn">Join</div>
                             </li>
-                        }
-                        else
-                        {
+                        }else{
                             @* User is signed in, show "Log Out" button *@
                             <li>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Log Out</a>
