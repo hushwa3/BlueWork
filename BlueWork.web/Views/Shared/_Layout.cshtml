@@ -26,16 +26,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Become an Employer</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" id="sign-in3" style="cursor: pointer;">Sign In</a>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-outline-dark join-btn" id="joinBtn">Join</button>
-                        </li>
+
+                        @if (!Context.Request.Path.Value.Contains("Client_Profile") && !Context.Request.Path.Value.Contains("WorkerProfile_Setup"))
+                        {
+
+                            <li>
+                                <a class="nav-link text-dark" id="sign-in3" style="cursor: pointer;" id="sign-in3">Sign In</a>
+                            </li>
+                            <li>
+                                <div class="btn btn-outline-dark join-btn" id="joinBtn">
+                                    Join
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="p-0">

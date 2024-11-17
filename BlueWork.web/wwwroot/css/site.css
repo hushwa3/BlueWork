@@ -93,8 +93,9 @@ body {
     -webkit-flex-wrap: inherit;
     flex-wrap: inherit;
 }
-.btn{
-    margin-top: .5rem;
+.join-btn{
+    margin-top: .3rem;
+    padding: .2rem;
 }
 
 .search-bar {
