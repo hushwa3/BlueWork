@@ -466,6 +466,9 @@ a {
 .client {
     background-color: #ECE9E4;
 }
+textarea{
+    resize: none;
+}
 .section-title {
     color: #0066cc;
     font-size: 1.2rem;
@@ -511,7 +514,6 @@ a {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 
 /* Mobile Responsiveness */
 @media (max-width: 1024px){

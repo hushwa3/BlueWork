@@ -70,3 +70,5 @@ joinNow1.addEventListener('click', () => {
     pop2.style.display = 'none';
     pop1.style.display = 'block';
 });
+
+
