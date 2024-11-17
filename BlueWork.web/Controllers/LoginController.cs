@@ -26,7 +26,13 @@ namespace BlueWork.web.Controllers
                 claim.Type, 
                 claim.Value }).ToList();
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-            return Json(claims);
+            return RedirectToAction("Home", "Home", new { area = "" });
         }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return View("~/Views/Home/Home.cshtml");
+        }
+ 
     }
 }
