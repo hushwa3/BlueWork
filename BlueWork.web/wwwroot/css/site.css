@@ -15,6 +15,7 @@ html {
   html {
     font-size: 16px;
   }
+  
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -220,18 +221,6 @@ body {
                     color: #111827;
                 }
 
-@media (max-width: 768px) {
-    .footer-nav {
-        flex-wrap: wrap;
-        gap: 2rem;
-    }
-
-    .footer-col {
-        flex: 1 1 40%;
-        min-width: 140px;
-    }
-}
-
 @media (max-width: 480px) {
     .footer-col {
         flex: 1 1 100%;
@@ -244,49 +233,6 @@ body {
 .footer i{
     font-size: 2rem;
 }
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-
-    .hero-content h1{
-        font-size: 1rem;
-    }
-    .hero-content{
-        width: 20%;
-       
-    }
-    .search-bar {
-        flex-direction: column;
-    }
-
-        .search-bar button {
-            width: 100%;
-        }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-
-    .hero-content h1{
-        font-size: 1rem;
-    }
-    .hero-content{
-        width: 20%;
-       
-    }
-    .search-bar {
-        flex-direction: column;
-    }
-
-        .search-bar button {
-            width: 100%;
-        }
-}
-
 .container-pop {
     width: 425px;
     position: absolute;
@@ -371,7 +317,7 @@ a {
     color: black;
 }
 .container-pop2 {
-    width: 425px;
+    width: 26.5625rem;
     position: absolute;
     top: 25%;
     left: 50%;
@@ -382,6 +328,8 @@ a {
     padding-right: 50px;
     z-index: 10;
     background-color: white;
+   max-height: 50%
+
 }
 .pop2-btn {
     background-color: #4A65AD;
@@ -411,6 +359,15 @@ a {
     color: white;
     padding: .5rem;
 }
+.continue2 {
+    width: 100%;
+    background-color: #4A65AD;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: .5rem;
+    margin-bottom: 2.5rem;
+}  
 
 .fa-brands {
     font-size: 20px;
@@ -474,17 +431,41 @@ a {
     color: #B9B7B7;
 }
 
+.container-pop3 {
+    width: min(90%, 26.5625rem);
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    z-index: 10;
+    background-color: white;
+    min-height: 29%
+}
 
-.profile-setup-container {
+.profile-setup-container 
+{   
+    display: flex;
+    justify-content: center;
+    margin: 4rem auto;
     max-width: 800px;
-    margin: 3rem auto;
-    padding: 2rem;
+    padding: 5rem;
     background: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    margin-bottom: 100px;
+    margin-bottom: 10rem;
 }
-
+.client-container{
+    width: 100vw;
+ 
+    padding: 0;
+}
+.client {
+    background-color: #ECE9E4;
+}
 .section-title {
     color: #0066cc;
     font-size: 1.2rem;
@@ -529,4 +510,45 @@ a {
     padding: 1rem 2rem;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px){
+
+    .container-pop3 {
+        height: 35%;
+    }
+}
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero-content h1 {
+        font-size: 1rem;
+    }
+
+    .hero-content {
+        width: 20%;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+        .search-bar button {
+            width: 100%;
+        }
+
+    .footer-nav {
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .footer-col {
+        flex: 1 1 40%;
+        min-width: 140px;
+    }
+
 }

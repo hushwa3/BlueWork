@@ -58,12 +58,13 @@ signIn2.addEventListener('click', () => {
     pop1.style.display = 'none';
 });
 
-signIn3.addEventListener('click', () => {
-    pop3.style.display = 'block';
+signIn3.addEventListener('click', (event) => {
+    event.stopPropagation();
+    // Toggle pop3 visibility
+    pop3.style.display = pop3.style.display === 'none' || pop3.style.display === '' ? 'block' : 'none';
     pop2.style.display = 'none';
     pop1.style.display = 'none';
 });
-
 joinNow1.addEventListener('click', () => {
     pop3.style.display = 'none';
     pop2.style.display = 'none';

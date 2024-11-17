@@ -2,6 +2,8 @@
     ViewData["Title"] = "BlueWork";
 }
 <!-- Profile Setup Form -->
+<body class="client">
+<div class="client-container">
 <div class="profile-setup-container">
     <form>
         <!-- Basic Information Section -->
@@ -80,11 +82,8 @@
         <!-- Profile Picture Section -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="section-title mb-0">Profile Picture</div>
-                    <button type="button" class="choose-btn">Choose Photo</button>
-                </div>
-                <div class="form-hint">No File Chosen</div>
+                <div class="section-title mb-0">Profile Picture</div>
+                <input class type="file" name="photo" value="Choose Photo" />
             </div>
         </div>
 
@@ -94,3 +93,6 @@
         </div>
     </form>
 </div>
+</div>
+
+</body>
