@@ -27,16 +27,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Become an Employer</a>
                         </li>
 
-                        @if (!Context.Request.Path.Value.Contains("Client_Profile") && !Context.Request.Path.Value.Contains("WorkerProfile_Setup"))
-                        {
-
+                        @if (!Context.Request.Path.Value.Contains("Client_Profile") && !Context.Request.Path.Value.Contains("WorkerProfile_Setup")){
                             <li>
                                 <a class="nav-link text-dark" id="sign-in3" style="cursor: pointer;" id="sign-in3">Sign In</a>
                             </li>
                             <li>
-                                <div class="btn btn-outline-dark join-btn" id="joinBtn">
-                                    Join
-                                </div>
+                                <div class="btn btn-outline-dark join-btn" id="joinBtn">Join</div>
                             </li>
                         }
                     </ul>

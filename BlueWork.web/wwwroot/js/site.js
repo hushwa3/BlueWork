@@ -38,7 +38,10 @@ document.addEventListener('click', (event) => {
 
 joinBtn.addEventListener('click', (event) => {
     event.stopPropagation();
-    pop1.style.display = pop1.style.display === 'none' || pop1.style.display === '' ? 'block' : 'none';
+    // First close pop3 if it's open
+    pop3.style.display = 'none';
+    // Then toggle pop1
+    pop1.style.display = 'block';
 });
 
 continue1.addEventListener('click', () => {
