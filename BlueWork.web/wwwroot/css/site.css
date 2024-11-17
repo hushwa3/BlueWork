@@ -256,12 +256,12 @@ body {
     right: 8px;
     width: 16px;
     height: 16px;
-    background-color: #22c55e;
+    background-color: #4A65AD;
     border-radius: 50%;
     display: none;
 }
 .option-card.selected {
-    border-color: #22c55e;
+    border-color: #4A65AD;
 }
 .option-card:hover {
     border-color: #d1d5db;
@@ -272,7 +272,7 @@ body {
 .action-button {
     width: 100%;
     padding: 12px;
-    background-color: #16a34a;
+    background-color: #4A65AD;
     color: white;
     border: none;
     border-radius: 8px;
@@ -282,9 +282,6 @@ body {
     display: none;
     transition: background-color 0.2s ease;
 }
-    .action-button:hover {
-        background-color: #15803d;
-    }
 .top-content {
     padding: 20px;
 }
