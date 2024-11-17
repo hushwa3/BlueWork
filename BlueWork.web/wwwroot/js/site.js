@@ -75,3 +75,29 @@ joinNow1.addEventListener('click', () => {
 });
 
 
+const cards = document.querySelectorAll('.option-card');
+const actionButton = document.getElementById('actionButton');
+const createBtn = document.getElementById('createAccountBtn');
+let selectedType = null;
+
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedType = card.dataset.type;
+        createBtn.style.display = 'none';
+        actionButton.style.display = 'block';
+
+        if (selectedType === 'client') {
+            actionButton.textContent = 'Join as a Client';
+            actionButton.setAttribute('asp-area', '');
+            actionButton.setAttribute('asp-controller', 'Home');
+            actionButton.setAttribute('asp-action', 'Client_Profile');
+        } else if (selectedType === 'freelancer') {
+            actionButton.textContent = 'Apply as a Freelancer';
+            actionButton.setAttribute('asp-area', '');
+            actionButton.setAttribute('asp-controller', 'Home');
+            actionButton.setAttribute('asp-action', 'WorkerProfile_Setup');
+        }
+    });
+});
