@@ -28,6 +28,11 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
+        public IActionResult WorkerProfile_Setup()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

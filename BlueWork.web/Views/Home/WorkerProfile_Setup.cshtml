@@ -1,0 +1,296 @@
+﻿@{
+    ViewData["Title"] = "BlueWork Worker Setup";
+}
+<h1>@ViewData["Title"]</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLUEWORK - Job Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #0066cc;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #eee;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .add-experience {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .submit-btn {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        footer {
+            background-color: white;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">BLUEWORK</div>
+        <div class="nav-right">
+            <a href="#">Explore</a>
+            <a href="#">English</a>
+            <a href="#">Become an Employer</a>
+            <a href="#">Sign in</a>
+            <button class="btn btn-primary">Join</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form id="jobApplicationForm" method="post">
+            <div class="form-section">
+                <h2 class="section-title">Basic Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" name="middleName">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Area Code</label>
+                        <input type="text" name="areaCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phoneNumber" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Month</label>
+                        <input type="text" name="birthMonth" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Day</label>
+                        <input type="text" name="birthDay" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" name="birthYear" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Job Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Work Title</label>
+                        <input type="text" name="workTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Description</label>
+                        <textarea name="workDescription" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Relevant Experience (Optional)</h2>
+                <div class="experience-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="projectName[]">
+                        </div>
+                        <div class="form-group">
+                            <label>Project Description</label>
+                            <textarea name="projectDescription[]"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project Duration</label>
+                            <input type="text" name="projectDuration[]">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-experience">Add Experience</button>
+            </div>
+
+            <div class="form-section">
+                <button type="submit" class="submit-btn">Submit Information</button>
+            </div>
+        </form>
+
+        <div class="form-section">
+            <h2 class="section-title">Profile Picture</h2>
+            <input type="file" id="profilePicture" class="file-upload" accept="image/*">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Resume/CV</h2>
+            <input type="file" id="resume" class="file-upload" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Certifications</h2>
+            <input type="file" class="file-upload" multiple accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Others</h2>
+            <input type="file" class="file-upload" multiple>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo">BLUEWORK</div>
+        <div class="social-icons">
+            <a href="#"><i class="fas fa-map-marker-alt"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.add-experience').addEventListener('click', function() {
+            const experienceSection = document.querySelector('.experience-section').cloneNode(true);
+            const inputs = experienceSection.querySelectorAll('input, textarea');
+            inputs.forEach(input => input.value = '');
+            document.querySelector('.experience-section').parentNode.insertBefore(
+                experienceSection,
+                document.querySelector('.add-experience')
+            );
+        });
+    </script>
+</body>
+
+
