@@ -524,7 +524,11 @@ textarea{
     font-weight: 600;
     margin-bottom: 1.5rem;
 }
-
+.work-title{
+    padding: .5rem;
+    width: 15rem;
+    height: 4.5vh;
+}
 .form-label {
     font-weight: 500;
     margin-bottom: 0.5rem;
@@ -553,8 +557,44 @@ textarea{
     margin-top: 0.25rem;
 }
 
+.profile-setup-container1 {
+    max-width: 80rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 100px;
+}
 
+.project-input, .work-title {
+    padding: .4rem;
+    border: 1px solid #ccc;
+    border-radius: .3rem;
+    padding: .5rem;
+    width: 15rem;
+    height: 4.5vh;
+}
 
+.project-name, .work-name {
+    margin-right: 2.2rem;
+}
+
+.project-duration {
+    margin-right: .9rem;
+}
+.worker-row {
+    border-left: 1px solid #ccc;
+}
+
+.country-select {
+    color: black;
+    font-size: 0.9rem;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: .3rem;
+    width: 25rem;
+}
 .top-nav {
     display: flex;
     justify-content: space-between;

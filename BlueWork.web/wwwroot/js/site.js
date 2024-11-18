@@ -10,12 +10,6 @@ let signIn2 = document.getElementById('sign-in2');
 let signIn3 = document.getElementById('sign-in3');
 let joinNow1 = document.getElementById('join-now1');
 
-const cards = document.querySelectorAll('.option-card');
-const actionButton = document.getElementById('actionButton');
-const actionBtn = document.getElementById('actionBtn');
-const createBtn = document.getElementById('createAccountBtn');
-let selectedType = null;
-
 // Function to close all popups
 const closeAllPopups = () => {
     pop1.style.display = 'none';
@@ -74,22 +68,42 @@ joinNow1.addEventListener('click', () => {
     pop1.style.display = 'block';
 });
 
-const aspAction = actionBtn.getAttribute('asp-action');
+const cards = document.querySelectorAll('.option-card');
+const actionButton = document.getElementById('actionButton');
+const actionBtn = document.getElementById('actionBtn');
+const createBtn = document.getElementById('createAccountBtn');
+let selectedType = null;
 
 cards.forEach(card => {
     card.addEventListener('click', () => {
+        // Remove the 'selected' class from all cards
         cards.forEach(c => c.classList.remove('selected'));
+
+        // Add 'selected' class to the clicked card
         card.classList.add('selected');
         selectedType = card.dataset.type;
+
+        // Hide 'Create Account' button and show 'actionBtn'
         createBtn.style.display = 'none';
         actionBtn.style.display = 'block';
 
-            if (selectedType === 'client') {
-                actionBtn.textContent = 'Join as a Client';
-                actionBtn.setAttribute('asp-action', 'Client_Profile');
-            } else {
-                actionBtn.textContent = 'Apply as a Worker';
-                actionBtn.setAttribute('asp-action', 'WorkerProfile_Setup');
-             }
-     });
+        // Update the action button based on selection
+        if (selectedType === 'client') {
+            actionBtn.textContent = 'Join as a Client';
+            actionButton.setAttribute('asp-action', 'Client_Profile');
+        } else {
+            actionBtn.textContent = 'Apply as a Worker';
+            actionButton.setAttribute('asp-action', 'WorkerProfile_Setup');
+        }
+    });
 });
+actionBtn.addEventListener('click', () => {
+    if (selectedType === 'client') {
+        // Navigate to Client Profile page
+        window.location.href = '/Home/Client_Profile';
+    } else if (selectedType === 'worker') {
+        // Navigate to Worker Profile Setup page
+        window.location.href = '/Home/WorkerProfile_Setup';
+    }
+});
+

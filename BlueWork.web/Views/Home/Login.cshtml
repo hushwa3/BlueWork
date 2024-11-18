@@ -10,27 +10,28 @@
             <div class="col first-pop option-card" data-type="client">
                 <div class="content1">
                     <i class="fa-solid fa-user-tie fa-3x"></i>
-                        <p class="box">I'm a client looking to hire for a project</p>
-                        <div class="selected-indicator"></div>
-                    </a>
+                    <p class="box">I'm a client looking to hire for a project</p>
+                    <div class="selected-indicator"></div>
                 </div>
             </div>
 
             <div class="col second-pop option-card" data-type="worker">
                 <div class="content1">
                     <i class="fa-solid fa-user fa-3x"></i>
-                        <p class="box">I'm a worker looking to work on a project</p>
-                        <div class="selected-indicator"></div>
-                      </a>
+                    <p class="box">I'm a worker looking to work on a project</p>
+                    <div class="selected-indicator"></div>
                 </div>
             </div>
         </div>
         <button id="createAccountBtn" class="mb-3">Create Account</button>
-        <button class="action-button" id="actionBtn"><a id="actionButton" asp-controller="Home" asp-action=""></a></button>
+        <button class="action-button" id="actionBtn" style="display: none;">
+            <a id="actionButton" asp-controller="Login" asp-action="Client_Profile"></a>
+        </button>
         <hr>
         <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Log In.</span></p>
     </div>
 </div>
+
 
 
 <div class="container-fluid container-pop2" id="pop2" style="display: none;">
