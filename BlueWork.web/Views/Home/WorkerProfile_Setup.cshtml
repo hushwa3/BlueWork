@@ -2,125 +2,113 @@
     ViewData["Title"] = "Worker Profile";
 }
 
-<!-- Profile Setup Form -->
-<body class="client">
-    <div class="client-container">
-
-        <div class="profile-setup-container1 d-grid">
-            <div class="row m-0">
-                <form class="col-md-8">
-                    <!-- Basic Information Section -->
-                    <div class="section-title fs-4">Basic Information</div>
-
-                    <div class="row mb-4">
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Full Name</label>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="First Name">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Middle Name">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Last Name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Contact Number</label>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input type="tel" class="form-control" placeholder="Area Code">
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="tel" class="form-control" placeholder="Phone Number">
-                                </div>
-                            </div>
-                        </div>
-                      
-
-                        <div class="col-12 mb-3">
-                            <label class="form-label">Date of Birth</label>
-                            <div class="col-md-4 w-100">
-                                <input type="date" class="form-control" placeholder="Month">
-                            </div>
-                        </div>
+    <div class="container">
+        <form id="jobApplicationForm" method="post">
+            <div class="form-section">
+                <h2 class="section-title">Basic Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="firstName" required>
                     </div>
-
-                    <!-- Company Information Section -->
-                    <div class="section-title fs-4">Job Information</div>
-
-                    <div class="row mb-4">
-                        <div class="d-flex col-md-6 ml-3 mb-3">
-                            <label class="form-label work-name">Work Title</label>
-                            <input type="text" class="work-title">
-                        </div>
-
-                        <div class="d-flex col-md-6 ml-3 mb-3">
-                            <label class="form-label">Work Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-
-
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" name="middleName">
                     </div>
-                    <div class="row mb-4">
-                        <div class="section-title fs-4">Relevant Information <span style="color: #ccc; font-weight: 100;">(Optional)</span></div>
-                        <div class="d-flex col-md-6 mb-3">
-                            <label class="form-label project-name">Project Name</label>
-                            <input type="text" class="d-flex project-input">
-                        </div>
-                        <div class="d-flex col-md-6 ml-3 mb-3">
-                            <label class="form-label">Project Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-
-                        <div class="d-flex col-12 mb-3">
-                            <label class="form-label project-duration">Project Duration</label>
-                            <input type="text" class="d-flex project-input">
-                        </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" required>
                     </div>
+                </div>
 
-                    <!-- Submit Button -->
-                    <div class="text-center mt-5">
-                        <button type="submit" class="submit-btn">SUBMIT</button>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Area Code</label>
+                        <input type="text" name="areaCode" required>
                     </div>
-                </form>
-                <!-- Second Column -->
-                <div class="col-md-3 worker-row">
-                    <br><br>
-                    <!-- Profile Picture Section -->
-                    <div class="row mb-4 p-2">
-                        <div class="col">
-                            <div class="section-title mb-2 fs-4">Profile Picture</div>
-                            <input class type="file" name="photo" value="Choose Photo" />
-                        </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phoneNumber" required>
                     </div>
+                </div>
 
-                    <!-- Resume -->
-                    <div class="row mb-4 p-2">
-                        <div class="col">
-                            <div class="section-title mb-2  fs-4">Resume/CV</div>
-                            <input class type="file" name="photo" value="Choose File" />
-                        </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Month</label>
+                        <input type="text" name="birthMonth" required>
                     </div>
-
-                    <!-- Certifications -->
-                    <div class="row mb-3 p-2">
-                        <div class="col">
-                            <div class="section-title mb-2  fs-4">Certifications</div>
-                            <input type="file" name="photo" value="Choose File" />
-                            <input class="mt-2" type="file" name="photo" value="Choose File" />
-                            <input class="mt-2" type="file" name="photo" value="Choose File" />
-                        </div>
+                    <div class="form-group">
+                        <label>Day</label>
+                        <input type="text" name="birthDay" required>
                     </div>
-
-
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" name="birthYear" required>
+                    </div>
                 </div>
             </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Job Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Work Title</label>
+                        <input type="text" name="workTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Description</label>
+                        <textarea name="workDescription" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Relevant Experience (Optional)</h2>
+                <div class="experience-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="projectName[]">
+                        </div>
+                        <div class="form-group">
+                            <label>Project Description</label>
+                            <textarea name="projectDescription[]"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project Duration</label>
+                            <input type="text" name="projectDuration[]">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-experience">Add Experience</button>
+            </div>
+
+            <div class="form-section">
+                <button type="submit" class="submit-btn">Submit Information</button>
+            </div>
+        </form>
+
+        <div class="form-section">
+            <h2 class="section-title">Profile Picture</h2>
+            <input type="file" id="profilePicture" class="file-upload" accept="image/*">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Resume/CV</h2>
+            <input type="file" id="resume" class="file-upload" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Certifications</h2>
+            <input type="file" class="file-upload" multiple accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Others</h2>
+            <input type="file" class="file-upload" multiple>
         </div>
     </div>
 
-</body>
    

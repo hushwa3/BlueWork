@@ -643,3 +643,125 @@ textarea{
     }
 
 }
+
+/*For JobsView*/
+
+/* General Container */
+.worker1-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Centers text in the header and filters */
+}
+
+/* Navigation Bar */
+.worker1-header nav ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: center; /* Centers navigation items */
+    gap: 20px;
+    padding: 0;
+}
+
+    .worker1-header nav ul li a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+    }
+
+/* Section Heading */
+.worker1-section {
+    margin-top: 20px;
+}
+
+.worker1-title {
+    font-size: 2em;
+}
+
+.worker1-description {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Filter Buttons */
+.worker1-filters {
+    display: flex;
+    justify-content: center; /* Centers filter buttons */
+    gap: 10px; /* Adds spacing between buttons */
+    margin-top: 10px;
+}
+
+.worker1-filter {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: all 0.2s ease;
+}
+
+    .worker1-filter:hover {
+        background-color: #ddd;
+    }
+
+/* Cards Container */
+.worker1-cards {
+    display: flex;
+    flex-wrap: wrap; /* Ensures cards wrap to the next row */
+    justify-content: center; /* Centers cards horizontally */
+    gap: 20px; /* Adds space between cards */
+    margin-top: 20px;
+}
+
+/* Individual Card */
+.worker1-card {
+    width: 300px; /* Sets a fixed width for cards */
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center; /* Centers text within the card */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .worker1-card:hover {
+        transform: translateY(-5px); /* Adds hover effect */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Card Content */
+    .worker1-card img {
+        width: 100%; /* Makes the image responsive */
+        height: auto;
+        border-radius: 8px;
+    }
+
+.worker1-name {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.worker1-role {
+    color: #777;
+    margin-top: 10px;
+    font-size: 0.9em;
+    line-height: 1.4em;
+}
+
+.worker1-price {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.worker1-rating {
+    margin-top: 5px;
+    color: #ff9900;
+}
+
+/* Center all items */
+.worker1-services-count {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #444;
+}
