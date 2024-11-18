@@ -603,3 +603,89 @@ textarea{
     }
 
 }
+
+/*For JobsView*/
+
+.worker1-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.worker1-header nav ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    padding: 0;
+}
+
+    .worker1-header nav ul li a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+    }
+
+.worker1-section {
+    margin-top: 20px;
+}
+
+.worker1-title {
+    font-size: 2em;
+}
+
+.worker1-description {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.worker1-filters {
+    margin-top: 10px;
+}
+
+.worker1-filter {
+    background-color: #f1f1f1;
+    border: none;
+    margin-right: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.worker1-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.worker1-card {
+    width: 30%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+    .worker1-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+.worker1-name {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.worker1-role {
+    color: #777;
+    margin-top: 10px;
+}
+
+.worker1-price {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.worker1-rating {
+    margin-top: 5px;
+    color: #ff9900;
+}

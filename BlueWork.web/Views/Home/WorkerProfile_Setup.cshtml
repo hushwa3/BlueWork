@@ -3,113 +3,111 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-    <div class="container">
-        <form id="jobApplicationForm" method="post">
-            <div class="form-section">
-                <h2 class="section-title">Basic Information</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Middle Name</label>
-                        <input type="text" name="middleName">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" name="lastName" required>
-                    </div>
+<div class="2container">
+    <form id="jobApplicationForm" method="post">
+        <div class="2form-section">
+            <h2 class="2section-title">Basic Information</h2>
+            <div class="2form-row">
+                <div class="2form-group">
+                    <label>First Name</label>
+                    <input type="text" name="firstName" required>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Area Code</label>
-                        <input type="text" name="areaCode" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" name="phoneNumber" required>
-                    </div>
+                <div class="2form-group">
+                    <label>Middle Name</label>
+                    <input type="text" name="middleName">
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Month</label>
-                        <input type="text" name="birthMonth" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Day</label>
-                        <input type="text" name="birthDay" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Year</label>
-                        <input type="text" name="birthYear" required>
-                    </div>
+                <div class="2form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="lastName" required>
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title">Job Information</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Work Title</label>
-                        <input type="text" name="workTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Work Description</label>
-                        <textarea name="workDescription" required></textarea>
-                    </div>
+            <div class="2form-row">
+                <div class="2form-group">
+                    <label>Area Code</label>
+                    <input type="text" name="areaCode" required>
+                </div>
+                <div class="2form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phoneNumber" required>
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title">Relevant Experience (Optional)</h2>
-                <div class="experience-section">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Name</label>
-                            <input type="text" name="projectName[]">
-                        </div>
-                        <div class="form-group">
-                            <label>Project Description</label>
-                            <textarea name="projectDescription[]"></textarea>
-                        </div>
+            <div class="2form-row">
+                <div class="2form-group">
+                    <label>Month</label>
+                    <input type="text" name="birthMonth" required>
+                </div>
+                <div class="2form-group">
+                    <label>Day</label>
+                    <input type="text" name="birthDay" required>
+                </div>
+                <div class="2form-group">
+                    <label>Year</label>
+                    <input type="text" name="birthYear" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="2form-section">
+            <h2 class="2section-title">Job Information</h2>
+            <div class="2form-row">
+                <div class="2form-group">
+                    <label>Work Title</label>
+                    <input type="text" name="workTitle" required>
+                </div>
+                <div class="2form-group">
+                    <label>Work Description</label>
+                    <textarea name="workDescription" required></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="2form-section">
+            <h2 class="2section-title">Relevant Experience (Optional)</h2>
+            <div class="2experience-section">
+                <div class="2form-row">
+                    <div class="2form-group">
+                        <label>Project Name</label>
+                        <input type="text" name="projectName[]">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Duration</label>
-                            <input type="text" name="projectDuration[]">
-                        </div>
+                    <div class="2form-group">
+                        <label>Project Description</label>
+                        <textarea name="projectDescription[]"></textarea>
                     </div>
                 </div>
-                <button type="button" class="add-experience">Add Experience</button>
+                <div class="2form-row">
+                    <div class="2form-group">
+                        <label>Project Duration</label>
+                        <input type="text" name="projectDuration[]">
+                    </div>
+                </div>
             </div>
-
-            <div class="form-section">
-                <button type="submit" class="submit-btn">Submit Information</button>
-            </div>
-        </form>
-
-        <div class="form-section">
-            <h2 class="section-title">Profile Picture</h2>
-            <input type="file" id="profilePicture" class="file-upload" accept="image/*">
+            <button type="button" class="2add-experience">Add Experience</button>
         </div>
 
-        <div class="form-section">
-            <h2 class="section-title">Resume/CV</h2>
-            <input type="file" id="resume" class="file-upload" accept=".pdf,.doc,.docx">
+        <div class="2form-section">
+            <button type="submit" class="2submit-btn">Submit Information</button>
         </div>
+    </form>
 
-        <div class="form-section">
-            <h2 class="section-title">Certifications</h2>
-            <input type="file" class="file-upload" multiple accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="form-section">
-            <h2 class="section-title">Others</h2>
-            <input type="file" class="file-upload" multiple>
-        </div>
+    <div class="2form-section">
+        <h2 class="2section-title">Profile Picture</h2>
+        <input type="file" id="profilePicture" class="2file-upload" accept="image/*">
     </div>
 
-   
+    <div class="2form-section">
+        <h2 class="2section-title">Resume/CV</h2>
+        <input type="file" id="resume" class="2file-upload" accept=".pdf,.doc,.docx">
+    </div>
+
+    <div class="2form-section">
+        <h2 class="2section-title">Certifications</h2>
+        <input type="file" class="2file-upload" multiple accept=".pdf,.doc,.docx">
+    </div>
+
+    <div class="2form-section">
+        <h2 class="2section-title">Others</h2>
+        <input type="file" class="2file-upload" multiple>
+    </div>
+</div>
