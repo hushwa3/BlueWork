@@ -875,17 +875,18 @@ textarea{
     background-color: #4A65AD;
 }
 
-.card-post{
+.card-post {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     border-radius: 10px;
     padding-left: 20px;
     padding-right: 20px;
     z-index: 1;
     background-color: white;
     min-width: 25rem;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .backdrop {
     position: fixed;
@@ -894,8 +895,8 @@ textarea{
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1040; /* Adjust to stay behind the popup */
-    display: none; /* Hidden by default */
+    z-index: 1040; 
+    display: none;
 }
 .form-scope label {
     font-size: .8rem;
