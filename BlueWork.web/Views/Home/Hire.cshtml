@@ -1,5 +1,85 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Hire";
 }
+
+<div class="container mt-5">
+    <!-- Title -->
+    <h2 class="mb-4">Borj Khalifa Skyscraper Construction</h2>
+
+    <!-- Progress Bar -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <div class="progress" style="height: 7vh;">
+                        <div class="job-post progress-bar bg-white text-dark border-start border-end fs-6" style="width: 33%;">
+                            <a class="navbar-brand text-dark fs-6" asp-area="" asp-controller="Home" asp-action="JobPost">Your Job Postings</a>
+                        </div>
+                        <div class="job-post progress-bar bg-white text-dark border-start border-end fs-6" style="width: 33%;">
+                            <a class="navbar-brand text-dark fs-6" asp-area="" asp-controller="Home" asp-action="ReviewProposal">Review Proposal</a>
+                        </div>
+                        <div class="job-post progress-bar bg-primary fs-6" style="width: 33%;">
+                           Hire
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <!-- Worker Cards -->
+    <div class="worker-card-review">
+        <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex gap-3">
+                <img src="/api/placeholder/100/100" alt="John E." class="rounded-circle profile-img-review">
+                <div>
+                    <h5 class="mb-1">John E.</h5>
+                    <p class="mb-1">Construction Worker</p>
+                    <p class="mb-2">Philippines</p>
+                    <span class="available-badge-review">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                        Available
+                    </span>
+                    <p class="mt-3 mb-1">₱130.00/hr</p>
+                    <p class="mb-0">Has 6 relevant skills to your job</p>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary">View Progress</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="worker-card-review">
+        <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex gap-3">
+                <img src="/api/placeholder/100/100" alt="Adrian J." class="rounded-circle profile-img-review">
+                <div>
+                    <h5 class="mb-1">Adrian J.</h5>
+                    <p class="mb-1">JavaScript Plumber</p>
+                    <p class="mb-2">Philippines</p>
+                    <span class="available-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                        Available
+                    </span>
+                    <p class="mt-3 mb-1">₱150.00/hr</p>
+                    <p class="mb-0">Has 9 relevant skills to your job</p>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary">View Progress</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find Workers Link -->
+    <div class="text-end mt-3">
+        <a href="#" class="text-decoration-none">Find workers with related skill set?</a>
+    </div>
+</div>
+</div>
