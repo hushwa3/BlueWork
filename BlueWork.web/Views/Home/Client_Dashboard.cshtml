@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Client Dashboard";
 }
+<body class="dashboard">
+<div class="container container-dash mt-5 mb-3">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="h5 mb-0">Your Job Postings</h2>
+                        <a href="#" class="see-all">See all postings</a>
+                    </div>
+
+                    <div class="mb-3">
+                        <a href="#" class="job-link fw-bold">Borj Khalifa Skyscraper Construction</a>
+                        <div class="job-meta">Fixed - $$$ - Public</div>
+                        <div class=" mt-2">
+                            <div class="text-muted small">Created 69 hrs ago</div>
+                            <div class="stats d-flex justify-content-end">
+                                <div class="stats-item">4 Proposals</div>
+                                <div class="stats-item">3 Messaged</div>
+                                <div class="stats-item">0 Hired</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-5">
+                <button class="btn btn-primary post-job-btn w-50 mb-2">
+                    <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="JobPost">Post a Job</a>
+                    </button>
+            <button class="btn browse-btn w-50">Browse Project Catalog</button>
+        </div>
+    </div>
+
+    <div class="card card-dash">
+        <div class="card-body">
+            <h3 class="h5 mb-3">How to work with talent</h3>
+            <p>You can work effectively with talent on LabourLink and ensure the success of your project by following these steps:</p>
+
+            <ul class="steps-list">
+                <li>Clearly define your project requirements</li>
+                <li>Search for and invite talent</li>
+                <li>Review proposals</li>
+                <li>Conduct interviews</li>
+                <li>Set clear expectations</li>
+                <li>Communicate regularly</li>
+                <li>Provide feedback</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
