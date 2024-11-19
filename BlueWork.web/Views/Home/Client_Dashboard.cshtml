@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Client Dashboard";
 }
-<body class="dashboard">
 <div class="container container-dash mt-5 mb-3">
     <h1 class="mb-4">@ViewData["Title"]</h1>
 
@@ -11,7 +10,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h2 class="h5 mb-0">Your Job Postings</h2>
-                        <a href="#" class="see-all">See all postings</a>
+                        <a class="navbar-brand text-blue fs-6" asp-area="" asp-controller="Home" asp-action="JobPost">See all Postings</a>
                     </div>
 
                     <div class="mb-3">
@@ -31,13 +30,10 @@
         </div>
 
         <div class="col-md-4 mt-5">
-                <button class="btn btn-primary post-job-btn w-50 mb-2">
-                    <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="JobPost">Post a Job</a>
-                    </button>
+            <button class="btn btn-primary post-job-btn w-50 mb-2" id="add-post">Post a job</button>
             <button class="btn browse-btn w-50">Browse Project Catalog</button>
         </div>
     </div>
-
     <div class="card card-dash">
         <div class="card-body">
             <h3 class="h5 mb-3">How to work with talent</h3>
@@ -54,5 +50,6 @@
             </ul>
         </div>
     </div>
+    @await Html.PartialAsync("~/Views/Home/AddPost.cshtml");
 </div>
-</body>
+   
