@@ -837,3 +837,11 @@ textarea{
             border-radius: 50%;
             background: #0088cc;
         }
+
+
+/* Job Post */
+.job-post {
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: 500;
+}

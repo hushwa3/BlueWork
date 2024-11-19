@@ -47,7 +47,15 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
-        public IActionResult JobsPost()
+        public IActionResult JobPost()
+        {
+            return View();
+        }
+        public IActionResult ReviewProposal()
+        {
+            return View();
+        }
+        public IActionResult Hire()
         {
             return View();
         }
