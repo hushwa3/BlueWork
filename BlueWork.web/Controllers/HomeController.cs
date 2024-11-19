@@ -34,6 +34,10 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
+        public IActionResult ClientInfoProfile()
+        {
+            return View();
+        }
         public IActionResult WorkerProfile_Setup()
         {
             return View();
