@@ -4,33 +4,64 @@
 @{
     ViewData["Title"] = "Add Post";
 }
-<div class="container my-5 d-flex justify-content-center align-items-center" >
-    <div class="card" style="min-height: 55vh; width: 20vw; display: none; z-index: 9999;" id="headline-card">
-        <div class="card-body p-4 d-flex flex-column">
-            <div class="content-card text-light rounded p-4 mb-4" >
-            <div class="progress mb-3">
-                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    Headline
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="card card-post" style="min-height: 55vh; width: 20vw; display: none; z-index: 9999;" id="headline-card">
+        <div class="card-body p-4 d-flex flex-column" id="headline-section">
+            <div class="content-card text-light rounded p-4 mb-4">
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Headline
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Skills
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Scope
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Budget
+                    </div>
                 </div>
-                <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    Skills
-                </div>
-                <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    Scope
-                </div>
-                <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    Budget
-                </div>
-            </div>
-            <h4 class="card-title">Let's start with a strong headline</h4>
-            <p class="card-text">This helps your job post stand out to the right candidates. It's the first thing they'll see, so make it count!</p>
+                <h4 class="card-title">Let's start with a strong headline</h4>
+                <p class="card-text">This helps your job post stand out to the right candidates. It's the first thing they'll see, so make it count!</p>
             </div>
             <div class="mb-3 flex-grow-1">
-                <label for="headline" class="form-label">Write a headline for your job post</label>
-                <input type="text" class="form-control mb-5" id="headline" placeholder="Enter headline">
+                <label for="headline-input" class="form-label">Write a headline for your job post</label>
+                <input type="text" class="form-control mb-5" id="headline-input" placeholder="Enter headline">
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-primary">Next: Skills</button>
+                <button type="button" class="btn btn-primary" id="next-skills">Next: Skills</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="card card-post" style="min-height: 45vh; width: 20vw; display: none; z-index: 9999;" id="skills">
+        <div class="card-body p-4 d-flex flex-column" id="headline-section">
+            <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Headline
+                    </div>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Skills
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Scope
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Budget
+                    </div>
+                </div>
+                <h4 class="card-title">What are the main skills required for your work?</h4>
+            </div>
+            <div class="mb-3 flex-grow-1">
+                <label for="headline-input" class="form-label">Search Skills or add your own</label>
+                <input type="text" class="form-control" style="margin-bottom: 7rem;" placeholder="Search skills">
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary" id="next-to-skills">Next: Scope</button>
             </div>
         </div>
     </div>

@@ -14,6 +14,8 @@ const cards = document.querySelectorAll('.option-card');
 const actionButton = document.getElementById('actionButton');
 const actionBtn = document.getElementById('actionBtn');
 const createBtn = document.getElementById('createAccountBtn');
+const nextSkills = document.getElementById('next-skills');
+const skills = document.getElementById('skills');
 
 // Add backdrop for popups
 const backdrop = document.createElement('div');
@@ -28,6 +30,7 @@ const closeAllPopups = () => {
     if (pop2) pop2.style.display = 'none';
     if (pop3) pop3.style.display = 'none';
     if (headlineCard) headlineCard.style.display = 'none';
+    if (skills) skills.style.display = 'none';
     backdrop.style.display = 'none';
 };
 
@@ -143,6 +146,18 @@ if (addPost) {
         closeAllPopups();
         if (headlineCard) {
             headlineCard.style.display = 'block';
+            backdrop.style.display = 'block';
+        }
+    });
+}
+
+if (nextSkills) {
+    nextSkills.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeAllPopups();
+        if (skills) {
+            headlineCard.style.display = 'none';
+            skills.style.display = 'block';
             backdrop.style.display = 'block';
         }
     });
