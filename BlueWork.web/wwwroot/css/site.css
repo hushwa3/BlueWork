@@ -845,3 +845,27 @@ textarea{
     cursor: pointer;
     font-weight: 500;
 }
+
+/* Review Proposal */
+.worker-card-review {
+    background: #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.available-badge-review {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 4px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-img-review {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
