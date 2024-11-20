@@ -33,6 +33,6 @@ namespace BlueWork.web.Controllers
             await HttpContext.SignOutAsync();
             return View("~/Views/Home/Home.cshtml");
         }
- 
+
     }
 }
