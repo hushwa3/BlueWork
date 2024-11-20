@@ -16,7 +16,7 @@ namespace BlueWork.web.Models
         public string CompanyName { get; set; }
         public string CompanyDescription { get; set; }
         public string Industry { get; set; }
-        public FileUpload ProfilePicture { get; set; }
+        public byte ProfilePicture { get; set; }
 
         // Navigation properties (one-to-one relationships)
         public virtual ICollection<Login> Logins { get; set; }
