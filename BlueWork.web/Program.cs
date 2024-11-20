@@ -2,7 +2,6 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using FluentAssertions.Common;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(options =>
@@ -21,12 +20,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWork")));
-
-//builder.Services.AddAuthentication().AddFacebook(opt =>
-//{
-//    opt.ClientId = "1784072482328699";
-//    opt.ClientSecret = "0a7e7efb49e92a8c0d85eb000916caee";
-//});
 
 var app = builder.Build();
 

@@ -1,13 +1,12 @@
 ﻿// Get all the required DOM elements
-const joinBtn = document.getElementById('joinBtn');
+const loginBtn = document.getElementById('loginBtn');
 const pop1 = document.getElementById('pop1');
 const pop2 = document.getElementById('pop2');
-const pop3 = document.getElementById('pop3');
 const continue1 = document.getElementById('continue1');
 const signIn1 = document.getElementById('sign-in1');
 const signIn2 = document.getElementById('sign-in2');
 const signIn3 = document.getElementById('sign-in3');
-const joinNow1 = document.getElementById('join-now1');
+const signUp = document.getElementById('sign-up');
 const addPost = document.getElementById('add-post');
 const headlineCard = document.getElementById('headline-card');
 const cards = document.querySelectorAll('.option-card');
@@ -29,7 +28,6 @@ let selectedType = null;
 const closeAllPopups = () => {
     if (pop1) pop1.style.display = 'none';
     if (pop2) pop2.style.display = 'none';
-    if (pop3) pop3.style.display = 'none';
     if (headlineCard) headlineCard.style.display = 'none';
     if (skills) skills.style.display = 'none';
     if (scope) scope.style.display = 'none';
@@ -38,7 +36,7 @@ const closeAllPopups = () => {
 
 // Handle click outside popups
 document.addEventListener('click', (event) => {
-    const isClickOutside = ![pop1, pop2, pop3, joinBtn, headlineCard, addPost].some(
+    const isClickOutside = ![pop1, pop2, loginBtn, headlineCard, headlineCard, skills, scope].some(
         (element) => element && element.contains(event.target)
     );
 
@@ -48,7 +46,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Stop propagation of clicks inside popups
-[pop1, pop2, pop3, headlineCard].forEach((popup) => {
+[pop1, pop2, headlineCard, skills, scope].forEach((popup) => {
     if (popup) {
         popup.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -57,11 +55,11 @@ document.addEventListener('click', (event) => {
 });
 
 // Show pop1 when "Join" button is clicked
-if (joinBtn) {
-    joinBtn.addEventListener('click', (event) => {
+if (loginBtn) {
+    loginBtn.addEventListener('click', (event) => {
         event.stopPropagation();
         closeAllPopups();
-        if (pop1) pop1.style.display = 'block';
+        if (pop2) pop2.style.display = 'block';
         backdrop.style.display = 'block';
     });
 }
@@ -70,7 +68,7 @@ if (joinBtn) {
 if (signIn1) {
     signIn1.addEventListener('click', () => {
         closeAllPopups();
-        if (pop3) pop3.style.display = 'block';
+        if (pop2) pop2.style.display = 'block';
         backdrop.style.display = 'block';
     });
 }
@@ -78,7 +76,7 @@ if (signIn1) {
 if (signIn2) {
     signIn2.addEventListener('click', () => {
         closeAllPopups();
-        if (pop3) pop3.style.display = 'block';
+        if (pop2) pop2.style.display = 'block';
         backdrop.style.display = 'block';
     });
 }
@@ -86,16 +84,15 @@ if (signIn2) {
 if (signIn3) {
     signIn3.addEventListener('click', (event) => {
         event.stopPropagation();
-        if (pop3) pop3.style.display = pop3.style.display === 'none' || pop3.style.display === '' ? 'block' : 'none';
-        if (pop2) pop2.style.display = 'none';
+        if (pop2) pop2.style.display = pop2.style.display === 'none' || pop2.style.display === '' ? 'block' : 'none';
         if (pop1) pop1.style.display = 'none';
-        backdrop.style.display = pop3.style.display === 'block' ? 'block' : 'none';
+        backdrop.style.display = pop2.style.display === 'block' ? 'block' : 'none';
     });
 }
 
 // Handle "Join Now" button
-if (joinNow1) {
-    joinNow1.addEventListener('click', () => {
+if (signUp) {
+    signUp.addEventListener('click', () => {
         closeAllPopups();
         if (pop1) pop1.style.display = 'block';
         backdrop.style.display = 'block';

@@ -11,6 +11,14 @@ namespace BlueWork.web.Controllers
         {
             return View("~/Views/Home/Login.cshtml");
         }
+        public IActionResult ClientInfoProfile()
+        {
+            return View("~/Views/Home/ClientInfoProfile.cshtml");
+        }
+        public IActionResult WorkerProfile()
+        {
+            return View("~/Views/Home/WorkerProfile.cshtml");
+        }
         public async Task Login()
         {
             await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") });
