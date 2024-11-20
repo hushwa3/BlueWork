@@ -34,12 +34,36 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
+        public IActionResult ClientInfoProfile()
+        {
+            return View();
+        }
         public IActionResult WorkerProfile_Setup()
+        {
+            return View();
+        }
+        public IActionResult Client_Dashboard()
         {
             return View();
         }
 
         public IActionResult JobsView()
+        {
+            return View();
+        }
+        public IActionResult JobPost()
+        {
+            return View();
+        }
+        public IActionResult ReviewProposal()
+        {
+            return View();
+        }
+        public IActionResult Hire()
+        {
+            return View();
+        }
+        public IActionResult AddPost()
         {
             return View();
         }

@@ -67,7 +67,7 @@
 
             <div class="col-12 mb-3">
                         <label for="country" class="form-label">Choose your country:</label>
-                        <select id="country" name="country">
+                        <select id="country" name="country" class="country-select w-100">
                             <option value="">Select a Country</option>
                             <option value="">Australia</option>
                             <option value="">Canada</option>
@@ -89,7 +89,7 @@
 
         <!-- Submit Button -->
         <div class="text-center mt-5">
-            <button type="submit" class="submit-btn">SUBMIT</button>
+             <button type="submit" class="submit-btn"> <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Client_Dashboard">SUBMIT</a></button>
         </div>
     </form>
 </div>

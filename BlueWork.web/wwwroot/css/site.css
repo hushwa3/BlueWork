@@ -63,7 +63,7 @@ body {
     align-items: center;
     justify-content: center;
 }
-.container{
+.container-home{
     margin-top: -10px;
     margin: 0;
     padding: 0;
@@ -244,7 +244,7 @@ body {
     border-radius: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    z-index: 1;
+    z-index: 9999;
     background-color: white;
 }
 .pop-p{
@@ -375,9 +375,9 @@ a {
     border-radius: 10px;
     padding-left: 50px;
     padding-right: 50px;
-    z-index: 10;
+    z-index: 9999;
     background-color: white;
-   max-height: 50%
+    min-height: 60%
 
 }
 .pop2-btn {
@@ -490,9 +490,9 @@ a {
     border-radius: 10px;
     padding-left: 2.5%;
     padding-right: 2.5%;
-    z-index: 10;
+    z-index: 9999;
     background-color: white;
-    min-height: 29%
+    min-height: 65vh;
 }
 
 .profile-setup-container 
@@ -509,7 +509,6 @@ a {
 }
 .client-container{
     width: 100vw;
- 
     padding: 0;
 }
 .client {
@@ -524,7 +523,11 @@ textarea{
     font-weight: 600;
     margin-bottom: 1.5rem;
 }
-
+.work-title{
+    padding: .5rem;
+    width: 15rem;
+    height: 4.5vh;
+}
 .form-label {
     font-weight: 500;
     margin-bottom: 0.5rem;
@@ -553,8 +556,47 @@ textarea{
     margin-top: 0.25rem;
 }
 
+.profile-setup-container1 {
+    display: flex;
+    justify-content: center;
+    margin: 4rem auto;
+    max-width: 70vw;
+    padding: 5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 10rem;
+}
 
+.project-input, .work-title {
+    padding: .4rem;
+    border: 1px solid #ccc;
+    border-radius: .3rem;
+    padding: .5rem;
+    width: 15rem;
+    height: 4.5vh;
+}
 
+.project-name, .work-name {
+    margin-right: 2.2rem;
+}
+
+.project-duration {
+    margin-right: .9rem;
+}
+
+.worker-row {
+    border-left: 1px solid #ccc;
+}
+
+.country-select {
+    color: black;
+    font-size: 0.9rem;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: .3rem;
+    width: 25rem;
+}
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -724,4 +766,138 @@ textarea{
     margin-top: 10px;
     font-weight: bold;
     color: #444;
+}
+
+
+/* Client Dashboard */
+.dashboard{
+}
+.container-dash {
+    width: 100vw;
+}
+
+.card-dash {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.job-link {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+.see-all {
+    color: #0088cc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.job-meta {
+    color: #666;
+    font-size: 14px;
+}
+
+.stats-item {
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+    padding-right: 20px;
+}
+
+.post-job-btn {
+    background-color: #0088cc;
+    border: none;
+}
+
+.browse-btn {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    color: #333;
+}
+
+.steps-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+    .steps-list li {
+        margin-bottom: 10px;
+        padding-left: 25px;
+        position: relative;
+    }
+
+        .steps-list li:before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #0088cc;
+        }
+
+
+/* Job Post */
+.job-post {
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Review Proposal */
+.worker-card-review {
+    background: #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.available-badge-review {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 4px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-img-review {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+/* Add Post */
+.content-card {
+    background-color: #4A65AD;
+}
+
+.card-post {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 1;
+    background-color: white;
+    min-width: 25rem;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040; 
+    display: none;
+}
+.form-scope label {
+    font-size: .8rem;
 }
