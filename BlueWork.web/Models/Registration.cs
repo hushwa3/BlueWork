@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Web.Helpers;
 
 namespace BlueWork.web.Models
 {
@@ -11,8 +12,11 @@ namespace BlueWork.web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
+        public string Password { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyDescription { get; set; }
+        public string Industry { get; set; }
+        public FileUpload ProfilePicture { get; set; }
 
         // Navigation properties (one-to-one relationships)
         public virtual ICollection<Login> Logins { get; set; }

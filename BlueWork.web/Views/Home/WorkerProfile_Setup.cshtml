@@ -2,129 +2,75 @@
     ViewData["Title"] = "Worker Profile";
 }
 <body class="client">
-<div class="client-container"> 
-<div class="profile-setup-container1 d-grid">
-    <div class="row">
-        <form class="col-md-8">
-            <!-- Basic Information Section -->
-            <div class="section-title fs-4">Basic Information</div>
+    <div class="client-container">
+        <div class="profile-setup-container">
+            <form>
+                <!-- Basic Information Section -->
+                <div class="section-title">Basic Information</div>
 
-            <div class="row mb-4">
-                <div class="col-12 mb-3">
-                    <label class="form-label">Full Name</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="First Name">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Last Name">
+                <div class="row mb-4">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Full Name</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Last Name">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-12 mb-3">
-                    <label class="form-label">Email address</label>
-                    <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Work email address</label>
+                        <div class="row">
+                            <div class="col-md-4 w-100">
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Password</label>
                         <div class="col-md-4 w-100">
-                            <input type="email" class="form-control" placeholder="">
+                            <input type="password" class="form-control" placeholder="Password (8 or more characters)">
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 mb-3">
-                    <label class="form-label">Password</label>
-                    <div class="col-md-4 w-100">
-                        <input type="password" class="form-control" placeholder="Password (8 or more characters)">
+                <!-- Company Information Section -->
+                <div class="section-title">JOB INFORMATION</div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Work Title</label>
+                        <p style="color: #ccc; font-size: 12px;">What is the title you wish to be displayed for potential employers?</p>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Company Description</label>
+                        <p style="color: #ccc; font-size: 12px;">Describe the nature of your work.</p>
+                        <textarea class="form-control" rows="3"></textarea>
                     </div>
                 </div>
-                        <div class="col-12 mb-3">
-                            <label for="country" class="form-label">Choose your country:</label>
-                            <select id="country" name="country" class="country-select w-100">
-                                <option value="">Select a Country</option>
-                                <option value="">Australia</option>
-                                <option value="">Canada</option>
-                                <option value="">Hongkong</option>
-                                <option value="">Japan</option>
-                                <option value="">Philippines</option>
-                                <option value="">United States</option>
-                            </select>
-                        </div>
-            </div>
 
-            <!-- Company Information Section -->
-            <div class="section-title fs-4">Job Information</div>
-
-            <div class="row mb-4">
-                <div class="d-flex col-md-6 ml-3 mb-3">
-                    <label class="form-label work-name">Work Title</label>
-                    <input type="text" class="work-title">
+                <!-- Profile Picture Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="section-title mb-0">Profile Picture</div>
+                        <input class type="file" name="photo" value="Choose Photo" />
+                    </div>
                 </div>
 
-                <div class="d-flex col-md-6 ml-3 mb-3">
-                    <label class="form-label">Work Description</label>
-                    <textarea class="form-control" rows="3"></textarea>
+                <!-- Submit Button -->
+                <div class="text-center mt-5">
+                    <button type="submit" class="submit-btn"> <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Client_Dashboard">SUBMIT</a></button>
                 </div>
-
-
-            </div>
-            <div class="row mb-4">
-                <div class="section-title fs-4">Relevant Information <span style="color: #ccc; font-weight: 100;">(Optional)</span></div>
-                <div class="d-flex col-md-6 mb-3">
-                    <label class="form-label project-name">Project Name</label>
-                    <input type="text" class="d-flex project-input">
-                </div>
-                <div class="d-flex col-md-6 ml-3 mb-3">
-                    <label class="form-label">Project Description</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-
-                <div class="d-flex col-12 mb-3">
-                    <label class="form-label project-duration">Project Duration</label>
-                    <input type="text" class="d-flex project-input">
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="text-center mt-5">
-                        <button type="submit" class="submit-btn"><a class="text-light" asp-area="" asp-controller="Home" asp-action="JobsView">SUBMIT</a></button>
-            </div>
-        </form>
-
-        <!-- Second Column -->
-        <div class="col-md-3 worker-row">
-            <br><br>
-            <!-- Profile Picture Section -->
-            <div class="row mb-4 p-2">
-                <div class="col">
-                    <div class="section-title mb-2 fs-4">Profile Picture</div>
-                    <input class type="file" name="photo" value="Choose Photo" />
-                </div>
-            </div>
-
-            <!-- Resume -->
-            <div class="row mb-4 p-2">
-                <div class="col">
-                    <div class="section-title mb-2  fs-4">Resume/CV</div>
-                    <input class type="file" name="photo" value="Choose File" />
-                </div>
-            </div>
-
-            <!-- Certifications -->
-            <div class="row mb-3 p-2">
-                <div class="col">
-                    <div class="section-title mb-2  fs-4">Certifications</div>
-                    <input type="file" name="photo" value="Choose File" />
-                    <input class="mt-2" type="file" name="photo" value="Choose File" />
-                    <input class="mt-2" type="file" name="photo" value="Choose File" />
-                </div>
-            </div>
-
-
+            </form>
         </div>
     </div>
-</div>
-    </div>
-</body>
 
+</body>
 
    
