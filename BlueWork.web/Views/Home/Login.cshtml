@@ -25,7 +25,7 @@
         </div>
         <button id="createAccountBtn" class="mb-3">Create Account</button>
         <button class="action-button" id="actionBtn" style="display: none;">
-            <a id="actionButton" asp-controller="Login" asp-action="Client_Profile"></a>
+            <a id="actionButton" ></a>
         </button>
         <hr>
         <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Log In.</span></p>
@@ -45,9 +45,9 @@
             <span class="line-text">OR</span>
             <hr class="line">
         </div>
-        <form class="email-container" asp-action="Login" method="post">
+        <form class="email-container" asp-action="" method="post">
             <input class="register mb-2" type="email" placeholder="Enter your email">
-            <input class="register mb-4" type="email" placeholder="Enter your password">
+            <input class="register mb-4" type="password" placeholder="Enter your password">
             <button class="btn continue2 mb-5">Login</button>
             <hr>
             <p class="member1"> Don't have an account yet? <span id="register" class="text-primary" style="cursor: pointer">Register</span></p>

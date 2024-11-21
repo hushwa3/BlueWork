@@ -19,6 +19,7 @@ const nextSkills = document.getElementById('next-skills');
 const nextScope = document.getElementById('next-scope');
 const skills = document.getElementById('skills');
 const scope = document.getElementById('scope');
+
 // Add backdrop for popups
 const backdrop = document.createElement('div');
 backdrop.classList.add('backdrop');
@@ -39,7 +40,7 @@ const closeAllPopups = () => {
 
 // Handle click outside popups
 document.addEventListener('click', (event) => {
-    const isClickOutside = ![pop1, pop2, loginBtn, headlineCard, headlineCard, skills, scope].some(
+    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope].some(
         (element) => element && element.contains(event.target)
     );
 
@@ -49,7 +50,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Stop propagation of clicks inside popups
-[pop1, pop2, headlineCard, skills, scope].forEach((popup) => {
+[pop1, pop2, pop3, headlineCard, skills, scope].forEach((popup) => {
     if (popup) {
         popup.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -102,13 +103,15 @@ if (signUp) {
     });
 }
 
-
+// Handle "Register" button
 if (register) {
     register.addEventListener('click', (event) => {
         event.stopPropagation();
-        if (pop1) pop1.style.display = pop1.style.display === 'none' || po1.style.display === '' ? 'block' : 'none';
-        if (pop3) pop3.style.display = 'block';
-        backdrop.style.display = pop2.style.display === 'block' ? 'block' : 'none';
+        closeAllPopups();
+        if (pop1) {
+            pop1.style.display = 'block';
+            backdrop.style.display = 'block';
+        }
     });
 }
 
@@ -131,25 +134,25 @@ cards.forEach((card) => {
         }
 
         // Update form action dynamically
-        if (actionButton) {
+        /*if (actionButton) {
             actionButton.setAttribute(
                 'asp-action',
                 selectedType === 'client' ? 'Client_Profile' : 'WorkerProfile_Setup'
             );
-        }
+        }*/
     });
 });
 
 // Handle account type submission
-if (actionBtn) {
+/*if (actionBtn) {
     actionBtn.addEventListener('click', () => {
         if (selectedType === 'client') {
-            window.location.href = '/Home/Client_Profile';
+            window.location.href = '/Home/Registration';
         } else if (selectedType === 'worker') {
-            window.location.href = '/Home/WorkerProfile_Setup';
+            window.location.href = '/Home/Registration';
         }
     });
-}
+}*/
 
 // Show the headline card when "Add Post" button is clicked
 if (addPost) {
@@ -174,6 +177,7 @@ if (nextSkills) {
         }
     });
 }
+
 if (nextScope) {
     nextScope.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -183,6 +187,18 @@ if (nextScope) {
             skills.style.display = 'none';
             scope.style.display = 'block';
             backdrop.style.display = 'block';
+        }
+    });
+}
+
+// Handle actionButton click to show pop3
+if (actionBtn) {
+    actionBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeAllPopups();  // Close other open popups
+        if (pop3) {
+            pop3.style.display = 'block';  // Show pop3
+            backdrop.style.display = 'block';  // Show backdrop
         }
     });
 }

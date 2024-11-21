@@ -2,6 +2,7 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using BlueWork.web.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,17 @@ builder.Services.AddAuthentication(options =>
 // Add services to the container.  
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+    });
+
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWork")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FirstConnection")));
 
-
+builder.Services.AddDbContext<EntityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SecondConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.  
@@ -37,7 +45,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
