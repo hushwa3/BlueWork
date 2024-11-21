@@ -11,7 +11,14 @@ namespace BlueWork.web.Models
         public string JobDescription { get; set; }
         public string RequiredSkills { get; set; }
         public string Location { get; set; }
-        public decimal Salary { get; set; }
+
+        public string Complexity { get; set; }
+        public string Duration { get; set; }
+        public string Experience { get; set; }
+        public Decimal BudgetFrom { get; set; }
+        public Decimal BudgetTo { get; set; }
+        public Decimal MaximumBudget { get; set; }
+        public Decimal Salary { get; set; }
 
         [ForeignKey("EmployerID")]
         public int EmployerID { get; set; }

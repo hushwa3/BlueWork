@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(options =>
@@ -20,7 +22,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWork")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWork")));
+
 
 var app = builder.Build();
 

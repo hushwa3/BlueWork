@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Registration";
+}
+
+<div class="container-fluid container-pop3" id="pop2" style="display: none;">
+    <div class="content2 text-center">
+        <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
+        <div class="buttons">
+            <button class="btn google pop2-btn"><i class="fa-brands fa-google fa-b"></i><a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a></button>
+            <button class="btn apple pop2-btn"><i class="fa-brands fa-apple fa-b"></i> Continue with Apple</button>
+        </div>
+        <div class="line-container">
+            <hr class="line">
+            <span class="line-text">OR</span>
+            <hr class="line">
+        </div>
+        <form class="email-container" asp-action="Registration" method="post">
+            <input class="firstname" type="text" placeholder="Enter your First name">
+            <input class="lastname" type="text" placeholder="Enter your Last name">
+            <input class="email" type="email" placeholder="Enter your email">
+            <input class="password mb-4" type="email" placeholder="Enter your password">
+            <button class="btn continue2 mb-5">Register</button>
+            <hr>
+            <p class="member1"> Don't have an account yet?<span id="sign-up" style="color: blue; cursor: pointer;"> Sign Up</span></p>
+        </form>
+    </div>
+</div>

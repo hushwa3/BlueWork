@@ -45,12 +45,14 @@
             <span class="line-text">OR</span>
             <hr class="line">
         </div>
-        <div class="email-container">
+        <form class="email-container" asp-action="Login" method="post">
             <input class="email" type="email" placeholder="Enter your email">
-            <input class="password" type="email" placeholder="Enter your password">
-            <button class="btn continue2 mb-3">Continue</button>
+            <input class="password mb-4" type="email" placeholder="Enter your password">
+            <button class="btn continue2 mb-5">Login</button>
             <hr>
-            <p class="member1"> Don't have an account yet?<span id="sign-up" style="color: blue; cursor: pointer;"> Sign Up</span></p>
-        </div>
+            <p class="member1"> Don't have an account yet?<span style="color: blue; cursor: pointer;"> <a class="nav-link text-light" asp-area="" asp-controller="AccountController" asp-action="Registration">Register</a></p>
+        </form>
     </div>
 </div>
+
+@await Html.PartialAsync("~/Views/Home/Registration.cshtml");
