@@ -46,11 +46,11 @@
             <hr class="line">
         </div>
         <form class="email-container" asp-action="Login" method="post">
-            <input class="email" type="email" placeholder="Enter your email">
-            <input class="password mb-4" type="email" placeholder="Enter your password">
+            <input class="register mb-2" type="email" placeholder="Enter your email">
+            <input class="register mb-4" type="email" placeholder="Enter your password">
             <button class="btn continue2 mb-5">Login</button>
             <hr>
-            <p class="member1"> Don't have an account yet?<span style="color: blue; cursor: pointer;"> <a class="nav-link text-light" asp-area="" asp-controller="AccountController" asp-action="Registration">Register</a></p>
+            <p class="member1"> Don't have an account yet? <span id="register" class="text-primary" style="cursor: pointer">Register</span></p>
         </form>
     </div>
 </div>

@@ -2,7 +2,7 @@
     ViewData["Title"] = "Registration";
 }
 
-<div class="container-fluid container-pop3" id="pop2" style="display: none;">
+<div class="container-fluid container-pop3" id="pop3" style="display: none;">
     <div class="content2 text-center">
         <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
         <div class="buttons">
@@ -15,13 +15,11 @@
             <hr class="line">
         </div>
         <form class="email-container" asp-action="Registration" method="post">
-            <input class="firstname" type="text" placeholder="Enter your First name">
-            <input class="lastname" type="text" placeholder="Enter your Last name">
-            <input class="email" type="email" placeholder="Enter your email">
-            <input class="password mb-4" type="email" placeholder="Enter your password">
-            <button class="btn continue2 mb-5">Register</button>
-            <hr>
-            <p class="member1"> Don't have an account yet?<span id="sign-up" style="color: blue; cursor: pointer;"> Sign Up</span></p>
+            <input class="register mb-2" type="text" placeholder="Enter your First name">
+            <input class="register mb-2" type="text" placeholder="Enter your Last name">
+            <input class="register mb-2" type="email" placeholder="Enter your email">
+            <input class="register mb-4" type="password" placeholder="Enter your password">
+            <button class="btn continue2 mb-4">Register</button>
         </form>
     </div>
 </div>

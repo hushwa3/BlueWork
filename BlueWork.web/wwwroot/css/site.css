@@ -439,9 +439,9 @@ a {
     height: 23vh;
     padding: 5px;
 }
-.email, .password{
+.register{
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
