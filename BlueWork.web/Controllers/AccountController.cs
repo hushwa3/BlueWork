@@ -59,6 +59,10 @@ namespace BlueWork.web.Controllers
             }
             return View(model);
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Login(Login model)
         {

@@ -1,14 +1,13 @@
 ﻿// Get all the required DOM elements
 const loginBtn = document.getElementById('loginBtn');
+const loginBtn1 = document.getElementById('loginBtn1');
 const pop1 = document.getElementById('pop1');
 const pop2 = document.getElementById('pop2');
 const pop3 = document.getElementById('pop3');
-const continue1 = document.getElementById('continue1');
-const signIn1 = document.getElementById('sign-in1');
-const signIn2 = document.getElementById('sign-in2');
-const signIn3 = document.getElementById('sign-in3');
 const signUp = document.getElementById('sign-up');
+const signIn1 = document.getElementById('sign-in1');
 const register = document.getElementById('register');
+const register1 = document.getElementById('register1');
 const addPost = document.getElementById('add-post');
 const headlineCard = document.getElementById('headline-card');
 const cards = document.querySelectorAll('.option-card');
@@ -25,7 +24,15 @@ const backdrop = document.createElement('div');
 backdrop.classList.add('backdrop');
 document.body.appendChild(backdrop);
 
-let selectedType = null;
+// Set initial styles for the backdrop
+backdrop.style.display = 'none';
+backdrop.style.position = 'fixed';
+backdrop.style.top = 0;
+backdrop.style.left = 0;
+backdrop.style.width = '100%';
+backdrop.style.height = '100%';
+backdrop.style.background = 'rgba(0, 0, 0, 0.5)';
+backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
@@ -58,13 +65,29 @@ document.addEventListener('click', (event) => {
     }
 });
 
-// Show pop1 when "Join" button is clicked
+// Show pop2 when "Join" button is clicked
 if (loginBtn) {
-    loginBtn.addEventListener('click', (event) => {
+    $(loginBtn).on('click', function (event) {
         event.stopPropagation();
         closeAllPopups();
-        if (pop2) pop2.style.display = 'block';
-        backdrop.style.display = 'block';
+        if (pop2) {
+            $(pop3).fadeOut(500); 
+            $(pop2).fadeIn(500); 
+            $(backdrop).fadeIn(500); 
+        }
+    });
+}
+
+
+if (loginBtn1) {
+    $(loginBtn1).on('click', function (event) {
+        event.stopPropagation();
+        closeAllPopups();
+        if (pop2) {
+            $(pop3).fadeOut(500);
+            $(pop2).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        }
     });
 }
 
@@ -77,40 +100,25 @@ if (signIn1) {
     });
 }
 
-if (signIn2) {
-    signIn2.addEventListener('click', () => {
-        closeAllPopups();
-        if (pop2) pop2.style.display = 'block';
-        backdrop.style.display = 'block';
-    });
-}
-
-if (signIn3) {
-    signIn3.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (pop2) pop2.style.display = pop2.style.display === 'none' || pop2.style.display === '' ? 'block' : 'none';
-        if (pop1) pop1.style.display = 'none';
-        backdrop.style.display = pop2.style.display === 'block' ? 'block' : 'none';
-    });
-}
-
-// Handle "Join Now" button
-if (signUp) {
-    signUp.addEventListener('click', () => {
-        closeAllPopups();
-        if (pop1) pop1.style.display = 'block';
-        backdrop.style.display = 'block';
-    });
-}
-
 // Handle "Register" button
 if (register) {
-    register.addEventListener('click', (event) => {
+    $(register).on('click', function (event) {
         event.stopPropagation();
         closeAllPopups();
         if (pop1) {
-            pop1.style.display = 'block';
-            backdrop.style.display = 'block';
+            $(pop1).fadeIn(500);
+        }
+    });
+}
+
+if (register1) {
+    $(register1).on('click', function (event) {
+
+        event.stopPropagation();
+        if (pop1) {
+            $(pop2).fadeOut(500);
+            $(pop1).fadeIn(500);
+            $(backdrop).fadeIn(500);
         }
     });
 }
@@ -132,73 +140,56 @@ cards.forEach((card) => {
             actionBtn.textContent =
                 selectedType === 'client' ? 'Join as a Client' : 'Apply as a Worker';
         }
-
-        // Update form action dynamically
-        /*if (actionButton) {
-            actionButton.setAttribute(
-                'asp-action',
-                selectedType === 'client' ? 'Client_Profile' : 'WorkerProfile_Setup'
-            );
-        }*/
     });
 });
 
-// Handle account type submission
-/*if (actionBtn) {
-    actionBtn.addEventListener('click', () => {
-        if (selectedType === 'client') {
-            window.location.href = '/Home/Registration';
-        } else if (selectedType === 'worker') {
-            window.location.href = '/Home/Registration';
-        }
-    });
-}*/
-
 // Show the headline card when "Add Post" button is clicked
 if (addPost) {
-    addPost.addEventListener('click', (event) => {
+    $(addPost).on('click', function (event) {
         event.stopPropagation();
-        closeAllPopups();
         if (headlineCard) {
-            headlineCard.style.display = 'block';
-            backdrop.style.display = 'block';
+            $(headlineCard).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        } 
+    });
+}
+
+
+// Handle the next buttons
+if (nextSkills) {
+    $(nextSkills).on('click', function (event) {
+        event.stopPropagation();
+        if (skills) {
+            $(headlineCard).fadeOut(100);
+            $(skills).fadeIn(500);
+            $(backdrop).fadeIn(500);
         }
     });
 }
 
-if (nextSkills) {
-    nextSkills.addEventListener('click', (event) => {
-        event.stopPropagation();
-        closeAllPopups();
-        if (skills) {
-            headlineCard.style.display = 'none';
-            skills.style.display = 'block';
-            backdrop.style.display = 'block';
-        }
-    });
-}
 
 if (nextScope) {
-    nextScope.addEventListener('click', (event) => {
+    $(nextScope).on('click', function (event) {
         event.stopPropagation();
-        closeAllPopups();
         if (scope) {
-            headlineCard.style.display = 'none';
-            skills.style.display = 'none';
-            scope.style.display = 'block';
-            backdrop.style.display = 'block';
+            $(headlineCard).fadeOut(100);
+            $(skills).fadeOut(100);
+            $(scope).fadeIn(500);
+            $(backdrop).fadeIn(500);
         }
     });
 }
+
 
 // Handle actionButton click to show pop3
 if (actionBtn) {
-    actionBtn.addEventListener('click', (event) => {
+    $(actionBtn).on('click', function (event) {
         event.stopPropagation();
-        closeAllPopups();  // Close other open popups
         if (pop3) {
-            pop3.style.display = 'block';  // Show pop3
-            backdrop.style.display = 'block';  // Show backdrop
+            $(pop1).fadeOut(100);
+            $(pop3).fadeIn(100);
+            $(backdrop).fadeIn(500);
         }
     });
 }
+ 

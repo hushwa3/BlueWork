@@ -20,20 +20,16 @@ builder.Services.AddAuthentication(options =>
        options.ClientId = builder.Configuration.GetValue<string>("GoogleKeys:ClientId");
        options.ClientSecret = builder.Configuration.GetValue<string>("GoogleKeys:ClientSecret");
    });
+
 // Add services to the container.  
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
-    });
 
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FirstConnection")));
 
 builder.Services.AddDbContext<EntityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SecondConnection")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.  

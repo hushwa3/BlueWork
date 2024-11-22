@@ -1,0 +1,48 @@
+﻿@model BlueWork.web.Models.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container-fluid container-pop3" id="pop2" style="display: none;">
+    <div class="content2 text-center">
+        <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
+        <div class="buttons">
+            <button class="btn google pop2-btn"><i class="fa-brands fa-google fa-b"></i><a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a></button>
+            <button class="btn apple pop2-btn"><i class="fa-brands fa-apple fa-b"></i> Continue with Apple</button>
+        </div>
+        <div class="line-container">
+            <hr class="line">
+            <span class="line-text">OR</span>
+            <hr class="line">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Login" class="email-container">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control register mb-3" type="email" placeholder="Enter your email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Password" class="form-control register mb-5" placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-primary continue2 mb-5" />
+                    </div>
+                    <p class="member1">
+                        Don't have an account yet? <span id="register1" class="text-primary" style="cursor: pointer">Register</span>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@await Html.PartialAsync("~/Views/Account/Registration.cshtml")
