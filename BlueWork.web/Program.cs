@@ -11,7 +11,10 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-   .AddCookie()
+   .AddCookie(options =>
+   {
+       options.LoginPath = "/Account/Login";
+   })
    .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
    {
        options.ClientId = builder.Configuration.GetValue<string>("GoogleKeys:ClientId");
