@@ -1,23 +1,19 @@
-﻿@if (Context.User.Identity.Name != null)
+﻿@using System.Security.Claims
+@if (Context.User.Identity.IsAuthenticated)
 {
-    <form method="post" asp-controller="Account" asp-action="Logout" id="logoutForm">
-        <button type="submit" class="btn btn-link text-dark">Logout</button>
-        <ul class="nav navbar navbar-right">
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">Profile</a>
-            </li>
-        </ul>
+    <form method="post" asp-controller="Account" asp-action="Logout" id="logoutForm" class="d-flex">
+        <span class="navbar-text text-dark" style="white-space: nowrap; margin-right: 1rem">Hi, @Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value!</span>
+        <button type="submit" class="btn text-dark join-btn text-decoration-none ml-2">Logout</button>
     </form>
 }
 else
 {
     <ul class="nav navbar navbar-right">
         <li class="nav-item">
-            <a class="nav-link text-dark" style="cursor:pointer;" id="register" >Register</a>
+            <a class="nav-link text-dark" style="cursor:pointer;" id="register">Register</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark btn btn-outline-dark join-btn" style="cursor:pointer" id="loginBtn" asp-controller="Account">Login</a>
         </li>
     </ul>
 }
-
