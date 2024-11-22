@@ -57,6 +57,11 @@
         <div class="row">
             <div class="col-md-12">
                 <form asp-action="Registration">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="form-group" style="color:green;">@ViewBag.Message</div>
+                    }
                     <!-- Registration Fields with autocomplete attributes -->
                     <div class="form-group">
                         <input asp-for="FirstName" class="form-control mb-3" id="FirstName_pop3" autocomplete="given-name" placeholder="First Name"/>
