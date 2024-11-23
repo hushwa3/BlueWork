@@ -3,11 +3,11 @@ const loginBtn = document.getElementById('loginBtn');
 const loginBtn1 = document.getElementById('loginBtn1');
 const pop1 = document.getElementById('pop1');
 const pop2 = document.getElementById('pop2');
-const pop3 = document.getElementById('pop3');
+const pop3 = document.getElementById('pop3'); // Registration form popup
 const signUp = document.getElementById('sign-up');
 const signIn1 = document.getElementById('sign-in1');
-const register = document.getElementById('register');
-const register1 = document.getElementById('register1');
+const register = document.getElementById('register'); // Main Register button
+const register1 = document.getElementById('register1'); // Secondary Register button
 const addPost = document.getElementById('add-post');
 const headlineCard = document.getElementById('headline-card');
 const cards = document.querySelectorAll('.option-card');
@@ -63,7 +63,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
-// Show pop2 when "Join" button is clicked
+// Show pop2 when "Login" button is clicked
 [loginBtn, loginBtn1].forEach((btn) => {
     if (btn) {
         btn.addEventListener('click', (event) => {
@@ -87,25 +87,28 @@ if (signIn1) {
     });
 }
 
-// Handle "Register" button
+// Handle "Register" button (Main button to open registration form popup)
 if (register) {
     register.addEventListener('click', (event) => {
         event.stopPropagation();
-        closeAllPopups();
-        if (pop1) {
-            $(pop1).fadeIn(500);
+        closeAllPopups(); // Close any other popups
+        if (pop3) {
+            $(pop1).fadeIn(500); 
+            $(pop3).fadeOut(500); // Show the registration form popup
+            $(backdrop).fadeIn(500); // Show the backdrop
         }
     });
 }
 
+// Handle secondary "Register" button (for switching to the registration popup)
 if (register1) {
     register1.addEventListener('click', (event) => {
         event.stopPropagation();
         closeAllPopups();
-        if (pop1) {
-            $(pop2).fadeOut(500);
-            $(pop1).fadeIn(500);
-            $(backdrop).fadeIn(500);
+        if (pop3) {
+            $(pop2).fadeOut(500); // Hide the login popup
+            $(pop3).fadeIn(500); // Show the registration popup
+            $(backdrop).fadeIn(500); // Show the backdrop
         }
     });
 }
@@ -136,18 +139,6 @@ cards.forEach((card) => {
         }
     });
 });
-
-// Handle form submission to ensure a role is selected
-const roleForm = document.getElementById('roleForm');
-if (roleForm) {
-    roleForm.addEventListener('submit', function (e) {
-        const role = roleInput ? roleInput.value : null;
-        if (!role) {
-            e.preventDefault();
-            alert("Please select a role before proceeding.");
-        }
-    });
-}
 
 // Handle actionButton click to show pop3
 if (actionBtn) {
@@ -198,4 +189,80 @@ if (nextScope) {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const roleInput = document.getElementById('roleInput'); // Hidden Role input
+    const optionCards = document.querySelectorAll('.option-card'); // Role selection cards
+    const form = document.getElementById('registrationForm'); // Registration form
+
+    // Ensure JavaScript is loaded
+    console.log('JavaScript loaded and ready');
+
+    // Role selection logic
+    optionCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove 'selected' class from all cards
+            optionCards.forEach(c => c.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked card
+            card.classList.add('selected');
+
+            // Update the hidden input value for Role
+            roleInput.value = card.dataset.type; // "Client" or "Worker"
+            console.log(`Role selected: ${roleInput.value}`);
+        });
+    });
+
+    // Form submission
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent default submission
+
+            // Ensure Role is set
+            if (!roleInput.value) {
+                alert('Please select a role before registering.');
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    console.log('Fetch response:', response);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Server response data:', data);
+                    if (data.success) {
+                        alert('Registration successful!');
+                        location.reload();
+                    } else if (data.errors) {
+                        for (const key in data.errors) {
+                            const errorElement = document.querySelector(`[data-valmsg-for="${key}"]`);
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[key].join(', ');
+                            }
+                        }
+                    } else {
+                        alert('An unexpected error occurred.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('An error occurred during registration.');
+                });
+        });
+    } else {
+        console.error('Form element not found');
+    }
+});
+
+
+
 

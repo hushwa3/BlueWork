@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace BlueWork.web.Models
 {
@@ -20,16 +21,17 @@ namespace BlueWork.web.Models
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address format.")]
         [MaxLength(100, ErrorMessage = "Max 100 characters allowed.")]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
         [MaxLength(20, ErrorMessage = "Max 20 characters allowed.")]
-        public string Password { get; set; }
+        public required string Password { get; set; }
         [Required(ErrorMessage = "Role is required.")]
-        public string Role { get; set; }
+        public required string Role { get; set; }
 
         // Navigation properties (one-to-one relationships)
+        [ValidateNever]
         public virtual ICollection<Login> Logins { get; set; }
         
     }
