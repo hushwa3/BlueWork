@@ -56,36 +56,32 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form asp-action="Registration" method="post">
-                    @Html.AntiForgeryToken()
+                <form asp-controller="Account" asp-action="Registration" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
-                        <input asp-for="FirstName" class="form-control mb-3" id="FirstName" autocomplete="given-name" placeholder="First Name" />
+                        <input asp-for="FirstName" class="form-control mb-3" placeholder="First Name" />
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="LastName" class="form-control mb-3" id="LastName" autocomplete="family-name" placeholder="Last Name" />
+                        <input asp-for="LastName" class="form-control mb-3" placeholder="Last Name" />
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="Email" class="form-control mb-3" id="Email" autocomplete="email" placeholder="Enter your Email" />
+                        <input asp-for="Email" class="form-control mb-3" placeholder="Enter your Email" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="Password" class="form-control mb-3" id="Password" type="password" autocomplete="new-password" placeholder="Enter your password" />
+                        <input asp-for="Password" type="password" class="form-control mb-3" placeholder="Enter your password" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
-                        <input type="submit" value="Register" class="btn btn-primary register mb-2" />
-                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
                     <p class="member1">
                         Already have an account? <span id="loginBtn1" class="text-primary" style="cursor: pointer">Log In.</span>
-                    </p>
                 </form>
             </div>
         </div>

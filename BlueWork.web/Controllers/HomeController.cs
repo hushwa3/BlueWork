@@ -58,10 +58,6 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
-        public IActionResult Registration()
-        {
-            return View("~/Views/Account/Registration.cshtml");
-        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
