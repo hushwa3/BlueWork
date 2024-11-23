@@ -23,27 +23,36 @@ namespace BlueWork.web.Controllers
 
         public IActionResult Home()
         {
-            return View(_context.UserAccounts.ToList());
+            return View("~/Views/Home/Home.cshtml");
         }
 
         [AllowAnonymous]
         public IActionResult Registration()
         {
-            return View("~/Views/Home/Home.cshtml");
+            return View("~/Views/Account/Registration.cshtml");
         }
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Registration(Registration model)
         {
             if (ModelState.IsValid)
             {
+                // Check if email already exists
+                if (_context.UserAccounts.Any(u => u.Email == model.Email))
+                {
+                    ModelState.AddModelError("Email", "An account with this email already exists.");
+                    return View("~/Views/Account/Registration.cshtml", model);
+                }
+
                 var account = new UserAccount
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    Password = HashPassword(model.Password)
+                    Password = HashPassword(model.Password),
+                    Role = model.Role // Assign role from the registration form
                 };
 
                 try
@@ -52,7 +61,7 @@ namespace BlueWork.web.Controllers
                     _context.SaveChanges();
 
                     ModelState.Clear();
-                    ViewBag.Message = $"{account.FirstName} {account.LastName}, registration successful. Please log in.";
+                    TempData["Message"] = "Registration successful! Please log in.";
                     return RedirectToAction("Login");
                 }
                 catch (Exception ex)
@@ -66,12 +75,12 @@ namespace BlueWork.web.Controllers
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
                 _logger.LogError("Model validation failed: {Errors}", string.Join(", ", errors));
             }
-            return View("~/Views/Home/Home.cshtml");
+            return View("~/Views/Account/Registration.cshtml", model);
         }
 
         public IActionResult Login()
         {
-            return View();
+            return View("~/Views/Account/Login.cshtml");
         }
 
         [HttpPost]
@@ -85,17 +94,24 @@ namespace BlueWork.web.Controllers
 
                 if (account != null)
                 {
+                    // Set up claims including the user's role
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, account.Email),
-                        new Claim(ClaimTypes.GivenName, account.FirstName), 
-                        new Claim(ClaimTypes.Role, "User")
+                        new Claim(ClaimTypes.GivenName, account.FirstName),
+                        new Claim(ClaimTypes.Role, account.Role) // Add user's role to claims
                     };
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
-                    return RedirectToAction("SecurePage");
+                    // Redirect based on role
+                    if (account.Role == "Client")
+                        return RedirectToAction("Client_Dashboard");
+                    else if (account.Role == "Worker")
+                        return RedirectToAction("JobsView");
+
+                    return RedirectToAction("Home"); // Default redirect
                 }
                 else
                 {
@@ -103,10 +119,20 @@ namespace BlueWork.web.Controllers
                 }
             }
 
-            return View(model);
+            return View("~/Views/Account/Login.cshtml", model);
         }
 
+        [Authorize(Roles = "Client")]
+        public IActionResult Client_Dashboard()
+        {
+            return View("~/Views/Home/Client_Dashboard.cshtml");
+        }
 
+        [Authorize(Roles = "Worker")]
+        public IActionResult JobsView()
+        {
+            return View("~/Views/Home/JobsView.cshtml");
+        }
 
         public IActionResult LogOut()
         {
@@ -117,8 +143,8 @@ namespace BlueWork.web.Controllers
         [Authorize]
         public IActionResult SecurePage()
         {
-            ViewBag.Name = HttpContext.User.Identity.Name;
-            return View();
+            ViewBag.Name = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value;
+            return View("~/Views/Account/Login.cshtml");
         }
 
         private string HashPassword(string password)

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 namespace BlueWork.web.BlueWorkAuth
 {
     [Index(nameof(Email), IsUnique = true)]
-    [Index(nameof(Email), IsUnique = true)]
     public class UserAccount
     {
 
@@ -23,7 +22,8 @@ namespace BlueWork.web.BlueWorkAuth
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required.")]
         [MaxLength(20, ErrorMessage = "Max 20 characters allowed.")]
-        public string Password { get; set; }   
-
+        public string Password { get; set; }
+        [Required(ErrorMessage = "Role is required.")]
+        public string Role { get; set; }
     }
 }

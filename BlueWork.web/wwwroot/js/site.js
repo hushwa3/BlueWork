@@ -11,6 +11,7 @@ const register1 = document.getElementById('register1');
 const addPost = document.getElementById('add-post');
 const headlineCard = document.getElementById('headline-card');
 const cards = document.querySelectorAll('.option-card');
+const roleInput = document.getElementById('roleInput');
 const actionButton = document.getElementById('actionButton');
 const actionBtn = document.getElementById('actionBtn');
 const createBtn = document.getElementById('createAccountBtn');
@@ -36,12 +37,9 @@ backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
-    if (pop1) pop1.style.display = 'none';
-    if (pop2) pop2.style.display = 'none';
-    if (pop3) pop3.style.display = 'none';
-    if (headlineCard) headlineCard.style.display = 'none';
-    if (skills) skills.style.display = 'none';
-    if (scope) scope.style.display = 'none';
+    [pop1, pop2, pop3, headlineCard, skills, scope].forEach((popup) => {
+        if (popup) popup.style.display = 'none';
+    });
     backdrop.style.display = 'none';
 };
 
@@ -66,30 +64,19 @@ document.addEventListener('click', (event) => {
 });
 
 // Show pop2 when "Join" button is clicked
-if (loginBtn) {
-    $(loginBtn).on('click', function (event) {
-        event.stopPropagation();
-        closeAllPopups();
-        if (pop2) {
-            $(pop3).fadeOut(500); 
-            $(pop2).fadeIn(500); 
-            $(backdrop).fadeIn(500); 
-        }
-    });
-}
-
-
-if (loginBtn1) {
-    $(loginBtn1).on('click', function (event) {
-        event.stopPropagation();
-        closeAllPopups();
-        if (pop2) {
-            $(pop3).fadeOut(500);
-            $(pop2).fadeIn(500);
-            $(backdrop).fadeIn(500);
-        }
-    });
-}
+[loginBtn, loginBtn1].forEach((btn) => {
+    if (btn) {
+        btn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            closeAllPopups();
+            if (pop2) {
+                $(pop3).fadeOut(500);
+                $(pop2).fadeIn(500);
+                $(backdrop).fadeIn(500);
+            }
+        });
+    }
+});
 
 // Handle "Sign In" buttons
 if (signIn1) {
@@ -102,7 +89,7 @@ if (signIn1) {
 
 // Handle "Register" button
 if (register) {
-    $(register).on('click', function (event) {
+    register.addEventListener('click', (event) => {
         event.stopPropagation();
         closeAllPopups();
         if (pop1) {
@@ -112,9 +99,9 @@ if (register) {
 }
 
 if (register1) {
-    $(register1).on('click', function (event) {
-
+    register1.addEventListener('click', (event) => {
         event.stopPropagation();
+        closeAllPopups();
         if (pop1) {
             $(pop2).fadeOut(500);
             $(pop1).fadeIn(500);
@@ -131,34 +118,66 @@ cards.forEach((card) => {
 
         // Add 'selected' class to the clicked card
         card.classList.add('selected');
-        selectedType = card.dataset.type;
+
+        // Get the selected role from the data-type attribute
+        const selectedRole = card.dataset.type;
+
+        // Update the hidden input field with the selected role
+        if (roleInput) {
+            roleInput.value = selectedRole;
+        }
 
         // Update button visibility and text
-        if (createBtn) createBtn.style.display = 'none';
+        if (createBtn) createBtn.style.display = 'none'; // Hide the create button
         if (actionBtn) {
-            actionBtn.style.display = 'block';
+            actionBtn.style.display = 'block'; // Show the action button
             actionBtn.textContent =
-                selectedType === 'client' ? 'Join as a Client' : 'Apply as a Worker';
+                selectedRole === 'client' ? 'Join as a Client' : 'Apply as a Worker';
         }
     });
 });
 
-// Show the headline card when "Add Post" button is clicked
-if (addPost) {
-    $(addPost).on('click', function (event) {
-        event.stopPropagation();
-        if (headlineCard) {
-            $(headlineCard).fadeIn(500);
-            $(backdrop).fadeIn(500);
-        } 
+// Handle form submission to ensure a role is selected
+const roleForm = document.getElementById('roleForm');
+if (roleForm) {
+    roleForm.addEventListener('submit', function (e) {
+        const role = roleInput ? roleInput.value : null;
+        if (!role) {
+            e.preventDefault();
+            alert("Please select a role before proceeding.");
+        }
     });
 }
 
+// Handle actionButton click to show pop3
+if (actionBtn) {
+    actionBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (pop3) {
+            $(pop1).fadeOut(100);
+            $(pop3).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        }
+    });
+}
+
+// Show the headline card when "Add Post" button is clicked
+if (addPost) {
+    addPost.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeAllPopups();
+        if (headlineCard) {
+            $(headlineCard).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        }
+    });
+}
 
 // Handle the next buttons
 if (nextSkills) {
-    $(nextSkills).on('click', function (event) {
+    nextSkills.addEventListener('click', (event) => {
         event.stopPropagation();
+        closeAllPopups();
         if (skills) {
             $(headlineCard).fadeOut(100);
             $(skills).fadeIn(500);
@@ -167,10 +186,10 @@ if (nextSkills) {
     });
 }
 
-
 if (nextScope) {
-    $(nextScope).on('click', function (event) {
+    nextScope.addEventListener('click', (event) => {
         event.stopPropagation();
+        closeAllPopups();
         if (scope) {
             $(headlineCard).fadeOut(100);
             $(skills).fadeOut(100);
@@ -179,17 +198,3 @@ if (nextScope) {
         }
     });
 }
-
-
-// Handle actionButton click to show pop3
-if (actionBtn) {
-    $(actionBtn).on('click', function (event) {
-        event.stopPropagation();
-        if (pop3) {
-            $(pop1).fadeOut(100);
-            $(pop3).fadeIn(100);
-            $(backdrop).fadeIn(500);
-        }
-    });
-}
- 
