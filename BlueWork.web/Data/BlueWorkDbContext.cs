@@ -1,4 +1,5 @@
-﻿using BlueWork.web.Models;
+﻿using BlueWork.web.BlueWorkAuth;
+using BlueWork.web.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueWork.web.Data
@@ -15,6 +16,7 @@ namespace BlueWork.web.Data
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<JobListing> JobListings { get; set; }
         public DbSet<SkillDevelopment> SkillDevelopments { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
 
     }
 }

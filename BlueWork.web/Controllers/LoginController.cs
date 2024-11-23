@@ -9,7 +9,7 @@ namespace BlueWork.web.Controllers
     {
         public IActionResult Home()
         {
-            return View("~/Views/Home/Login.cshtml");
+            return View("~/Views/Home/Home.cshtml");
         }
         public IActionResult ClientInfoProfile()
         {

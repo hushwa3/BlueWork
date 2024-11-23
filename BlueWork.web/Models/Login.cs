@@ -5,6 +5,7 @@ namespace BlueWork.web.Models
 {
     public class Login
     {
+
         [Key]
         public int LoginID { get; set; }
         [Required(ErrorMessage = "Email is required.")]

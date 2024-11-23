@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlueWork.web.Migrations
 {
     [DbContext(typeof(BlueWorkDbContext))]
-    [Migration("20241122101858_NewMigration")]
+    [Migration("20241123055246_NewMigration")]
     partial class NewMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,46 @@ namespace BlueWork.web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BlueWork.web.BlueWorkAuth.UserAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("UserAccounts");
+                });
 
             modelBuilder.Entity("BlueWork.web.Models.EmployerProfile", b =>
                 {
@@ -194,11 +234,11 @@ namespace BlueWork.web.Migrations
 
             modelBuilder.Entity("BlueWork.web.Models.Registration", b =>
                 {
-                    b.Property<int>("RegistrationID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -220,7 +260,11 @@ namespace BlueWork.web.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("RegistrationID");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Registrations");
                 });
@@ -384,12 +428,12 @@ namespace BlueWork.web.Migrations
                     b.Property<int>("LoginsLoginID")
                         .HasColumnType("int");
 
-                    b.Property<int>("RegistrationsRegistrationID")
+                    b.Property<int>("RegistrationsID")
                         .HasColumnType("int");
 
-                    b.HasKey("LoginsLoginID", "RegistrationsRegistrationID");
+                    b.HasKey("LoginsLoginID", "RegistrationsID");
 
-                    b.HasIndex("RegistrationsRegistrationID");
+                    b.HasIndex("RegistrationsID");
 
                     b.ToTable("LoginRegistration");
                 });
@@ -411,13 +455,13 @@ namespace BlueWork.web.Migrations
 
             modelBuilder.Entity("RegistrationWorkerProfile", b =>
                 {
-                    b.Property<int>("RegistrationsRegistrationID")
+                    b.Property<int>("RegistrationsID")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkerProfilesWorkerID")
                         .HasColumnType("int");
 
-                    b.HasKey("RegistrationsRegistrationID", "WorkerProfilesWorkerID");
+                    b.HasKey("RegistrationsID", "WorkerProfilesWorkerID");
 
                     b.HasIndex("WorkerProfilesWorkerID");
 
@@ -539,7 +583,7 @@ namespace BlueWork.web.Migrations
 
                     b.HasOne("BlueWork.web.Models.Registration", null)
                         .WithMany()
-                        .HasForeignKey("RegistrationsRegistrationID")
+                        .HasForeignKey("RegistrationsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -563,7 +607,7 @@ namespace BlueWork.web.Migrations
                 {
                     b.HasOne("BlueWork.web.Models.Registration", null)
                         .WithMany()
-                        .HasForeignKey("RegistrationsRegistrationID")
+                        .HasForeignKey("RegistrationsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

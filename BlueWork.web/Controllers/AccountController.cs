@@ -21,9 +21,9 @@ namespace BlueWork.web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Home()
+        public IActionResult Index()
         {
-            return View("~/Views/Home/Home.cshtml");
+            return View(_context.UserAccounts.ToList());
         }
 
         [AllowAnonymous]
@@ -43,7 +43,7 @@ namespace BlueWork.web.Controllers
                 if (_context.UserAccounts.Any(u => u.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "An account with this email already exists.");
-                    return View("~/Views/Account/Registration.cshtml", model);
+                    return View("~/Views/Account/Login.cshtml", model);
                 }
 
                 var account = new UserAccount
@@ -62,7 +62,7 @@ namespace BlueWork.web.Controllers
 
                     ModelState.Clear();
                     TempData["Message"] = "Registration successful! Please log in.";
-                    return RedirectToAction("Login");
+                    return RedirectToAction("~/Views/Account/Login.cshtml");
                 }
                 catch (Exception ex)
                 {
@@ -111,7 +111,7 @@ namespace BlueWork.web.Controllers
                     else if (account.Role == "Worker")
                         return RedirectToAction("JobsView");
 
-                    return RedirectToAction("Home"); // Default redirect
+                    return RedirectToAction("~/Views/Home/Home.cshtml"); // Default redirect
                 }
                 else
                 {
@@ -119,7 +119,7 @@ namespace BlueWork.web.Controllers
                 }
             }
 
-            return View("~/Views/Account/Login.cshtml", model);
+            return View("~/Views/Home/Home.cshtml", model);
         }
 
         [Authorize(Roles = "Client")]
@@ -137,7 +137,7 @@ namespace BlueWork.web.Controllers
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Home");
+            return RedirectToAction("~/Views/Home/Home.cshtml");
         }
 
         [Authorize]

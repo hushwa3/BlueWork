@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BlueWork.web.BlueWorkAuth
 {
     [Index(nameof(Email), IsUnique = true)]
+
     public class UserAccount
     {
 

@@ -60,7 +60,7 @@ namespace BlueWork.web.Controllers
         }
         public IActionResult Registration()
         {
-            return View();
+            return View("~/Views/Account/Registration.cshtml");
         }
 
 
