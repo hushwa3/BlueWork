@@ -7,6 +7,7 @@ using BlueWork.web.Models;
 using System.Security.Claims;
 using System.Linq;
 using BlueWork.web.BlueWorkAuth;
+using Newtonsoft.Json;
 
 namespace BlueWork.web.Controllers
 {
@@ -80,55 +81,54 @@ namespace BlueWork.web.Controllers
         // POST: Registration
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public IActionResult Registration(Registration model)
+        public async Task<IActionResult> Registration(Registration model)
         {
             try
             {
-                if (ModelState.IsValid)
+                Console.WriteLine($"Incoming Data: {JsonConvert.SerializeObject(model)}");
+
+                if (!ModelState.IsValid)
                 {
-                    // Check if email already exists
-                    if (_context.UserAccounts.Any(u => u.Email == model.Email))
-                    {
-                        return Json(new { success = false, message = "An account with this email already exists." });
-                    }
+                    var errors = ModelState
+                        .Where(m => m.Value.Errors.Any())
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                        );
 
-                    // Create a new user account
-                    var account = new UserAccount
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Email = model.Email,
-                        Password = HashPassword(model.Password),
-                        Role = model.Role
-                    };
-
-                    _context.UserAccounts.Add(account);
-                    _context.SaveChanges();
-
-                    return Json(new { success = true, message = "Registration successful!" });
+                    Console.WriteLine("Validation Errors: " + JsonConvert.SerializeObject(errors));
+                    return Json(new { success = false, errors });
                 }
 
-                // Collect validation errors
-                var errors = ModelState
-                    .Where(m => m.Value.Errors.Any())
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                    );
+                if (_context.UserAccounts.Any(u => u.Email == model.Email))
+                {
+                    Console.WriteLine("Duplicate email detected: " + model.Email);
+                    return Json(new { success = false, message = "Email already exists." });
+                }
 
-                return Json(new { success = false, errors });
+                var account = new UserAccount
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = HashPassword(model.Password),
+                    Role = model.Role
+                };
+
+                _context.UserAccounts.Add(account);
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine("User registered successfully.");
+                return Json(new { success = true, message = "Registration successful!" });
             }
             catch (Exception ex)
             {
-                // Log the exception for debugging
-                Console.WriteLine($"Error during registration: {ex.Message}");
-                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-
-                // Return error message
-                return Json(new { success = false, message = "An internal server error occurred. Check server logs for details." });
+                Console.WriteLine($"Error occurred: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);
+                return Json(new { success = false, message = "An internal error occurred." });
             }
         }
+
 
 
 

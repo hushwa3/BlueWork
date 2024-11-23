@@ -191,42 +191,34 @@ if (nextScope) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const roleInput = document.getElementById('roleInput'); // Hidden Role input
-    const optionCards = document.querySelectorAll('.option-card'); // Role selection cards
-    const form = document.getElementById('registrationForm'); // Registration form
+    const roleInput = document.getElementById('roleInput');
+    const optionCards = document.querySelectorAll('.option-card');
+    const form = document.getElementById('registrationForm');
 
-    // Ensure JavaScript is loaded
-    console.log('JavaScript loaded and ready');
+    console.log('JavaScript loaded.');
 
-    // Role selection logic
     optionCards.forEach(card => {
         card.addEventListener('click', () => {
-            // Remove 'selected' class from all cards
             optionCards.forEach(c => c.classList.remove('selected'));
-
-            // Add 'selected' class to the clicked card
             card.classList.add('selected');
-
-            // Update the hidden input value for Role
-            roleInput.value = card.dataset.type; // "Client" or "Worker"
+            roleInput.value = card.dataset.type; // Update the hidden input
             console.log(`Role selected: ${roleInput.value}`);
         });
     });
 
-    // Form submission
     if (form) {
         form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent default submission
+            e.preventDefault();
 
-            // Ensure Role is set
             if (!roleInput.value) {
-                alert('Please select a role before registering.');
+                alert('Please select a role.');
                 return;
             }
 
             const formData = new FormData(form);
+            console.log('Form data:', Object.fromEntries(formData));
 
-            fetch(form.action, {
+            fetch('/Account/Registration', {
                 method: 'POST',
                 body: formData
             })
@@ -237,31 +229,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Server response data:', data);
+                    console.log('Server response:', data);
                     if (data.success) {
-                        alert(data.message || 'Registration successful!');
+                        alert(data.message);
                         location.reload();
-                    } else if (data.errors) {
-                        // Display validation errors
-                        for (const key in data.errors) {
-                            const errorElement = document.querySelector(`[data-valmsg-for="${key}"]`);
-                            if (errorElement) {
-                                errorElement.textContent = data.errors[key].join(', ');
-                            }
-                        }
                     } else {
-                        alert(data.message || 'An unexpected error occurred.');
+                        alert(data.message || 'An error occurred.');
                     }
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
-                    alert('An error occurred during registration.');
+                    alert('An internal error occurred.');
                 });
         });
     } else {
-        console.error('Form element not found');
+        console.error('Form not found.');
     }
 });
+
 
 
 
