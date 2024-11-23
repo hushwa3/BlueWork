@@ -1,4 +1,4 @@
-﻿@model BlueWork.web.Models.Registration
+﻿@model Registration
 
 @{
     ViewData["Title"] = "Registration";
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="Password" type="password" class="form-control mb-3" placeholder="Enter your password" />
+                        <input asp-for="Password" type="current-password" class="form-control mb-3" placeholder="Enter your password" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 

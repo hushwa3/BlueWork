@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BlueWork.web.Controllers
 {
@@ -24,18 +25,26 @@ namespace BlueWork.web.Controllers
             await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") });
         }
 
-        public async Task<IActionResult> GoogleResponse()
+       public async Task<IActionResult> GoogleResponse()
+{
+        var authResult = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+    
+        // Extract claims from Google authentication
+        var claims = authResult.Principal.Identities.FirstOrDefault()?.Claims.ToList();
+        if (claims == null)
         {
-            var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            var claims = authResult.Principal.Identities.FirstOrDefault().Claims.Select(claim => new { 
-                claim.Issuer, 
-                claim.OriginalIssuer, 
-                claim.Type, 
-                claim.Value }).ToList();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-            return RedirectToAction("Home", "Home", new { area = "" });
+            return RedirectToAction("Login", "Account"); // Redirect to login if no claims
         }
+
+        // Create a claims identity for the application
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        // Sign in user and create authentication cookie
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+        return RedirectToAction("Home", "Home");
+    }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

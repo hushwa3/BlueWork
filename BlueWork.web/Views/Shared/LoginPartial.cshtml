@@ -1,8 +1,11 @@
-﻿@using System.Security.Claims
+﻿@using System.Security.Claims;
+
 @if (Context.User.Identity.IsAuthenticated)
 {
     <form method="post" asp-controller="Account" asp-action="Logout" id="logoutForm" class="d-flex">
-        <span class="navbar-text text-dark" style="white-space: nowrap; margin-right: 1rem">Hi, @Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value!</span>
+        <span class="navbar-text text-dark" style="white-space: nowrap; margin-right: 1rem">
+            Hi, @Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value!
+        </span>
         <button type="submit" class="btn text-dark join-btn text-decoration-none ml-2">Logout</button>
     </form>
 }
@@ -10,10 +13,10 @@ else
 {
     <ul class="nav navbar navbar-right">
         <li class="nav-item">
-            <a class="nav-link text-dark" style="cursor:pointer;" id="register">Register</a>
+            <a asp-controller="Account" asp-action="Registration" class="nav-link text-dark" style="cursor:pointer;" id="register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark btn btn-outline-dark join-btn" style="cursor:pointer" id="loginBtn">Login</a>
+            <a asp-controller="Account" asp-action="Login" class="nav-link text-dark btn btn-outline-dark join-btn" style="cursor:pointer" id="loginBtn">Login</a>
         </li>
     </ul>
 }

@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +6,7 @@
     <title>@ViewData["Title"] - BlueWork</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BlueWork.web.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/BlueWork.web.styles.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -27,13 +26,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">Become an Employer</a>
                         </li>
-                        @await Html.PartialAsync("LoginPartial")
-                        
+                        @await Html.PartialAsync("LoginPartial") 
                     </ul>
                 </div>
             </div>
         </nav>
-
     </header>
     <div class="container-home">
         <main role="main" class="p-0">
@@ -76,13 +73,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-@await Html.PartialAsync("~/Views/Account/Registration.cshtml")
-@await Html.PartialAsync("~/Views/Account/Login.cshtml")
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

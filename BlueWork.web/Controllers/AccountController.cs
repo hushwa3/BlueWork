@@ -1,37 +1,75 @@
-﻿using BlueWork.web.Data;
-using BlueWork.web.BlueWorkAuth;
-using BlueWork.web.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using BlueWork.web.Data;
+using BlueWork.web.Models;
 using System.Security.Claims;
+using BlueWork.web.BlueWorkAuth;
 
 namespace BlueWork.web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly BlueWorkDbContext _context;
-        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(BlueWorkDbContext context, ILogger<AccountController> logger)
+        public AccountController(BlueWorkDbContext context)
         {
             _context = context;
-            _logger = logger;
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = _context.UserAccounts
+                    .FirstOrDefault(u => u.Email == model.Email && VerifyPassword(model.Password, u.Password));
+
+                if (account != null)
+                {
+                    // Create claims for the authenticated user
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, account.Email),
+                        new Claim(ClaimTypes.GivenName, account.FirstName),
+                        new Claim(ClaimTypes.Role, account.Role)
+                    };
+
+                    // Create the identity and sign in
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+                    return RedirectToAction("Home", "Home");
+                }
+
+                ModelState.AddModelError("", "Invalid login attempt.");
+            }
+
+            return View(model);
         }
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Registration()
         {
-            var model = new Registration();
-            return View(model);
+            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Registration(Registration model)
+        public async Task<IActionResult> Registration(Registration model)
         {
             if (ModelState.IsValid)
             {
@@ -46,76 +84,36 @@ namespace BlueWork.web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    Password = HashPassword(model.Password), // Securely hash the password
-                    Role = model.Role // Assign role from the form
+                    Password = HashPassword(model.Password),
+                    Role = model.Role // Default role
                 };
 
-                try
-                {
-                    _context.UserAccounts.Add(account);
-                    _context.SaveChanges();
+                _context.UserAccounts.Add(account);
+                await _context.SaveChangesAsync();
 
-                    TempData["SuccessMessage"] = "Registration successful! Please log in.";
-                    return RedirectToAction("Login");
-                }
-                catch (Exception ex)
+                // Sign in the user immediately after registration
+                var claims = new List<Claim>
                 {
-                    _logger.LogError(ex, "Error during registration.");
-                    ModelState.AddModelError("", "An error occurred while processing your registration.");
-                }
+                    new Claim(ClaimTypes.Name, account.Email),
+                    new Claim(ClaimTypes.GivenName, account.FirstName),
+                    new Claim(ClaimTypes.Role, account.Role)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+                return RedirectToAction("Home", "Home");
             }
 
-            return View(model);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            var model = new Login();
             return View(model);
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(Login model)
-        {
-            if (ModelState.IsValid)
-            {
-                var account = _context.UserAccounts
-                    .FirstOrDefault(a => a.Email == model.Email && VerifyPassword(model.Password, a.Password));
-
-                if (account != null)
-                {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, account.Email),
-                        new Claim(ClaimTypes.GivenName, account.FirstName),
-                        new Claim(ClaimTypes.Role, account.Role)
-                    };
-
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-
-                    return account.Role switch
-                    {
-                        "Client" => RedirectToAction("Client_Dashboard", "Home"),
-                        "Worker" => RedirectToAction("JobsView", "Home"),
-                        _ => RedirectToAction("Home", "Home")
-                    };
-                }
-
-                ModelState.AddModelError("", "Invalid email or password.");
-            }
-
-            return View(model);
-        }
-
         [Authorize]
-        public IActionResult LogOut()
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Home", "Home");
         }
 
