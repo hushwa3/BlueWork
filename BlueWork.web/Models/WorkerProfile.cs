@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Abp.Authorization.Users;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlueWork.web.Models
@@ -7,6 +8,8 @@ namespace BlueWork.web.Models
     {
         [Key]
         public int WorkerID { get; set; }
+        [Required]
+        public int UserAccountId { get; set; }
         public string Bio { get; set; }
         public string Skills { get; set; }
         public int ExperienceYears { get; set; }
@@ -16,7 +19,7 @@ namespace BlueWork.web.Models
         public int RegistrationID { get; set; }
 
         // Navigation property (one-to-one relationship with Registration)
-        public virtual ICollection<Registration> Registrations { get; set; }
+        public virtual ICollection<UserAccount> UserAccounts { get; set; }
         public virtual ICollection<Login> Logins {  get; set; }
 
         // One-to-many relationship with JobApplication

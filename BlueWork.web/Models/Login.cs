@@ -20,7 +20,5 @@ namespace BlueWork.web.Models
         public int RegistrationID { get; set; }
         // Navigation property (one-to-one relationship with Registration)
         public virtual ICollection<Registration> Registrations { get; set; }
-        public virtual ICollection<EmployerProfile> EmployerProfiles { get; set; }
-        public virtual ICollection<WorkerProfile> WorkerProfiles { get; set; }
     }
 }

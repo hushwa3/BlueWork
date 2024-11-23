@@ -31,8 +31,6 @@ namespace BlueWork.web.Models
 
         // Navigation properties (one-to-one relationships)
         public virtual ICollection<Login> Logins { get; set; }
-        public virtual ICollection<EmployerProfile> EmployerProfiles { get; set; }
-        public virtual ICollection<WorkerProfile> WorkerProfiles { get; set; }
         
     }
 }

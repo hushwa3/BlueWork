@@ -2,9 +2,6 @@
 using BlueWork.web.BlueWorkAuth;
 using BlueWork.web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -27,7 +24,8 @@ namespace BlueWork.web.Controllers
         [AllowAnonymous]
         public IActionResult Registration()
         {
-            return View();
+            var model = new Registration();
+            return View(model);
         }
 
         [HttpPost]
@@ -48,8 +46,8 @@ namespace BlueWork.web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    Password = HashPassword(model.Password),
-                    Role = model.Role
+                    Password = HashPassword(model.Password), // Securely hash the password
+                    Role = model.Role // Assign role from the form
                 };
 
                 try
@@ -57,12 +55,12 @@ namespace BlueWork.web.Controllers
                     _context.UserAccounts.Add(account);
                     _context.SaveChanges();
 
-                    TempData["SuccessMessage"] = "Registration successful! You can now log in.";
-                    return RedirectToAction("Home", "Home");
+                    TempData["SuccessMessage"] = "Registration successful! Please log in.";
+                    return RedirectToAction("Login");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error during registration");
+                    _logger.LogError(ex, "Error during registration.");
                     ModelState.AddModelError("", "An error occurred while processing your registration.");
                 }
             }
@@ -74,7 +72,8 @@ namespace BlueWork.web.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            var model = new Login();
+            return View(model);
         }
 
         [HttpPost]
