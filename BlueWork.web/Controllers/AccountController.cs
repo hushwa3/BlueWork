@@ -85,34 +85,31 @@ namespace BlueWork.web.Controllers
         {
             try
             {
-                // Log the incoming data for debugging
-                Console.WriteLine($"FirstName: {model.FirstName}, LastName: {model.LastName}, Email: {model.Email}, Role: {model.Role}");
-
                 if (ModelState.IsValid)
                 {
+                    // Check if email already exists
                     if (_context.UserAccounts.Any(u => u.Email == model.Email))
                     {
-                        ModelState.AddModelError("Email", "An account with this email already exists.");
+                        return Json(new { success = false, message = "An account with this email already exists." });
                     }
-                    else
+
+                    // Create a new user account
+                    var account = new UserAccount
                     {
-                        var account = new UserAccount
-                        {
-                            FirstName = model.FirstName,
-                            LastName = model.LastName,
-                            Email = model.Email,
-                            Password = HashPassword(model.Password),
-                            Role = model.Role // Ensure Role is populated
-                        };
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Password = HashPassword(model.Password),
+                        Role = model.Role
+                    };
 
-                        _context.UserAccounts.Add(account);
-                        _context.SaveChanges();
+                    _context.UserAccounts.Add(account);
+                    _context.SaveChanges();
 
-                        return Json(new { success = true, message = "Registration successful!" });
-                    }
+                    return Json(new { success = true, message = "Registration successful!" });
                 }
 
-                // Capture validation errors
+                // Collect validation errors
                 var errors = ModelState
                     .Where(m => m.Value.Errors.Any())
                     .ToDictionary(
@@ -124,12 +121,17 @@ namespace BlueWork.web.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception details
+                // Log the exception for debugging
                 Console.WriteLine($"Error during registration: {ex.Message}");
                 Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-                return Json(new { success = false, message = "An internal error occurred." });
+
+                // Return error message
+                return Json(new { success = false, message = "An internal server error occurred. Check server logs for details." });
             }
         }
+
+
+
 
 
 

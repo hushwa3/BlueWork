@@ -35,7 +35,6 @@ builder.Services.AddDbContext<BlueWorkDbContext>(options =>
 
 // Build the app
 var app = builder.Build();
-
 // Configure middleware for error handling
 if (app.Environment.IsDevelopment())
 {

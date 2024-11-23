@@ -1,92 +1,92 @@
-﻿    @model BlueWork.web.Models.Registration
+﻿@model BlueWork.web.Models.Registration
 
-    @{
-        ViewData["Title"] = "Registration";
-    }
+@{
+    ViewData["Title"] = "Registration";
+}
 
-    <!-- Join BlueWork Container -->
-    <div class="container-fluid container-pop h-60" id="pop1" style="display: none;">
-        <div class="top-content text-center">
-            <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
-            <p class="pop-p">Join as a Client or Worker</p>
-            <div class="row row-pop">
-                <div class="col first-pop option-card" data-type="client">
-                    <div class="content1">
-                        <i class="fa-solid fa-user-tie fa-3x"></i>
-                        <p class="box">I'm a client looking to hire for a project</p>
-                        <div class="selected-indicator"></div>
-                    </div>
-                </div>
-
-                <div class="col second-pop option-card" data-type="worker">
-                    <div class="content1">
-                        <i class="fa-solid fa-user fa-3x"></i>
-                        <p class="box">I'm a worker looking to work on a project</p>
-                        <div class="selected-indicator"></div>
-                    </div>
+<!-- Join BlueWork Container -->
+<div class="container-fluid container-pop h-60" id="pop1" style="display: none;">
+    <div class="top-content text-center">
+        <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
+        <p class="pop-p">Join as a Client or Worker</p>
+        <div class="row row-pop">
+            <div class="col first-pop option-card" data-type="client">
+                <div class="content1">
+                    <i class="fa-solid fa-user-tie fa-3x"></i>
+                    <p class="box">I'm a client looking to hire for a project</p>
+                    <div class="selected-indicator"></div>
                 </div>
             </div>
-            
-            <button id="createAccountBtn" class="mb-3">Create Account</button>
-            <button class="action-button" id="actionBtn" style="display: none;">
+
+            <div class="col second-pop option-card" data-type="worker">
+                <div class="content1">
+                    <i class="fa-solid fa-user fa-3x"></i>
+                    <p class="box">I'm a worker looking to work on a project</p>
+                    <div class="selected-indicator"></div>
+                </div>
+            </div>
+        </div>
+        <button id="createAccountBtn" class="mb-3">Create Account</button>
+        <button class="action-button" id="actionBtn" style="display: none;"></button>
+        <hr>
+        <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Log In.</span></p>
+    </div>
+</div>
+
+<!-- Registration Popup Container -->
+<div class="container-fluid container-pop4" id="pop3" style="display: none;">
+    <div class="content2 text-center">
+        <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
+        <div class="buttons">
+            <button class="btn google pop2-btn">
+                <i class="fa-brands fa-google fa-b"></i>
+                <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a>
             </button>
-            <hr>
-            <p class="member">Already a member? <span id="sign-in1" style="color: blue; cursor: pointer;">Log In.</span></p>
+            <button class="btn apple pop2-btn">
+                <i class="fa-brands fa-apple fa-b"></i> Continue with Apple
+            </button>
         </div>
-    </div>
+        <div class="line-container">
+            <hr class="line">
+            <span class="line-text">OR</span>
+            <hr class="line">
+        </div>
 
-    <!-- Registration Popup Container -->
-    <div class="container-fluid container-pop4" id="pop3" style="display: none;">
-        <div class="content2 text-center" >
-            <h5 style="overflow-y: hidden;">Join <br> Bluework</h5>
-            <div class="buttons">
-                <button class="btn google pop2-btn">
-                    <i class="fa-brands fa-google fa-b"></i>
-                    <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Login">Continue with Google</a>
-                </button>
-                <button class="btn apple pop2-btn">
-                    <i class="fa-brands fa-apple fa-b"></i> Continue with Apple
-                </button>
-            </div>
-            <div class="line-container">
-                <hr class="line">
-                <span class="line-text">OR</span>
-                <hr class="line">
-            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="registrationForm" asp-controller="Account" asp-action="Registration" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="row">
-                <div class="col-md-12">
-                        <form id="registrationForm" asp-controller="Account" asp-action="Registration" method="post">
-                         @Html.AntiForgeryToken()
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <!-- Role input field -->
                     <input type="hidden" id="roleInput" name="Role" value="" />
-                        <div class="form-group">
-                            <input asp-for="FirstName" class="form-control mb-3" placeholder="First Name" />
-                            <span asp-validation-for="FirstName" class="text-danger"></span>
-                        </div>
 
-                        <div class="form-group">
-                            <input asp-for="LastName" class="form-control mb-3" placeholder="Last Name" />
-                            <span asp-validation-for="LastName" class="text-danger"></span>
-                        </div>
+                    <div class="form-group">
+                        <input asp-for="FirstName" class="form-control mb-3" id="FirstName" placeholder="First Name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
 
-                        <div class="form-group">
-                            <input asp-for="Email" class="form-control mb-3" placeholder="Enter your Email" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
+                    <div class="form-group">
+                        <input asp-for="LastName" class="form-control mb-3" id="LastName" placeholder="Last Name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
 
-                        <div class="form-group">
-                            <input asp-for="Password" type="password" class="form-control mb-3" placeholder="Enter your password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control mb-3" id="EmailField" placeholder="Enter your Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
 
-                        <button type="submit" class="btn btn-primary">Register</button>
-                        <p class="member1">
-                            Already have an account? <span id="loginBtn1" class="text-primary" style="cursor: pointer">Log In.</span>
-                    </form>
-                </div>
+                    <div class="form-group">
+                        <input asp-for="Password" type="password" class="form-control mb-3" id="PasswordField" placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <p class="member1">
+                        Already have an account? <span id="loginBtn1" class="text-primary" style="cursor: pointer">Log In.</span>
+                    </p>
+                </form>
             </div>
         </div>
     </div>
-
-
+</div>

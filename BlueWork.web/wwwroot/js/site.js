@@ -231,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: formData
             })
                 .then(response => {
-                    console.log('Fetch response:', response);
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
@@ -240,9 +239,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     console.log('Server response data:', data);
                     if (data.success) {
-                        alert('Registration successful!');
+                        alert(data.message || 'Registration successful!');
                         location.reload();
                     } else if (data.errors) {
+                        // Display validation errors
                         for (const key in data.errors) {
                             const errorElement = document.querySelector(`[data-valmsg-for="${key}"]`);
                             if (errorElement) {
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     } else {
-                        alert('An unexpected error occurred.');
+                        alert(data.message || 'An unexpected error occurred.');
                     }
                 })
                 .catch(error => {
@@ -262,6 +262,8 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Form element not found');
     }
 });
+
+
 
 
 
