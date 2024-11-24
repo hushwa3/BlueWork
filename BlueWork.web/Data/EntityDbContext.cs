@@ -11,5 +11,6 @@ namespace BlueWork.web.Data
         }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

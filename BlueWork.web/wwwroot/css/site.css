@@ -483,35 +483,23 @@ a {
 }
 
 .container-pop3 {
-     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 26rem;
-    border: 1px solid black;
+    margin: 4rem auto;
+    max-width: 30rem;
+    padding: 2rem;
+    background: white;
     border-radius: 10px;
-    padding-left: 2.5%;
-    padding-right: 2.5%;
-    padding-top: 1%;
-    z-index: 9999;
-    background-color: white;
-    min-height: 60vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 10rem;
 }
 
 .container-pop4 {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 26rem;
-    border: 1px solid black;
+    margin: 4rem auto;
+    max-width: 30rem;
+    padding: 2rem;
+    background: white;
     border-radius: 10px;
-    padding-left: 2.5%;
-    padding-right: 2.5%;
-    padding-top: 1%;
-    z-index: 99999;
-    background-color: white;
-    min-height: 60vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 10rem;
 }
 
 .profile-setup-container 

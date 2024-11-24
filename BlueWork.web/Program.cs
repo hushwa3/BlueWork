@@ -24,7 +24,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EntityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<EntityDbContext>();
 
 builder.Services.AddDbContext<EntityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlueWork.web.Data;
 using BlueWork.web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlueWork.web.Controllers
 {
