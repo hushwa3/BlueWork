@@ -4,6 +4,7 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlueWork.web.Migrations
 {
     [DbContext(typeof(BlueWorkDbContext))]
-    partial class BlueWorkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241124054011_NM")]
+    partial class NM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,8 +88,11 @@ namespace BlueWork.web.Migrations
 
             modelBuilder.Entity("BlueWork.web.BlueWorkAuth.UserAccount", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -295,9 +301,6 @@ namespace BlueWork.web.Migrations
 
                     b.HasIndex("EmployerProfileEmployerID");
 
-                    b.HasIndex("RegistrationID")
-                        .IsUnique();
-
                     b.HasIndex("WorkerProfileWorkerID");
 
                     b.ToTable("Logins");
@@ -467,6 +470,21 @@ namespace BlueWork.web.Migrations
                     b.ToTable("JobApplicationWorkerProfile");
                 });
 
+            modelBuilder.Entity("LoginRegistration", b =>
+                {
+                    b.Property<int>("LoginsLoginID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistrationsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginsLoginID", "RegistrationsID");
+
+                    b.HasIndex("RegistrationsID");
+
+                    b.ToTable("LoginRegistration");
+                });
+
             modelBuilder.Entity("SkillDevelopmentWorkerProfile", b =>
                 {
                     b.Property<int>("SkillDevelopmentsSkillID")
@@ -499,17 +517,9 @@ namespace BlueWork.web.Migrations
                         .WithMany("Login")
                         .HasForeignKey("EmployerProfileEmployerID");
 
-                    b.HasOne("BlueWork.web.Models.Registration", "Registration")
-                        .WithOne("Login")
-                        .HasForeignKey("BlueWork.web.Models.Login", "RegistrationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BlueWork.web.Models.WorkerProfile", null)
                         .WithMany("Logins")
                         .HasForeignKey("WorkerProfileWorkerID");
-
-                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("EmployerProfileJobListing", b =>
@@ -572,6 +582,21 @@ namespace BlueWork.web.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LoginRegistration", b =>
+                {
+                    b.HasOne("BlueWork.web.Models.Login", null)
+                        .WithMany()
+                        .HasForeignKey("LoginsLoginID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlueWork.web.Models.Registration", null)
+                        .WithMany()
+                        .HasForeignKey("RegistrationsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SkillDevelopmentWorkerProfile", b =>
                 {
                     b.HasOne("BlueWork.web.Models.SkillDevelopment", null)
@@ -592,12 +617,6 @@ namespace BlueWork.web.Migrations
                     b.Navigation("Login");
 
                     b.Navigation("UserAccounts");
-                });
-
-            modelBuilder.Entity("BlueWork.web.Models.Registration", b =>
-                {
-                    b.Navigation("Login")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BlueWork.web.Models.WorkerProfile", b =>

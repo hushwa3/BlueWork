@@ -4,6 +4,7 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlueWork.web.Migrations
 {
     [DbContext(typeof(BlueWorkDbContext))]
-    partial class BlueWorkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241124090226_UpdateUserAccount")]
+    partial class UpdateUserAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -106,34 +106,26 @@ if (register1) {
         event.stopPropagation();
         closeAllPopups();
         if (pop3) {
-            $(pop2).fadeOut(500); // Hide the login popup
-            $(pop3).fadeIn(500); // Show the registration popup
-            $(backdrop).fadeIn(500); // Show the backdrop
+            $(pop2).fadeOut(500); 
+            $(pop1).fadeIn(500); 
+            $(backdrop).fadeIn(500); 
         }
     });
 }
 
-// Handle card selection for account type
 cards.forEach((card) => {
     card.addEventListener('click', () => {
-        // Remove the 'selected' class from all cards
         cards.forEach((c) => c.classList.remove('selected'));
-
-        // Add 'selected' class to the clicked card
         card.classList.add('selected');
-
-        // Get the selected role from the data-type attribute
         const selectedRole = card.dataset.type;
 
-        // Update the hidden input field with the selected role
         if (roleInput) {
             roleInput.value = selectedRole;
         }
 
-        // Update button visibility and text
-        if (createBtn) createBtn.style.display = 'none'; // Hide the create button
+        if (createBtn) createBtn.style.display = 'none'; 
         if (actionBtn) {
-            actionBtn.style.display = 'block'; // Show the action button
+            actionBtn.style.display = 'block';
             actionBtn.textContent =
                 selectedRole === 'client' ? 'Join as a Client' : 'Apply as a Worker';
         }
@@ -197,15 +189,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log('JavaScript loaded.');
 
+    // Role selection logic
     optionCards.forEach(card => {
         card.addEventListener('click', () => {
             optionCards.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            roleInput.value = card.dataset.type; // Update the hidden input
+            roleInput.value = card.dataset.type;
             console.log(`Role selected: ${roleInput.value}`);
         });
     });
 
+    // Form submission
     if (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -218,28 +212,27 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(form);
             console.log('Form data:', Object.fromEntries(formData));
 
-            fetch('/Account/Registration', {
-                method: 'POST',
-                body: formData
-            })
+            fetch(form.action, { method: 'POST', body: formData })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
+                        console.error('Response not OK:', response);
+                        return response.text().then(text => { throw new Error(text); });
                     }
                     return response.json();
                 })
                 .then(data => {
                     console.log('Server response:', data);
                     if (data.success) {
-                        alert(data.message);
+                        alert(data.message || 'Registration successful!');
                         location.reload();
                     } else {
-                        alert(data.message || 'An error occurred.');
+                        console.error('Server-side error:', data);
+                        alert(data.message || 'An error occurred during registration.');
                     }
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
-                    alert('An internal error occurred.');
+                    alert(`An error occurred: ${error.message}`);
                 });
         });
     } else {
@@ -247,6 +240,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.getElementById('loginForm');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission behavior
+
+            // Create a FormData object for the form
+            const formData = new FormData(loginForm);
+
+            // Log form data (debugging purpose)
+            console.log('Form data:', Object.fromEntries(formData));
+
+            // Fetch API to handle login
+            fetch(loginForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                
+                .catch(error => {
+                    console.error('Error during login:', error);
+                    alert('An internal error occurred while processing your login.');
+                });
+        });
+    } else {
+        console.error('Login form not found.');
+    }
+});
 
 
 

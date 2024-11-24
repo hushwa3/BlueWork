@@ -10,7 +10,7 @@ namespace BlueWork.web.BlueWorkAuth
     {
 
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString("N");
         [Required(ErrorMessage = "First Name is required.")]
         [MaxLength(50, ErrorMessage = "Max 50 characters allowed.")]
         public string FirstName { get; set; }

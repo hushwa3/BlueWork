@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos.Serialization.HybridRow;
+using System.Dynamic;
 using System.Security.Claims;
 
 namespace BlueWork.web.Controllers
@@ -26,23 +28,18 @@ namespace BlueWork.web.Controllers
         }
 
        public async Task<IActionResult> GoogleResponse()
-{
-        var authResult = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-    
-        // Extract claims from Google authentication
-        var claims = authResult.Principal.Identities.FirstOrDefault()?.Claims.ToList();
-        if (claims == null)
-        {
-            return RedirectToAction("Login", "Account"); // Redirect to login if no claims
-        }
+    {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        // Create a claims identity for the application
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claims = result.Principal.Identities.FirstOrDefault().Claims.Select(claim => new
+            {
+                claim.Issuer,
+                claim.OriginalIssuer,
+                claim.Type,
+                claim.Value
+            });
 
-        // Sign in user and create authentication cookie
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-
-        return RedirectToAction("Home", "Home");
+            return RedirectToAction("Home", "Home", new { area = ""});
     }
 
         public async Task<IActionResult> Logout()

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace BlueWork.web.Models
 {
@@ -31,8 +30,6 @@ namespace BlueWork.web.Models
         public required string Role { get; set; }
 
         // Navigation properties (one-to-one relationships)
-        [ValidateNever]
-        public virtual ICollection<Login> Logins { get; set; }
-        
+        public virtual Login Login { get; set; }
     }
 }

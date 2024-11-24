@@ -19,6 +19,6 @@ namespace BlueWork.web.Models
         [ForeignKey("RegistrationID")]
         public int RegistrationID { get; set; }
         // Navigation property (one-to-one relationship with Registration)
-        public virtual ICollection<Registration> Registrations { get; set; }
+        public virtual Registration Registration { get; set; }
     }
 }

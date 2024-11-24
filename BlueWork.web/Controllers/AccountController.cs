@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using BlueWork.web.Data;
 using BlueWork.web.Models;
 using System.Security.Claims;
-using System.Linq;
-using BlueWork.web.BlueWorkAuth;
 using Newtonsoft.Json;
+using BlueWork.web.BlueWorkAuth;
 
 namespace BlueWork.web.Controllers
 {
@@ -34,40 +33,27 @@ namespace BlueWork.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var account = _context.UserAccounts
-                    .FirstOrDefault(u => u.Email == model.Email && VerifyPassword(model.Password, u.Password));
+                return Json(new { success = false, message = "Invalid form submission." });
+            }
 
-                if (account != null)
-                {
-                    // Create claims for authenticated user
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, account.Email),
-                        new Claim(ClaimTypes.GivenName, account.FirstName),
-                        new Claim(ClaimTypes.Role, account.Role)
-                    };
-
-                    // Create identity and sign in
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-
-                    return Json(new { success = true, redirectUrl = Url.Action("Home", "Home") });
-                }
-
+            var account = _context.UserAccounts.FirstOrDefault(u => u.Email == model.Email);
+            if (account == null || !VerifyPassword(model.Password, account.Password))
+            {
                 return Json(new { success = false, message = "Invalid email or password." });
             }
 
-            // Return validation errors
-            var errors = ModelState
-                .Where(m => m.Value.Errors.Any())
-                .ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, account.Email),
+                new Claim(ClaimTypes.Role, account.Role)
+            };
 
-            return Json(new { success = false, errors });
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+            return Json(new { success = true, redirectUrl = Url.Action("Home", "Home") });
         }
 
         // GET: Registration
@@ -81,12 +67,11 @@ namespace BlueWork.web.Controllers
         // POST: Registration
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(Registration model)
         {
             try
             {
-                Console.WriteLine($"Incoming Data: {JsonConvert.SerializeObject(model)}");
-
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState
@@ -96,16 +81,16 @@ namespace BlueWork.web.Controllers
                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                         );
 
-                    Console.WriteLine("Validation Errors: " + JsonConvert.SerializeObject(errors));
+                    Console.WriteLine(JsonConvert.SerializeObject(errors));
                     return Json(new { success = false, errors });
                 }
 
                 if (_context.UserAccounts.Any(u => u.Email == model.Email))
                 {
-                    Console.WriteLine("Duplicate email detected: " + model.Email);
                     return Json(new { success = false, message = "Email already exists." });
                 }
 
+                // Assign a unique ID (for string-based RegisterID, adjust UserAccount)
                 var account = new UserAccount
                 {
                     FirstName = model.FirstName,
@@ -118,24 +103,14 @@ namespace BlueWork.web.Controllers
                 _context.UserAccounts.Add(account);
                 await _context.SaveChangesAsync();
 
-                Console.WriteLine("User registered successfully.");
                 return Json(new { success = true, message = "Registration successful!" });
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred: {ex.Message}");
-                Console.WriteLine(ex.StackTrace);
-                return Json(new { success = false, message = "An internal error occurred." });
+                return Json(new { success = false, message = "An internal error occurred.", error = ex.Message });
             }
         }
-
-
-
-
-
-
-
-
 
         // POST: Logout
         [HttpPost]

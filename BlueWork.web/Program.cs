@@ -2,8 +2,12 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container
+builder.Services.AddControllersWithViews();
 
 // Configure Authentication
 builder.Services.AddAuthentication(options =>
@@ -11,53 +15,63 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie(options =>
-{
-    options.LoginPath = "/Account/Login"; // Redirect unauthenticated users here
-    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect unauthorized users here
-}) 
+.AddCookie()
 .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 {
     options.ClientId = builder.Configuration.GetValue<string>("GoogleKeys:ClientId");
     options.ClientSecret = builder.Configuration.GetValue<string>("GoogleKeys:ClientSecret");
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
-    
-
-
-// Add services to the container
-builder.Services.AddControllersWithViews();
-
-// Register DbContexts
+// Register DbContext
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FirstConnection")));
+{
+    try
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("FirstConnection"))
+               .EnableSensitiveDataLogging(); // Enable for debugging
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Database connection failed: {ex.Message}");
+        throw;
+    }
+});
 
 // Build the app
 var app = builder.Build();
-// Configure middleware for error handling
+
+// Error handling
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage(); // This enables detailed error messages
+    app.UseDeveloperExceptionPage();
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler(errorApp =>
+    {
+        errorApp.Run(async context =>
+        {
+            var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+            var exception = exceptionHandlerPathFeature?.Error;
+
+            // Log exception
+            Console.WriteLine($"Unhandled exception: {exception?.Message}");
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync("An internal server error occurred.");
+        });
+    });
     app.UseHsts();
 }
 
-
-// Configure middleware
-app.UseHttpsRedirection();
+// Middleware configuration
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map default controller route
+// Route mapping
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");
 
-// Run the application
 app.Run();
