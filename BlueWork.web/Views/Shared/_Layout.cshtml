@@ -26,10 +26,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">Become an Employer</a>
                         </li>
-                        @await Html.PartialAsync("LoginPartial") 
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
+
         </nav>
     </header>
     <div class="container-home">

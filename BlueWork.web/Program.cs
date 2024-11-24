@@ -3,13 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddControllersWithViews();
 
-// Configure Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -22,25 +21,16 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration.GetValue<string>("GoogleKeys:ClientSecret");
 });
 
-// Register DbContext
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
-{
-    try
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("FirstConnection"))
-               .EnableSensitiveDataLogging(); // Enable for debugging
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Database connection failed: {ex.Message}");
-        throw;
-    }
-});
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
 
-// Build the app
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EntityDbContext>();
+
+builder.Services.AddDbContext<EntityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
+
 var app = builder.Build();
 
-// Error handling
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -54,7 +44,6 @@ else
             var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
             var exception = exceptionHandlerPathFeature?.Error;
 
-            // Log exception
             Console.WriteLine($"Unhandled exception: {exception?.Message}");
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync("An internal server error occurred.");
@@ -63,13 +52,11 @@ else
     app.UseHsts();
 }
 
-// Middleware configuration
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Route mapping
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");
