@@ -247,6 +247,9 @@ body {
     z-index: 9999;
     background-color: white;
 }
+.googlebtn{
+    width: 100%;
+}
 .pop-p{
     font-size: 1.3rem;
 }
@@ -387,7 +390,8 @@ a {
 }
 
 .content2 {
-    margin-top: 20px;
+    margin-top: 1rem;
+    font-size: 1.8rem;
 }
 
 .buttons button {
@@ -506,7 +510,7 @@ a {
     padding-top: 1%;
     z-index: 99999;
     background-color: white;
-    min-height: 55vh;
+    min-height: 60vh;
 }
 
 .profile-setup-container 
