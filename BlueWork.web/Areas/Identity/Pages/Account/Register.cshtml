@@ -5,7 +5,7 @@
 }
 
 <body class="client">
-<div class="container-fluid container-pop4" style="display: block">
+<div class="container-fluid container-pop4">
     <h5 style="overflow-y: hidden;" class="content2 text-center mb-3">Join <br> Bluework</h5>
 <div class="row p-4">
     <div class="col-md-12">
@@ -59,7 +59,10 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Register</button>
+                    <p class="member1">
+                        Already have an account? <a class="text-primary" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a>
+                    </p>
         </form>
     </div>
     

@@ -359,6 +359,7 @@ body {
 .member1{
     font-size: 13px;
     color: #B9B7B7;
+    display:flex;
 }
 
 a {
@@ -494,7 +495,7 @@ a {
     padding-top: 1%;
     z-index: 9999;
     background-color: white;
-    min-height: 75vh;
+    min-height: 60vh;
 }
 
 .container-pop4 {
