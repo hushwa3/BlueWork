@@ -5,44 +5,7 @@
 }
 
 <body class="client">
-<div class="container-fluid container-pop h-60" id="pop1">
-    <div class="top-content text-center">
-        <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
-        <p class="pop-p">Join as a Client or Worker</p>
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <input type="hidden" asp-for="Input.Role" id="roleInput" />
-        <div class="row row-pop">
-            <div class="col first-pop option-card" data-type="client">
-                <div class="content1">
-                    <i class="fa-solid fa-user-tie fa-3x"></i>
-                    <p class="box">I'm a client looking to hire for a project</p>
-                    <div class="selected-indicator"></div>
-                </div>
-            </div>
-
-            <div class="col second-pop option-card" data-type="worker">
-                <div class="content1">
-                    <i class="fa-solid fa-user fa-3x"></i>
-                    <p class="box">I'm a worker looking to work on a project</p>
-                    <div class="selected-indicator"></div>
-                </div>
-            </div>
-            <span asp-validation-for="Input.Role" class="text-danger"></span>
-        </div>
-        </form>
-        <button id="createAccountBtn" class="mb-3">Create Account</button>
-        <button class="action-button" id="actionBtn" style="display: none;"></button>
-        <hr>
-            <p class="member">Already a member? <a class="text-primary" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a></p>
-    </div>
-</div>
-
-
-
-
-
-
-<div class="container-fluid container-pop4" id="pop3" style="display: none">
+<div class="container-fluid container-pop4">
     <h5 style="overflow-y: hidden;" class="content2 text-center mb-3">Join <br> Bluework</h5>
 <div class="row p-4">
     <div class="col-md-12">
@@ -66,7 +29,7 @@
                                     <p>
                                         @foreach (var provider in Model.ExternalLogins!)
                                         {
-                                            <button type="submit" class="btn btn-primary googlebtn" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                            <button type="submit" class="btn googlebtn" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-google fa-b"></i>Continue with @provider.DisplayName</button>
                                         }
                                     </p>
                                 </div>
@@ -105,6 +68,13 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+             <div class="form-floating mb-3">
+                <select asp-for="Input.Role" asp-items="@Model.Input.RolesList" class="form-select" aria-required="true"> 
+                    <option disabled selected>Select Role</option>
+                </select>
+                <label asp-for="Input.Role">Role</label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Register</button>
                     <p class="member1">

@@ -21,10 +21,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-flex justify-content-end">
                     <ul class="nav navbar navbar-right">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Home">Explore</a>
-                        </li>
-                       
+                        @if (User.IsInRole("Worker"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JobsView">Explore Jobs</a>
+                            </li>
+                        }
                         <partial name="_LoginPartial" />
                     </ul>
                     
