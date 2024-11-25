@@ -3,11 +3,14 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    var email = UserManager.GetUserName(User); // Get the user's email
+    var firstName = email?.Split('@')[0].Split('.')[0].Split('_')[0]; // Extract the part before '@' and handle separators (like dots or underscores)
+    firstName = string.IsNullOrEmpty(firstName) ? "User" : char.ToUpper(firstName[0]) + firstName.Substring(1).ToLower(); // Capitalize first letter
+
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @firstName!</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Home", "Home", new { area = "" })">
@@ -24,4 +27,3 @@ else
         <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-</ul>

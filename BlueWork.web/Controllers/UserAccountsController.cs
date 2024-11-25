@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlueWork.web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserAccountsController : Controller
     {
         private readonly EntityDbContext _context;
@@ -23,7 +24,7 @@ namespace BlueWork.web.Controllers
         // GET: UserAccounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserAccounts.ToListAsync());
+            return View(await _context.ApplicationUsers.ToListAsync());
         }
 
         // GET: UserAccounts/Details/5
@@ -34,14 +35,14 @@ namespace BlueWork.web.Controllers
                 return NotFound();
             }
 
-            var userAccount = await _context.UserAccounts
+            var ApplicationUser = await _context.ApplicationUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userAccount == null)
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userAccount);
+            return View(ApplicationUser);
         }
 
         // GET: UserAccounts/Create
@@ -55,15 +56,15 @@ namespace BlueWork.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] UserAccount userAccount)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName")] ApplicationUser applicationUsers)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userAccount);
+                _context.Add(applicationUsers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(userAccount);
+            return View(applicationUsers);
         }
 
         // GET: UserAccounts/Edit/5
@@ -74,12 +75,12 @@ namespace BlueWork.web.Controllers
                 return NotFound();
             }
 
-            var userAccount = await _context.UserAccounts.FindAsync(id);
-            if (userAccount == null)
+            var ApplicationUser = await _context.ApplicationUsers.FindAsync(id);
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
-            return View(userAccount);
+            return View(ApplicationUser);
         }
 
         // POST: UserAccounts/Edit/5
@@ -87,9 +88,9 @@ namespace BlueWork.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName")] UserAccount userAccount)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName")] ApplicationUser applicationUsers)
         {
-            if (id != userAccount.Id)
+            if (id != applicationUsers.Id)
             {
                 return NotFound();
             }
@@ -98,12 +99,12 @@ namespace BlueWork.web.Controllers
             {
                 try
                 {
-                    _context.Update(userAccount);
+                    _context.Update(applicationUsers);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserAccountExists(userAccount.Id))
+                    if (!UserAccountExists(applicationUsers.Id))
                     {
                         return NotFound();
                     }
@@ -114,7 +115,7 @@ namespace BlueWork.web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userAccount);
+            return View(applicationUsers);
         }
 
         // GET: UserAccounts/Delete/5
@@ -140,10 +141,10 @@ namespace BlueWork.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var userAccount = await _context.UserAccounts.FindAsync(id);
-            if (userAccount != null)
+            var applicationUsers = await _context.ApplicationUsers.FindAsync(id);
+            if (applicationUsers != null)
             {
-                _context.UserAccounts.Remove(userAccount);
+                _context.ApplicationUsers.Remove(applicationUsers);
             }
 
             await _context.SaveChangesAsync();

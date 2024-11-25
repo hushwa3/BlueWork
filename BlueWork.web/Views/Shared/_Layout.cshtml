@@ -26,11 +26,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Client_Profile">Become an Employer</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="EntityRoles" asp-action="Index">Roles</a>
-                        </li>
+                        @if(User.IsInRole ("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserAccounts" asp-action="Index">User Accounts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="EntityRoles" asp-action="Index">Roles</a>
+                            </li>
+                        }
+                        <partial name="_LoginPartial" />
                     </ul>
-                    <partial name="_LoginPartial" />
+                    
                 </div>
             </div>
 

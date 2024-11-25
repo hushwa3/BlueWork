@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlueWork.web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EntityRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -502,8 +502,18 @@ a {
     margin-bottom: 10rem;
 }
 
-.profile-setup-container 
-{   
+.index-container{
+    margin: 4rem auto;
+    max-width: 80rem;
+    height: 80rem;
+    padding: 5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.30);
+    margin-bottom: 10rem;
+
+}
+.profile-setup-container {
     display: flex;
     justify-content: center;
     margin: 4rem auto;
