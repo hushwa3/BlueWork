@@ -21,13 +21,13 @@ namespace BlueWork.web.Controllers
             _context = context;
         }
 
-        // GET: UserAccounts
+        // GET: ApplicationUsers
         public async Task<IActionResult> Index()
         {
             return View(await _context.ApplicationUsers.ToListAsync());
         }
 
-        // GET: UserAccounts/Details/5
+        // GET: ApplicationUsers/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -45,13 +45,13 @@ namespace BlueWork.web.Controllers
             return View(ApplicationUser);
         }
 
-        // GET: UserAccounts/Create
+        // GET: ApplicationUsers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: UserAccounts/Create
+        // POST: ApplicationUsers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace BlueWork.web.Controllers
             return View(applicationUsers);
         }
 
-        // GET: UserAccounts/Edit/5
+        // GET: ApplicationUsers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace BlueWork.web.Controllers
             return View(ApplicationUser);
         }
 
-        // POST: UserAccounts/Edit/5
+        // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -104,7 +104,7 @@ namespace BlueWork.web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserAccountExists(applicationUsers.Id))
+                    if (!ApplicationUserExists(applicationUsers.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace BlueWork.web.Controllers
             return View(applicationUsers);
         }
 
-        // GET: UserAccounts/Delete/5
+        // GET: ApplicationUsers/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -126,17 +126,17 @@ namespace BlueWork.web.Controllers
                 return NotFound();
             }
 
-            var userAccount = await _context.UserAccounts
+            var applicationUser = await _context.ApplicationUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userAccount == null)
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userAccount);
+            return View(applicationUser);
         }
 
-        // POST: UserAccounts/Delete/5
+        // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -151,9 +151,9 @@ namespace BlueWork.web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserAccountExists(string id)
+        private bool ApplicationUserExists(string id)
         {
-            return _context.UserAccounts.Any(e => e.Id == id);
+            return _context.ApplicationUsers.Any(e => e.Id == id);
         }
     }
 }
