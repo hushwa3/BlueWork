@@ -905,6 +905,15 @@ textarea{
 .form-scope label {
     font-size: .8rem;
 }
+.budget label {
+    font-size: .8rem;
+}
+
+.budget-input {
+    width: 5rem;
+    padding: .1rem;
+    margin-left: .5rem;
+}
 
 /* Dropdown Menu */
 .profile-image {

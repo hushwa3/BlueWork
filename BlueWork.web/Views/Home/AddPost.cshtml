@@ -167,12 +167,35 @@
                 <h4 class="card-title m-4">Tell us about your budget</h4>
                 <p>This will help us match you to talent within your range.</p>
             </div>
-            <div class="mb-3 flex-grow-1">
-                <label for="headline-input" class="form-label">Search Skills or add your own</label>
-                <input type="text" class="form-control" style="margin-bottom: 7rem;" placeholder="Search skills">
+
+
+            <div class="mb-5 d-flex gap-3 form-scope justify-content-center fs-6 budget">
+                <div class="form-group  text-center">
+                    <label class="form-label fw-bold mb-4">Hourly Rate</label>
+                    <div class="d-flex mb-2">
+                        <label or="large">From: </label>
+                        <input class="form-control budget-input" type="text">
+                    </div>
+                    <div class="d-flex">
+                        <label or="large">To: </label>
+                        <input class="form-control budget-input" type="text" style="margin-left: 1.5rem;">
+                    </div>
+
+                </div>
+
+                <!-- Duration Group -->
+                <div class="form-group text-center">
+                    <label class="form-label fw-bold mb-3">Project Budget</label>
+                    <div class="form-check">
+                        <label class="mb-2">Maximum project budget</label>
+                        <input class="form-control p-1" type="text">
+
+                    </div>
+                </div>
             </div>
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-primary" id="next-scope">Next: Scope</button>
+                <button type="button" class="btn btn-primary" id="next-budget">Next: Details</button>
             </div>
         </div>
     </div>

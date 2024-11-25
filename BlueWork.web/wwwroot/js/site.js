@@ -17,8 +17,10 @@ const actionBtn = document.getElementById('actionBtn');
 const createBtn = document.getElementById('createAccountBtn');
 const nextSkills = document.getElementById('next-skills');
 const nextScope = document.getElementById('next-scope');
+const nextBudget = document.getElementById('next-budget');
 const skills = document.getElementById('skills');
 const scope = document.getElementById('scope');
+const budget = document.getElementById('budget');
 
 // Add backdrop for popups
 const backdrop = document.createElement('div');
@@ -37,7 +39,7 @@ backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
-    [pop2, headlineCard, skills, scope].forEach((popup) => {
+    [pop2, headlineCard, skills, scope, budget].forEach((popup) => {
         if (popup) popup.style.display = 'none';
     });
     backdrop.style.display = 'none';
@@ -45,7 +47,7 @@ const closeAllPopups = () => {
 
 // Handle click outside popups
 document.addEventListener('click', (event) => {
-    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope].some(
+    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope, budget].some(
         (element) => element && element.contains(event.target)
     );
 
@@ -55,7 +57,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Stop propagation of clicks inside popups
-[pop1, pop2, pop3, headlineCard, skills, scope].forEach((popup) => {
+[pop1, pop2, pop3, headlineCard, skills, scope, budget].forEach((popup) => {
     if (popup) {
         popup.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -180,6 +182,20 @@ if (nextScope) {
             $(headlineCard).fadeOut(100);
             $(skills).fadeOut(100);
             $(scope).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        }
+    });
+}
+
+if (nextBudget) {
+    nextBudget.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeAllPopups();
+        if (budget) {
+            $(headlineCard).fadeOut(100);
+            $(skills).fadeOut(100);
+            $(scope).fadeOut(100);
+            $(budget).fadeIn(500);
             $(backdrop).fadeIn(500);
         }
     });
