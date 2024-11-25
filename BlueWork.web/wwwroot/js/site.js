@@ -37,7 +37,7 @@ backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
-    [pop1, pop2, pop3, headlineCard, skills, scope].forEach((popup) => {
+    [pop2, headlineCard, skills, scope].forEach((popup) => {
         if (popup) popup.style.display = 'none';
     });
     backdrop.style.display = 'none';
@@ -116,9 +116,12 @@ if (register1) {
 cards.forEach((card) => {
     card.addEventListener('click', () => {
         cards.forEach((c) => c.classList.remove('selected'));
+        const roleInput = document.querySelector("input[name='Input.Role']");
         card.classList.add('selected');
+
         const selectedRole = card.dataset.type;
 
+        roleInput.value = card.dataset.value;
         if (roleInput) {
             roleInput.value = selectedRole;
         }
@@ -128,6 +131,7 @@ cards.forEach((card) => {
             actionBtn.style.display = 'block';
             actionBtn.textContent =
                 selectedRole === 'client' ? 'Join as a Client' : 'Apply as a Worker';
+          
         }
     });
 });
@@ -139,7 +143,6 @@ if (actionBtn) {
         if (pop3) {
             $(pop1).fadeOut(100);
             $(pop3).fadeIn(500);
-            $(backdrop).fadeIn(500);
         }
     });
 }
@@ -181,7 +184,11 @@ if (nextScope) {
         }
     });
 }
-
+function handleLogout() {
+    // Add your logout logic here
+    console.log('Logging out...');
+    alert('Logging out...');
+}
 
 
 

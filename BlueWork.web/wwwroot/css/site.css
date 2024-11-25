@@ -235,17 +235,13 @@ body {
     font-size: 2rem;
 }
 .container-pop {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 26rem;
-    border: 1px solid black;
+    margin: 4rem auto;
+    max-width: 30rem;
+    padding: 2rem;
+    background: white;
     border-radius: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    z-index: 9999;
-    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-bottom: 10rem;
 }
 .googlebtn{
     width: 100%;
@@ -911,4 +907,28 @@ textarea{
 }
 .form-scope label {
     font-size: .8rem;
+}
+
+/* Dropdown Menu */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    min-width: 200px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
 }
