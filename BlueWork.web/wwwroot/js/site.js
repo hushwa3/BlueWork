@@ -20,6 +20,7 @@ const nextScope = document.getElementById('next-scope');
 const nextBudget = document.getElementById('next-budget');
 const skills = document.getElementById('skills');
 const scope = document.getElementById('scope');
+const details = document.getElementById('details');
 const budget = document.getElementById('budget');
 
 // Add backdrop for popups
@@ -39,7 +40,7 @@ backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
-    [pop2, headlineCard, skills, scope, budget].forEach((popup) => {
+    [pop2, headlineCard, skills, scope, budget, details].forEach((popup) => {
         if (popup) popup.style.display = 'none';
     });
     backdrop.style.display = 'none';
@@ -47,7 +48,7 @@ const closeAllPopups = () => {
 
 // Handle click outside popups
 document.addEventListener('click', (event) => {
-    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope, budget].some(
+    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope, budget, details].some(
         (element) => element && element.contains(event.target)
     );
 
@@ -57,7 +58,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Stop propagation of clicks inside popups
-[pop1, pop2, pop3, headlineCard, skills, scope, budget].forEach((popup) => {
+[pop1, pop2, pop3, headlineCard, skills, scope, budget, details].forEach((popup) => {
     if (popup) {
         popup.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -181,7 +182,8 @@ if (nextScope) {
         if (scope) {
             $(headlineCard).fadeOut(100);
             $(skills).fadeOut(100);
-            $(scope).fadeIn(500);
+            $(scope).fadeOut(500);
+            $(details).fadeIn(500);
             $(backdrop).fadeIn(500);
         }
     });

@@ -106,8 +106,8 @@
                 </div>
 
                 <!-- Duration Group -->
-                <div class="form-group">
-                    <label class="form-label fw-bold">Duration</label>
+                <div class="form-group text-center">
+                    <label class="form-label fw-bold ">Duration</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="duration" id="threeToSix" value="3-6 months">
                         <label class="form-check-label" for="threeToSix">3 - 6 months</label>
@@ -196,6 +196,56 @@
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="button" class="btn btn-primary" id="next-budget">Next: Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="card card-post" style="min-height: 45vh; width: 20vw; display: none; z-index: 9999;" id="details">
+        <div class="card-body p-4 d-flex flex-column" id="headline-section">
+            <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Headline
+                    </div>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Skills
+                    </div>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Scope
+                    </div>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        Budget
+                    </div>
+                </div>
+                <h4 class="card-title mb-4 ">Last step, start the conversation</h4>
+                <p>
+                    Talent are looking for: <br>
+                    - Clear expectations about your task or deliverables <br>
+                    - The skills required for your work <br>
+                </p>
+            </div>
+
+
+            <div class="mb-5 form-scope justify-content-center fs-6 budget">
+                <div class="form-group">
+                    <label class="form-label fw-bold mb-2">Title</label>
+                    <div class="mb-2">
+                        <input class="form-control w-100 p-2" type="text">
+                    </div>
+
+                </div>
+
+                <!-- Duration Group -->
+                <div class="">
+                    <label class="form-label fw-bold mb-2">Description</label>
+                </div>
+                <textarea name="Description" style="resize: none; border-color: #ccc; border-radius: 8px; height: 5rem; width: 100%;"></textarea>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary" id="next-scope">Add Post</button>
             </div>
         </div>
     </div>
