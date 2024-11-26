@@ -1,39 +1,21 @@
-﻿@{
+﻿@model List<BlueWork.web.Models.JobPost>
+@{
     ViewData["Title"] = "Client Dashboard";
 }
 <div class="container container-dash mt-5 mb-3">
-    <h1 class="mb-4">@ViewData["Title"]</h1>
-
+    
     <div class="row mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h5 mb-0">Your Job Postings</h2>
-                        <a class="navbar-brand text-blue fs-6" asp-area="" asp-controller="Home" asp-action="JobPost">See all Postings</a>
-                    </div>
-
-                    <div class="mb-3">
-                        <a href="#" class="job-link fw-bold">Borj Khalifa Skyscraper Construction</a>
-                        <div class="job-meta">Fixed - $$$ - Public</div>
-                        <div class=" mt-2">
-                            <div class="text-muted small">Created 69 hrs ago</div>
-                            <div class="stats d-flex justify-content-end">
-                                <div class="stats-item">4 Proposals</div>
-                                <div class="stats-item">3 Messaged</div>
-                                <div class="stats-item">0 Hired</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-9">
+            <h1 class="mb-4">@ViewData["Title"]</h1>
         </div>
+        <div class="col-md-3">
+            <button class="justify-content-end btn btn-primary post-job-btn w-50 mb-2" id="add-post">
+                <i class="fa-solid fa-plus"></i> Post a job
+            </button>
 
-        <div class="col-md-4 mt-5">
-            <button class="btn btn-primary post-job-btn w-50 mb-2" id="add-post">Post a job</button>
-            <button class="btn browse-btn w-50">Browse Project Catalog</button>
         </div>
     </div>
+    
     <div class="card card-dash">
         <div class="card-body">
             <h3 class="h5 mb-3">How to work with talent</h3>
@@ -50,6 +32,43 @@
             </ul>
         </div>
     </div>
-    @await Html.PartialAsync("~/Views/Home/AddPost.cshtml");
+    <div>
+       <h1 class="mb-5 mt-3">Your Job Postings</h1>
+    </div>
+     @if (Model != null && Model.Any())
+    {
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            @foreach (var job in Model)
+                            {
+                                <a href="#" class="job-link fw-bold">@job.Headline</a>
+                                <div class="job-meta">Fixed - $$$ - Public</div>
+                                <div class=" mt-2">
+                                    <div class="text-muted small">Created 69 hrs ago</div>
+                                    <div class="stats d-flex justify-content-end">
+                                        <div class="stats-item">0 Proposals</div>
+                                        <div class="stats-item">0 Messaged</div>
+                                        <div class="stats-item">0 Hired</div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+  
 </div>
-   
+
+
+ <div class="container my-5 d-flex justify-content-center align-items-center">
+        <div class="card card-post" id="headline-card" style="min-height: 55vh; width: 20vw;">
+            <div class="card-body">
+            @await Html.PartialAsync("AddPost", new BlueWork.web.Models.AddPostModel.InputModel())
+            </div>
+        </div>
+</div>

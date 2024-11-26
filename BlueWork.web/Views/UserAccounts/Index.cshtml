@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<BlueWork.web.Models.ApplicationUser>
-
 @{
     ViewData["Title"] = "User Accounts";
 }
@@ -42,7 +41,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
-            </td>             
+            </td>  
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

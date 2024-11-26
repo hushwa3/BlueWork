@@ -18,10 +18,12 @@ const createBtn = document.getElementById('createAccountBtn');
 const nextSkills = document.getElementById('next-skills');
 const nextScope = document.getElementById('next-scope');
 const nextBudget = document.getElementById('next-budget');
+const nextDetails = document.getElementById('next-details');
 const skills = document.getElementById('skills');
 const scope = document.getElementById('scope');
 const details = document.getElementById('details');
 const budget = document.getElementById('budget');
+const laststep = document.getElementById('laststep');
 
 // Add backdrop for popups
 const backdrop = document.createElement('div');
@@ -40,7 +42,7 @@ backdrop.style.zIndex = 10;
 
 // Helper function to close all popups
 const closeAllPopups = () => {
-    [pop2, headlineCard, skills, scope, budget, details].forEach((popup) => {
+    [pop2, headlineCard, skills, scope, budget, details, laststep].forEach((popup) => {
         if (popup) popup.style.display = 'none';
     });
     backdrop.style.display = 'none';
@@ -48,7 +50,7 @@ const closeAllPopups = () => {
 
 // Handle click outside popups
 document.addEventListener('click', (event) => {
-    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope, budget, details].some(
+    const isClickOutside = ![pop1, pop2, pop3, headlineCard, skills, scope, budget, details, laststep].some(
         (element) => element && element.contains(event.target)
     );
 
@@ -58,7 +60,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Stop propagation of clicks inside popups
-[pop1, pop2, pop3, headlineCard, skills, scope, budget, details].forEach((popup) => {
+[pop1, pop2, pop3, headlineCard, skills, scope, budget, details, laststep].forEach((popup) => {
     if (popup) {
         popup.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -180,10 +182,8 @@ if (nextScope) {
         event.stopPropagation();
         closeAllPopups();
         if (scope) {
-            $(headlineCard).fadeOut(100);
             $(skills).fadeOut(100);
-            $(scope).fadeOut(500);
-            $(details).fadeIn(500);
+            $(scope).fadeIn(500);
             $(backdrop).fadeIn(500);
         }
     });
@@ -194,10 +194,19 @@ if (nextBudget) {
         event.stopPropagation();
         closeAllPopups();
         if (budget) {
-            $(headlineCard).fadeOut(100);
-            $(skills).fadeOut(100);
             $(scope).fadeOut(100);
             $(budget).fadeIn(500);
+            $(backdrop).fadeIn(500);
+        }
+    });
+}
+if (nextDetails) {
+    nextDetails.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeAllPopups();
+        if (budget) {
+            $(budget).fadeOut(100);
+            $(laststep).fadeIn(500);
             $(backdrop).fadeIn(500);
         }
     });

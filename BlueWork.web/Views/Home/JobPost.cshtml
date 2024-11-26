@@ -1,11 +1,11 @@
-﻿
+﻿@model List<BlueWork.web.Models.JobPost>
 @{
     ViewData["Title"] = "Job Post";
 }
 
 <div class="container mt-5">
     <!-- Title -->
-    <h2 class="mb-4">Borj Khalifa Skyscraper Construction</h2>
+    <h2 class="mb-4">Job Title</h2>
 
     <!-- Progress Bar -->
     <div class="row mb-4">
@@ -31,28 +31,48 @@
     <!-- Main Content -->
     <div class="row">
         <!-- Left Column -->
+
         <div class="col-md-8 mt-5">
+             @if (Model != null && Model.Any())
+            {
             <div class="card mb-4">
-                <div class="card-body rounded">
-                    <h5 class="card-title">Skyscraper Construction</h5>
-                    <p class="text-muted">Created 69 hours ago</p>
-                    <p class="text-muted">Philippines</p>
-
-                    <div class="mt-4">
-                        <p>Good day, everyone!</p>
-                        <p>
-                            As a project owner seeking to hire a skilled and reliable construction worker, I am in search of a dedicated
-                            professional who can bring their expertise and contribute to the success of my construction project.
-                        </p>
-
-                        <p>
-                            If you are a construction worker who takes pride in their work, demonstrates professionalism, and has a strong work ethic,
-                            I would be thrilled to connect with you and discuss how you can be an integral part of my construction project.
-                        </p>
-                        <p>Thanks!</p>
+                    @foreach (var job in Model)
+                    {
+                    <div class="card-body rounded">
+                            <h5 class="card-title">@job.Headline</h5>
+                        <p class="text-muted">Created 69 hours ago</p>
+                        <p class="text-muted">Philippines</p>
+                        <hr />
+                        <div class="mt-4">
+                                <p>@job.Description</p>
+                        </div>
+                        <hr/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><i class="fa-solid fa-check-to-slot"></i> Complexity</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><i class="fa-solid fa-check-to-slot"></i> Duration</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><i class="fa-solid fa-check-to-slot"></i> Experience</p>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <p><i class="fa-solid fa-clock"></i> Hourly Rate: ₱@job.HourlyRateFrom - ₱@job.HourlyRateTo</p>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <p><i class="fa-solid fa-clock"></i> Project Budget:  ₱@job.ProjectBudget</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div>
+                        <p>Skills required:</p>
+                        <button type="button" class="btn text-light rounded"> @job.Skills</button>
                     </div>
                 </div>
+                }
             </div>
+            }
         </div>
 
         <!-- Right Column -->
