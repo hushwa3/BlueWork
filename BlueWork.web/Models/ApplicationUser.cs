@@ -8,5 +8,6 @@ namespace BlueWork.web.Models
         public string LastName { get; set; }
 
         public virtual ICollection<JobPost> JobPosts { get; set; }
+
     }
 }
