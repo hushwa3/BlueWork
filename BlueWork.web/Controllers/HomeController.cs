@@ -44,32 +44,10 @@ namespace BlueWork.web.Controllers
         [Authorize(Roles = "Client")]
         public IActionResult Client_Dashboard()
         {
-            var userId = _userManager.GetUserId(User);
-
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
-
-            var jobPosts = GetAddPostModels();
-            return View(jobPosts); // Passes the job posts to the view
+            return View(); // Passes the job posts to the view
         }
 
-        private List<JobPost> GetAddPostModels()
-        {
-            var userId = _userManager.GetUserId(User);
-
-            if (userId == null)
-            {
-                return [];
-            }
-
-            // Retrieve all job posts created by the logged-in user
-            return _context.JobPosts
-                .Where(job => job.UserId == userId)
-                .ToList();
-        }
-
+     
         public IActionResult JobsView()
         {
             return View();
