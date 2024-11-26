@@ -3,21 +3,33 @@
 @{
     ViewData["Title"] = "Add Post";
 }
-<form asp-action="AddPost" method="post">
+<!-- Headline Input -->
+<form method="post" asp-controller="Home" asp-action="AddPost">
     <div asp-validation-summary="All" class="text-danger"></div>
-
-    <!-- Headline Section -->
     <div class="container my-5 d-flex justify-content-center align-items-center">
-        <div class="card card-post" id="headline-card" style="min-height: 55vh; width: 20vw;">
-            <div class="card-body">
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-success" style="width: 25%;">Headline</div>
+        <div class="card card-post" style="min-height: 55vh; width: 20vw; display: none; z-index: 9999;" id="headline-card">
+            <div class="card-body p-4 d-flex flex-column" id="headline-section">
+                <div class="content-card text-light rounded p-4 mb-4">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Headline
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Skills
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Scope
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Budget
+                        </div>
+                    </div>
+                    <h4 class="card-title">Let's start with a strong headline</h4>
+                    <p class="card-text">This helps your job post stand out to the right candidates. It's the first thing they'll see, so make it count!</p>
                 </div>
-                <h4 class="card-title">Write a strong headline</h4>
-                <p>This helps your job post stand out to the right candidates.</p>
-                <div class="form-group">
-                    <label for="headline-input">Job Headline</label>
-                    <input asp-for="Headline" class="form-control" placeholder="Enter headline" />
+                <div class="mb-3 flex-grow-1">
+                    <label for="headline-input" class="form-label">Write a headline for your job post</label>
+                    <input asp-for="Headline" id="title" class="form-control" placeholder="Enter headline" />
                     <span asp-validation-for="Headline" class="text-danger"></span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -26,18 +38,30 @@
             </div>
         </div>
     </div>
-
-    <!-- Skills Section -->
-    <div class="container my-5 d-flex justify-content-center align-items-center" style="display: none;" id="skills-card">
-        <div class="card card-post" style="min-height: 45vh; width: 20vw;">
-            <div class="card-body">
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-success" style="width: 50%;">Skills</div>
+    <!-- Skills Input -->
+    <div class="container my-5 d-flex justify-content-center align-items-center">
+        <div class="card card-post" style="min-height: 45vh; width: 20vw; display: none; z-index: 9999;" id="skills">
+            <div class="card-body p-4 d-flex flex-column" id="headline-section">
+                <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Headline
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Skills
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Scope
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Budget
+                        </div>b 
+                    </div>
+                    <h4 class="card-title">What are the main skills required for your work?</h4>
                 </div>
-                <h4 class="card-title">What skills are required?</h4>
-                <div class="form-group">
-                    <label for="skills-input">Enter Skills</label>
-                    <textarea asp-for="Skills" class="form-control" placeholder="e.g., Python, Design, Project Management"></textarea>
+                <div class="mb-3 flex-grow-1">
+                    <label class="form-label fw-bold">Search Skills or add your own</label>
+                    <input asp-for="Skills" id="skills" class="form-control" placeholder="Enter Skills" />
                     <span asp-validation-for="Skills" class="text-danger"></span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -46,43 +70,77 @@
             </div>
         </div>
     </div>
+    <!-- Scope Input -->
+    <div class="container my-5 d-flex justify-content-center align-items-center">
+        <div class="card card-post" style="min-height: 60vh; width: 20vw; display: none; z-index: 9999;" id="scope">
+            <div class="card-body p-4 d-flex flex-column" id="headline-section">
+                <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Headline
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Skills
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Scope
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Budget
+                        </div>
+                    </div>
+                    <h4 class="card-title mb-5">Next, estimate the scope of your work</h4>
+                    <p>Consider the size of your project and the time it will take.</p>
+                </div>
+                <div class="mb-5 d-flex gap-2 form-scope justify-content-center">
+                    <div class="form-group">
+                        <label class="form-label fw-bold">Complexity</label>
+                        <div class="form-check">
+                            <input asp-for="Complexity" type="radio" id="complexitySmall" class="form-check-input" value="Small" />
+                            <label for="complexitySmall" class="form-check-label">Small</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Complexity" type="radio" id="complexityMedium" class="form-check-input" value="Medium" />
+                            <label for="complexityMedium" class="form-check-label">Medium</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Complexity" type="radio" id="complexityLarge" class="form-check-input" value="Large" />
+                            <label for="complexityLarge" class="form-check-label">Large</label>
+                        </div>
+                    </div>
 
-    <!-- Scope Section -->
-    <div class="container my-5 d-flex justify-content-center align-items-center" style="display: none;" id="scope-card">
-        <div class="card card-post" style="min-height: 60vh; width: 20vw;">
-            <div class="card-body">
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-success" style="width: 75%;">Scope</div>
-                </div>
-                <h4 class="card-title">Define the scope of your work</h4>
-                <div class="form-group">
-                    <label>Complexity</label>
-                    <div class="form-check">
-                        <input asp-for="Complexity" type="radio" value="Small" class="form-check-input" />
-                        <label class="form-check-label">Small</label>
+                    <!-- Duration Group -->
+                    <div class="form-group text-center">
+                        <label class="form-label fw-bold ">Duration</label>
+                        <div class="form-check">
+                            <input asp-for="Duration" type="radio" id="durationLessThanOne" class="form-check-input" value="<1 month" />
+                            <label for="durationLessThanOne" class="form-check-label">&lt;1 month</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Duration" type="radio" id="durationOneToThree" class="form-check-input" value="1-3 months" />
+                            <label for="durationOneToThree" class="form-check-label">1-3 months</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Duration" type="radio" id="durationThreeToSix" class="form-check-input" value="3-6 months" />
+                            <label for="durationThreeToSix" class="form-check-label">3-6 months</label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input asp-for="Complexity" type="radio" value="Medium" class="form-check-input" />
-                        <label class="form-check-label">Medium</label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="Complexity" type="radio" value="Large" class="form-check-input" />
-                        <label class="form-check-label">Large</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Duration</label>
-                    <div class="form-check">
-                        <input asp-for="Duration" type="radio" value="<1 month" class="form-check-input" />
-                        <label class="form-check-label">Less than 1 month</label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="Duration" type="radio" value="1-3 months" class="form-check-input" />
-                        <label class="form-check-label">1-3 months</label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="Duration" type="radio" value="3-6 months" class="form-check-input" />
-                        <label class="form-check-label">3-6 months</label>
+
+                    <!-- Experience Group -->
+                    <div class="form-group">
+                        <label class="form-label fw-bold">Experience</label>
+                        <div class="form-check">
+                            <input asp-for="Experience" type="radio" id="experienceEntry" class="form-check-input" value="Entry" />
+                            <label for="experienceEntry" class="form-check-label">Entry</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Experience" type="radio" id="experienceIntermediate" class="form-check-input" value="Intermediate" />
+                            <label for="experienceIntermediate" class="form-check-label">Intermediate</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Experience" type="radio" id="experienceExpert" class="form-check-input" value="Expert" />
+                            <label for="experienceExpert" class="form-check-label">Expert</label>
+                        </div>
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -92,51 +150,107 @@
         </div>
     </div>
 
-    <!-- Budget Section -->
-    <div class="container my-5 d-flex justify-content-center align-items-center" style="display: none;" id="budget-card">
-        <div class="card card-post" style="min-height: 45vh; width: 20vw;">
-            <div class="card-body">
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-success" style="width: 100%;">Budget</div>
-                </div>
-                <h4 class="card-title">Specify your budget</h4>
-                <div class="form-group">
-                    <label>Hourly Rate</label>
-                    <div class="d-flex">
-                        <input asp-for="HourlyRateFrom" class="form-control me-2" placeholder="From" />
-                        <input asp-for="HourlyRateTo" class="form-control" placeholder="To" />
+    <!-- Budget Input -->
+    <div class="container my-5 d-flex justify-content-center align-items-center">
+        <div class="card card-post" style="min-height: 45vh; width: 20vw; display: none; z-index: 9999;" id="budget">
+            <div class="card-body p-4 d-flex flex-column" id="headline-section">
+                <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Headline
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Skills
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Scope
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Budget
+                        </div>
                     </div>
-                    <span asp-validation-for="HourlyRateFrom" class="text-danger"></span>
-                    <span asp-validation-for="HourlyRateTo" class="text-danger"></span>
+                    <h4 class="card-title m-4">Tell us about your budget</h4>
+                    <p>This will help us match you to talent within your range.</p>
                 </div>
-                <div class="form-group">
-                    <label>Project Budget</label>
-                    <input asp-for="ProjectBudget" class="form-control" placeholder="Enter budget" />
-                    <span asp-validation-for="ProjectBudget" class="text-danger"></span>
+
+                <div class="row"> 
+
+                <div class="mb-5 col-md-6 gap-3 form-scope justify-content-center fs-6 budget">
+                    <div class="form-group">
+                        <label class="form-label fw-bold mb-4">Hourly Rate</label>
+                        <div class="mb-2">
+                            <label class="form-label fw-bold">From: </label>
+                            <input asp-for="HourlyRateFrom" id="hourlyRate" class="form-control me-2" placeholder="₱" />
+                            <label class="form-label fw-bold">To: </label>
+                            <input asp-for="HourlyRateTo" class="form-control" placeholder="₱" />
+                        </div>
+                        <span asp-validation-for="HourlyRateFrom" class="text-danger"></span>
+                        <span asp-validation-for="HourlyRateTo" class="text-danger"></span>
+                    </div>
                 </div>
+
+                <!-- Duration Group -->
+                <div class="form-group text-center col-md-6">
+                    <label class="form-label fw-bold mb-3">Project Budget</label>
+                    <div class="form-check">
+                        <label class="mb-2" for="projectBudget">Maximum project budget</label>
+                            <input asp-for="ProjectBudget" id="projectBudget" class="form-control" placeholder="₱" />
+                        <span asp-validation-for="ProjectBudget" class="text-danger"></span>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary" id="next-details">Next: Details</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Description Input -->
+    <div class="container my-5 d-flex justify-content-center align-items-center">
+        <div class="card card-post" style="min-height: 45vh; width: 20vw; display: none; z-index: 9999;" id="laststep">
+            <div class="card-body p-4 d-flex flex-column" id="headline-section">
+                <div class="content-card text-light rounded p-4 mb-4" styles="height: 30vh;">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Headline
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Skills
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Scope
+                        </div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            Budget
+                        </div>
+                    </div>
+                    <h4 class="card-title mb-4 ">Last step, start the conversation</h4>
+                    <p>
+                        Talent are looking for: <br>
+                        - Clear expectations about your task or deliverables <br>
+                        - The skills required for your work <br>
+                    </p>
+                </div>
+
+
+                <div class="mb-5 form-scope justify-content-center fs-6 budget">
+                    <!-- Duration Group -->
+                    <div class="">
+                        <label class="form-label fw-bold mb-2" for="description">Description</label>
+                    </div>
+                    <textarea asp-for="Description" id="description" class="form-control" name="Description" class="p-2"
+                              style="resize: none; border-color: #ccc; border-radius: 8px; height: 8rem; width: 100%;"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-primary">Submit Job Post</button>
+                    <button type="submit" class="btn btn-primary mt-3">Submit Job Post</button>
                 </div>
             </div>
         </div>
     </div>
-</form>
 
-<script>
-    document.getElementById('next-skills').addEventListener('click', function () {
-        toggleCards('headline-card', 'skills-card');
-    });
-
-    document.getElementById('next-scope').addEventListener('click', function () {
-        toggleCards('skills-card', 'scope-card');
-    });
-
-    document.getElementById('next-budget').addEventListener('click', function () {
-        toggleCards('scope-card', 'budget-card');
-    });
-
-    function toggleCards(hideId, showId) {
-        document.getElementById(hideId).style.display = 'none';
-        document.getElementById(showId).style.display = 'block';
-    }
-</script>
+</form>     

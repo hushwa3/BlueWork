@@ -35,13 +35,13 @@
     <div>
        <h1 class="mb-5 mt-3">Your Job Postings</h1>
     </div>
-     @if (Model != null && Model.Any())
-    {
-        <div class="row mb-4">
+     <div class="row mb-4">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3">
+                        @if (Model != null && Model.Any())
+                          {
                             @foreach (var job in Model)
                             {
                                 <a href="#" class="job-link fw-bold">@job.Headline</a>
@@ -55,6 +55,7 @@
                                     </div>
                                 </div>
                             }
+                          }
                         </div>
                     </div>
                 </div>
@@ -64,11 +65,4 @@
   
 </div>
 
-
- <div class="container my-5 d-flex justify-content-center align-items-center">
-        <div class="card card-post" id="headline-card" style="min-height: 55vh; width: 20vw;">
-            <div class="card-body">
-            @await Html.PartialAsync("AddPost", new BlueWork.web.Models.AddPostModel.InputModel())
-            </div>
-        </div>
-</div>
+@await Html.PartialAsync("AddPost", new BlueWork.web.Models.AddPostModel.InputModel())

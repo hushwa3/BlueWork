@@ -74,10 +74,18 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult JobPost()
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+
+
+            // Fetch all jobs posted by the logged-in user
+            var jobPosts = _context.JobPosts
+                .Where(j => j.UserId == userId)
+                .ToList();
+
+            return View(jobPosts);
         }
 
         public IActionResult ReviewProposal()
@@ -97,7 +105,7 @@ namespace BlueWork.web.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> AddPost(AddPostModel.InputModel model)
+        public IActionResult AddPost(AddPostModel.InputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -105,6 +113,9 @@ namespace BlueWork.web.Controllers
             }
 
             var userId = _userManager.GetUserId(User);
+
+            // Log or debug the userId
+            Console.WriteLine($"UserId: {userId}");
 
             if (userId == null)
             {
@@ -114,7 +125,7 @@ namespace BlueWork.web.Controllers
             var jobPost = new JobPost
             {
                 Headline = model.Headline,
-                Skills = string.Join(",", model.Skills), // Convert skills list to a comma-separated string
+                Skills = string.Join(",", model.Skills),
                 Complexity = model.Complexity,
                 Duration = model.Duration,
                 Experience = model.Experience,
@@ -126,12 +137,13 @@ namespace BlueWork.web.Controllers
             };
 
             _context.JobPosts.Add(jobPost);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return RedirectToAction("Client_Dashboard");
+            return RedirectToAction("JobPost");
         }
 
 
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
