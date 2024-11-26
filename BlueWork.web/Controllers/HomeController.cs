@@ -9,7 +9,6 @@ namespace BlueWork.web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly BlueWorkDbContext _context;
 
         // Injecting dependencies
@@ -17,7 +16,6 @@ namespace BlueWork.web.Controllers
             UserManager<ApplicationUser> userManager,
             BlueWorkDbContext context)
         {
-            _userManager = userManager;
             _context = context;
         }
 
@@ -55,15 +53,7 @@ namespace BlueWork.web.Controllers
         [HttpGet]
         public IActionResult JobPost()
         {
-            var userId = _userManager.GetUserId(User);
-
-
-            // Fetch all jobs posted by the logged-in user
-            var jobPosts = _context.JobPosts
-                .Where(j => j.UserId == userId)
-                .ToList();
-
-            return View(jobPosts);
+            return View();
         }
 
         public IActionResult ReviewProposal()
@@ -90,16 +80,6 @@ namespace BlueWork.web.Controllers
                 return View(model);
             }
 
-            var userId = _userManager.GetUserId(User);
-
-            // Log or debug the userId
-            Console.WriteLine($"UserId: {userId}");
-
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
-
             var jobPost = new JobPost
             {
                 Headline = model.Headline,
@@ -111,7 +91,6 @@ namespace BlueWork.web.Controllers
                 HourlyRateTo = model.HourlyRateTo,
                 ProjectBudget = model.ProjectBudget,
                 Description = model.Description,
-                UserId = userId
             };
 
             _context.JobPosts.Add(jobPost);
@@ -120,8 +99,6 @@ namespace BlueWork.web.Controllers
             return RedirectToAction("JobPost");
         }
 
-
-      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
