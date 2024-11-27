@@ -1,4 +1,4 @@
-﻿@model List<BlueWork.web.Models.JobPost>
+﻿@model IEnumerable<BlueWork.web.Models.JobPost>
 @{
     ViewData["Title"] = "Job Post";
 }
@@ -34,8 +34,6 @@
 
         <div class="col-md-8 mt-5">
             <div class="card mb-4">
-                 @if (Model != null && Model.Any())
-                   {
                     @foreach (var job in Model)
                     {
                     <div class="card-body rounded">
@@ -70,7 +68,6 @@
                         <button type="button" class="btn text-light rounded"> @job.Skills</button>
                     </div>
                 </div>
-                    }
                  }
             </div>
         </div>

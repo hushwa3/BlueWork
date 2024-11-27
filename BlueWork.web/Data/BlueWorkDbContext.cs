@@ -14,17 +14,7 @@ namespace BlueWork.web.Data
         public DbSet<SkillDevelopment> SkillDevelopments { get; set; }
         public DbSet<JobPost> JobPosts { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-
-            base.OnModelCreating(builder);
-
-            // Example of defining composite keys
-            builder.Entity<IdentityUserLogin<string>>(entity =>
-            {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-            });
-        }
+     
 
     }
 }

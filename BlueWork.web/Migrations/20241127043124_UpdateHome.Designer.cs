@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlueWork.web.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20241126184731_change")]
-    partial class change
+    [Migration("20241127043124_UpdateHome")]
+    partial class UpdateHome
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -3,6 +3,7 @@ using BlueWork.web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BlueWork.web.Controllers
@@ -13,7 +14,6 @@ namespace BlueWork.web.Controllers
 
         // Injecting dependencies
         public HomeController(
-            UserManager<ApplicationUser> userManager,
             BlueWorkDbContext context)
         {
             _context = context;
@@ -42,7 +42,7 @@ namespace BlueWork.web.Controllers
         [Authorize(Roles = "Client")]
         public IActionResult Client_Dashboard()
         {
-            return View(); // Passes the job posts to the view
+            return View(); 
         }
 
      
@@ -51,9 +51,10 @@ namespace BlueWork.web.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult JobPost()
+        public async Task<IActionResult> JobPost()
         {
-            return View();
+            var jobPosts = _context.Set<JobPost>().ToList();
+            return View(jobPosts);
         }
 
         public IActionResult ReviewProposal()
@@ -69,8 +70,8 @@ namespace BlueWork.web.Controllers
         [HttpGet]
         public IActionResult AddPost()
         {
-            var model = new AddPostModel.InputModel(); // Initialize the model
-            return View(model);
+            return View();
+
         }
         [HttpPost]
         public IActionResult AddPost(AddPostModel.InputModel model)
@@ -79,7 +80,7 @@ namespace BlueWork.web.Controllers
             {
                 return View(model);
             }
-
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var jobPost = new JobPost
             {
                 Headline = model.Headline,
@@ -90,9 +91,9 @@ namespace BlueWork.web.Controllers
                 HourlyRateFrom = model.HourlyRateFrom,
                 HourlyRateTo = model.HourlyRateTo,
                 ProjectBudget = model.ProjectBudget,
-                Description = model.Description,
+                Description = model.Description
             };
-
+            jobPost.UserId = userId;
             _context.JobPosts.Add(jobPost);
             _context.SaveChanges();
 

@@ -17,12 +17,12 @@ namespace BlueWork.web.Models
         public decimal HourlyRateTo { get; set; }
         public decimal ProjectBudget { get; set; }
         public string Description { get; set; }
-
         [Required]
         public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual IdentityUser User { get; set; }
+        // Navigation property for the user
+        [ForeignKey("UserId")]  
+        public ApplicationUser User { get; set; }
 
     }
 

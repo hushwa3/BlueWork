@@ -5,7 +5,7 @@
 namespace BlueWork.web.Migrations
 {
     /// <inheritdoc />
-    public partial class change : Migration
+    public partial class JobPostUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
