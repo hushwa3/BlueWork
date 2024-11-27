@@ -56,6 +56,13 @@ namespace BlueWork.web.Controllers
             var jobPosts = await _context.JobPosts.ToListAsync();
             return View(jobPosts); 
         }
+        [HttpGet]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> SearchJobsAsync()
+        {
+            var jobPosts = await _context.JobPosts.ToListAsync();
+            return View(jobPosts);
+        }
 
         [HttpGet]
         [Authorize]

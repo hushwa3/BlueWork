@@ -1,0 +1,124 @@
+﻿@model IEnumerable<BlueWork.web.Models.JobPost>
+
+@{
+    ViewData["Title"] = "BlueWork";
+}
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Filter by</h5>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="category">
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience-level" class="form-label">Experience Level</label>
+                            <select class="form-select" id="experience-level">
+                                <option value="entry">Entry Level</option>
+                                <option value="mid">Intermediate</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="job-type" class="form-label">Duration</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="hourly">
+                                <label class="form-check-label" for="hourly">
+                                    < 1month
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="fixed">
+                                <label class="form-check-label" for="fixed">
+                                    1 - 3 months
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="fixed">
+                                <label class="form-check-label" for="fixed">
+                                    3 - 6 months
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price-range" class="form-label">Price Range</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-1">
+                                <label class="form-check-label" for="price-range-1">
+                                    ₱500 - ₱1000
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-2">
+                                <label class="form-check-label" for="price-range-2">
+                                    ₱1000 - ₱1500
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-3">
+                                <label class="form-check-label" for="price-range-3">
+                                    ₱1500 - ₱2000
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-4">
+                                <label class="form-check-label" for="price-range-4">
+                                    ₱2000+
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-sm-flex flex-xs-column  p-5">
+                                <input type="text" placeholder="What skill are you looking for?" class="p-2 job-search">
+                                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                            <div class="p-5">
+                                <span class="me-2">Saved Jobs (1)</span>
+                            </div>
+                        </div>
+                        @foreach (var job in Model)
+                        {
+                            <div class="mt-4 p-5 mb-5" style="background-color: #ececec;">
+                                <h5>@job.Headline</h5>
+                                <p class="text-primary" style="font-size: .9rem;"> @job.Complexity - @job.Experience - @job.Duration - Est.Budget: ₱@job.ProjectBudget</p>
+                                <p>@job.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class=" d-flex gap-3">
+                                        <button class="btn btn-outline-secondary border-radius-2 text-light">@job.Skills</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex mt-4 gap-3 job-icon">
+                                    <p><i class="fa-solid fa-circle-check"></i> Payment Verified</p>
+                                    <p><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                                    <p><i class="fa-solid fa-location-dot"></i> Philippines</p>
+                                </div>
+                            </div>
+                        }
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

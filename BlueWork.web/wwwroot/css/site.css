@@ -694,7 +694,7 @@ textarea{
 .worker1-filters {
     display: flex;
     justify-content: start; /* Centers filter buttons */
-    gap: 2rem; /* Adds spacing between buttons */
+    gap: 1rem; /* Adds spacing between buttons */
     margin-top: 1rem;
 }
 
@@ -716,12 +716,13 @@ textarea{
 .worker1-cards {
     display: flex;
     flex-wrap: wrap; /* Ensures cards wrap to the next row */
-    gap: 20px; /* Adds space between cards */
+    gap: 7rem; /* Adds space between cards */
+    margin-bottom: 10rem;
 }
 
 /* Individual Card */
 .worker1-card {
-    width: 19rem; /* Sets a fixed width for cards */
+    width: 25rem; /* Sets a fixed width for cards */
     border: 1px solid #ddd;
     padding: 2rem;
     border-radius: 8px;
@@ -743,7 +744,7 @@ textarea{
     }
 
 .worker1-name {
-    font-size: .9rem;
+    font-size: 1.2rem;
     margin-top: 1rem;
 }
 
@@ -755,7 +756,7 @@ textarea{
 }
 
 .worker1-price {
-    font-weight: bold;
+    font-weight: 600;
     margin-top: 1rem;
     color: #333;
 }
@@ -942,4 +943,26 @@ textarea{
 }
 .radio-hidden{
     display: none;
+}
+
+/* Search Jobs */
+
+.search-btn {
+    padding: .6rem;
+    width: 4rem;
+    background: #3182CE;
+    color: white;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+}
+
+.job-search {
+    width: 25rem;
+    border: 1px solid black;
+    border-radius: 10px 0 0 10px;
+}
+
+.job-icon i {
+    color: #0077B6;
 }
