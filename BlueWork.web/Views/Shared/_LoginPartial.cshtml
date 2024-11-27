@@ -2,13 +2,12 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 
 @if (SignInManager.IsSignedIn(User))
 {
-    var email = UserManager.GetUserName(User); // Get the user's email
-    var firstName = email?.Split('@')[0].Split('.')[0].Split('_')[0]; // Extract the part before '@' and handle separators (like dots or underscores)
-    firstName = string.IsNullOrEmpty(firstName) ? "User" : char.ToUpper(firstName[0]) + firstName.Substring(1).ToLower(); // Capitalize first letter
-
     <div class="dropdown">
         <div class="dropdown-toggle border-0" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-circle-user fa-3x"></i>
@@ -18,7 +17,7 @@
                 <div class="d-flex align-items-center">
                    
                     <div>
-                        <h6 class="mb-0">@firstName</h6>
+                        <h6 class="mb-0">@user.FirstName @user.LastName</h6>
                         <small class="text-muted">@UserManager.GetUserName(User)</small>
                     </div>
                 </div>

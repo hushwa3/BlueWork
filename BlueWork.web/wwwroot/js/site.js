@@ -83,15 +83,6 @@ document.addEventListener('click', (event) => {
     }
 });
 
-// Handle "Sign In" buttons
-if (signIn1) {
-    signIn1.addEventListener('click', () => {
-        closeAllPopups();
-        if (pop2) pop2.style.display = 'block';
-        backdrop.style.display = 'block';
-    });
-}
-
 // Handle "Register" button (Main button to open registration form popup)
 if (register) {
     register.addEventListener('click', (event) => {
@@ -121,15 +112,10 @@ if (register1) {
 cards.forEach((card) => {
     card.addEventListener('click', () => {
         cards.forEach((c) => c.classList.remove('selected'));
-        const roleInput = document.querySelector("input[name='Input.Role']");
         card.classList.add('selected');
 
         const selectedRole = card.dataset.type;
 
-        roleInput.value = card.dataset.value;
-        if (roleInput) {
-            roleInput.value = selectedRole;
-        }
 
         if (createBtn) createBtn.style.display = 'none'; 
         if (actionBtn) {

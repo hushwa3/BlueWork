@@ -6,43 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlueWork.web.Data;
+using Microsoft.AspNetCore.Identity;
 using BlueWork.web.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BlueWork.web.Controllers
 {
     [Authorize(Roles = "Admin")]
+   
+
     public class UserAccountsController : Controller
     {
-        private readonly EntityDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserAccountsController(EntityDbContext context)
+        public UserAccountsController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
-        }
-
-        // GET: ApplicationUsers
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.ApplicationUsers.ToListAsync());
-        }
-
-        // GET: ApplicationUsers/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ApplicationUser = await _context.ApplicationUsers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ApplicationUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(ApplicationUser);
+            _userManager = userManager;
         }
 
         // GET: ApplicationUsers/Create
@@ -52,108 +31,34 @@ namespace BlueWork.web.Controllers
         }
 
         // POST: ApplicationUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName")] ApplicationUser applicationUsers)
+        public async Task<IActionResult> Create(ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(applicationUsers);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(applicationUsers);
-        }
-
-        // GET: ApplicationUsers/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ApplicationUser = await _context.ApplicationUsers.FindAsync(id);
-            if (ApplicationUser == null)
-            {
-                return NotFound();
-            }
-            return View(ApplicationUser);
-        }
-
-        // POST: ApplicationUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName")] ApplicationUser applicationUsers)
-        {
-            if (id != applicationUsers.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                // Create the user with the provided password
+                var user = new ApplicationUser
                 {
-                    _context.Update(applicationUsers);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                    FirstName = applicationUser.FirstName,
+                    LastName = applicationUser.LastName,
+                    Email = applicationUser.Email,
+                    UserName = applicationUser.Email
+                };
+
+                var result = await _userManager.CreateAsync(user, applicationUser.PasswordHash);
+
+                
+
+                // Add errors to the ModelState if creation fails
+                foreach (var error in result.Errors)
                 {
-                    if (!ApplicationUserExists(applicationUsers.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(applicationUsers);
-        }
-
-        // GET: ApplicationUsers/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var applicationUser = await _context.ApplicationUsers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
             }
 
             return View(applicationUser);
         }
-
-        // POST: ApplicationUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var applicationUsers = await _context.ApplicationUsers.FindAsync(id);
-            if (applicationUsers != null)
-            {
-                _context.ApplicationUsers.Remove(applicationUsers);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ApplicationUserExists(string id)
-        {
-            return _context.ApplicationUsers.Any(e => e.Id == id);
-        }
     }
+
 }

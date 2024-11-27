@@ -938,3 +938,6 @@ textarea{
 .dropdown-divider {
     margin: 0.5rem 0;
 }
+.radio-hidden{
+    display: none;
+}

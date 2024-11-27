@@ -5,45 +5,56 @@
 }
 
 <body class="client">
-<div class="container-fluid container-pop4">
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+<div class="container-fluid container-pop h-60" id="pop1" style="display: block;">
+    <div class="top-content text-center">
+        <h5 class="pop-h5" style="overflow-y: hidden;">Join <br>BlueWork</h5>
+        <p class="pop-p">Join as a Client or Worker</p>
+        <div class="row row-pop">
+            <div class="col first-pop option-card" data-type="client">
+                <input asp-for="Input.Role" type="radio" id="role-client" value="Client" class="radio-hidden">
+                <div class="content1">
+                    <label for="role-client">
+                    <i class="fa-solid fa-user-tie fa-3x"></i>
+                    <p class="box">I'm a client looking to hire for a project</p>
+                    </label>
+                    <div class="selected-indicator"></div>
+                    
+                </div>
+            </div>
+
+            <div class="col second-pop option-card" data-type="worker">
+                <input asp-for="Input.Role" type="radio" id="role-worker" value="Worker" class="radio-hidden">
+                <div class="content1">
+                    <label for="role-worker">
+                    <i class="fa-solid fa-user fa-3x"></i>
+                    <p class="box">I'm a worker looking to work on a project</p>
+                    </label>
+                    <div class="selected-indicator"></div>
+                </div>
+            </div>
+        </div>
+        <button id="createAccountBtn" class="mb-3">Create Account</button>
+        <button class="action-button" id="actionBtn" style="display: none;"></button>
+        <hr>
+                <p class="member">Already a member? <a class="text-primary" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a></p>
+    </div>
+</div>
+
+
+
+<div class="container-fluid container-pop4" id="pop3" style="display: none;">
     <h5 style="overflow-y: hidden;" class="content2 text-center mb-3">Join <br> Bluework</h5>
-<div class="row p-4">
-    <div class="col-md-12">
-                <section>
-                    @{
-                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                        {
-                            <div>
-                                <p>
-                                    There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
-                                        article
-                                        about setting up this ASP.NET application to support logging in via external services
-                                    </a>.
-                                </p>
-                            </div>
-                        }
-                        else
-                        {
-                            <form id="external-account" asp-page="/Account/ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                <div>
-                                    <p>
-                                        @foreach (var provider in Model.ExternalLogins!)
-                                        {
-                                            <button type="submit" class="btn googlebtn" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-google fa-b"></i>Continue with @provider.DisplayName</button>
-                                        }
-                                    </p>
-                                </div>
-                            </form>
-                        }
-                    }
-                </section>
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="row p-4">
+            <div class="col-md-12">
                 <div class="line-container mb-3">
                     <hr class="line">
                     <span class="line-text">OR</span>
                     <hr class="line">
                 </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+           
              <div class="form-floating mb-3">
                <input asp-for="Input.FirstName" class="form-control" autocomplete="FirstName" aria-required="true" />
                <label asp-for="Input.FirstName">FirstName</label>
@@ -69,22 +80,15 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-             <div class="form-floating mb-3">
-                <select asp-for="Input.Role" asp-items="@Model.Input.RolesList" class="form-select" aria-required="true"> 
-                    <option disabled selected>Select Role</option>
-                </select>
-                <label asp-for="Input.Role">Role</label>
-                <span asp-validation-for="Input.Role" class="text-danger"></span>
-            </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Register</button>
-                    <p class="member1">
-                        Already have an account? <a class="text-primary" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a>
-                    </p>
-        </form>
+             <p class="member1">
+                  Already have an account? <a class="text-primary" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a>
+             </p>
     </div>
-    
 </div>
 </div>
+
+</form>
 </body>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
