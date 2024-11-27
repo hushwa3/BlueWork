@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BlueWork.web.Models.JobPost>
+﻿@model BlueWork.web.Models.JobPost
 @{
     ViewData["Title"] = "Job Post";
 }
@@ -28,50 +28,47 @@
         </div>
     </div>
 
+   
     <!-- Main Content -->
     <div class="row">
         <!-- Left Column -->
-
-        <div class="col-md-8 mt-5">
+        <div class="col-md-8 mt-5 mb-4">
             <div class="card mb-4">
-                    @foreach (var job in Model)
-                    {
                     <div class="card-body rounded">
-                            <h5 class="card-title">@job.Headline</h5>
+                        <h2 class="card-title" >@Model.Headline</h2>
                         <p class="text-muted">Created 69 hours ago</p>
                         <p class="text-muted">Philippines</p>
                         <hr />
                         <div class="mt-4">
-                                <p>@job.Description</p>
+                        <p>@Model.Description</p>
                         </div>
                         <hr/>
                     <div class="row">
                         <div class="col-md-4">
-                            <p><i class="fa-solid fa-check-to-slot"></i> Complexity</p>
+                            <p><i class="fa-solid fa-check-to-slot"></i> Complexity: @Model.Complexity</p>
                         </div>
                         <div class="col-md-4">
-                            <p><i class="fa-solid fa-check-to-slot"></i> Duration</p>
+                            <p><i class="fa-solid fa-check-to-slot"></i> Duration: @Model.Duration</p>
                         </div>
                         <div class="col-md-4">
-                            <p><i class="fa-solid fa-check-to-slot"></i> Experience</p>
+                            <p><i class="fa-solid fa-check-to-slot"></i> Experience: @Model.Experience</p>
                         </div>
                         <div class="col-md-4 mt-3">
-                            <p><i class="fa-solid fa-clock"></i> Hourly Rate: ₱@job.HourlyRateFrom - ₱@job.HourlyRateTo</p>
+                            <p><i class="fa-solid fa-clock"></i> Hourly Rate: ₱@Model.HourlyRateFrom - ₱@Model.HourlyRateTo</p>
                         </div>
                         <div class="col-md-4 mt-3">
-                            <p><i class="fa-solid fa-clock"></i> Project Budget:  ₱@job.ProjectBudget</p>
+                            <p><i class="fa-solid fa-clock"></i> Project Budget:  ₱@Model.ProjectBudget</p>
                         </div>
                     </div>
                     <hr />
                     <div>
                         <p>Skills required:</p>
-                        <button type="button" class="btn text-light rounded"> @job.Skills</button>
+                        <button type="button" class="btn text-light rounded"> @Model.Skills</button>
                     </div>
                 </div>
-                 }
+                 
             </div>
         </div>
-
         <!-- Right Column -->
         <div class="col-md-4">
             <div class="card mt-5">

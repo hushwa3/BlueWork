@@ -38,11 +38,15 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         [Authorize(Roles = "Client")]
-        public IActionResult Client_Dashboard()
+        public async Task<IActionResult> Client_DashboardAsync()
         {
-            return View(); 
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var jobPosts = await _context.JobPosts
+            .Where(j => j.UserId == userId)
+            .ToListAsync();
+            return View(jobPosts);
         }
 
      
@@ -51,11 +55,21 @@ namespace BlueWork.web.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> JobPost()
+        [Authorize]
+        public async Task<IActionResult> JobPost(int id)
         {
-            var jobPosts = _context.Set<JobPost>().ToList();
-            return View(jobPosts);
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            // Fetch the specific job post by Id and ensure it belongs to the logged-in user
+            var jobPost = await _context.JobPosts
+                .FirstOrDefaultAsync(j => j.Id == id && j.UserId == userId);
+            if (jobPost == null)
+            {
+                // Return a Not Found view if the job does not exist or does not belong to the user
+                return NotFound();
+            }
+            return View(jobPost); 
         }
+
 
         public IActionResult ReviewProposal()
         {
