@@ -49,11 +49,14 @@ namespace BlueWork.web.Controllers
             return View(jobPosts);
         }
 
-     
-        public IActionResult JobsView()
+        [HttpGet]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> JobsViewAsync()
         {
-            return View();
+            var jobPosts = await _context.JobPosts.ToListAsync();
+            return View(jobPosts); 
         }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> JobPost(int id)

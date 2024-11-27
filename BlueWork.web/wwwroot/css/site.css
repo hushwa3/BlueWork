@@ -652,20 +652,20 @@ textarea{
 
 /*For JobsView*/
 
+/*For JobsView*/
 /* General Container */
 .worker1-container {
-    padding: 20px;
     font-family: Arial, sans-serif;
-    text-align: center; /* Centers text in the header and filters */
 }
 
 /* Navigation Bar */
 .worker1-header nav ul {
     display: flex;
     list-style-type: none;
-    justify-content: center; /* Centers navigation items */
+    justify-content: space-between; /* Centers navigation items */
     gap: 20px;
-    padding: 0;
+    border: 1px solid black;
+    padding: 1rem;
 }
 
     .worker1-header nav ul li a {
@@ -680,7 +680,9 @@ textarea{
 }
 
 .worker1-title {
-    font-size: 2em;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 4rem;
 }
 
 .worker1-description {
@@ -691,9 +693,9 @@ textarea{
 /* Filter Buttons */
 .worker1-filters {
     display: flex;
-    justify-content: center; /* Centers filter buttons */
-    gap: 10px; /* Adds spacing between buttons */
-    margin-top: 10px;
+    justify-content: start; /* Centers filter buttons */
+    gap: 2rem; /* Adds spacing between buttons */
+    margin-top: 1rem;
 }
 
 .worker1-filter {
@@ -714,16 +716,14 @@ textarea{
 .worker1-cards {
     display: flex;
     flex-wrap: wrap; /* Ensures cards wrap to the next row */
-    justify-content: center; /* Centers cards horizontally */
     gap: 20px; /* Adds space between cards */
-    margin-top: 20px;
 }
 
 /* Individual Card */
 .worker1-card {
-    width: 300px; /* Sets a fixed width for cards */
+    width: 19rem; /* Sets a fixed width for cards */
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 8px;
     text-align: center; /* Centers text within the card */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -743,8 +743,8 @@ textarea{
     }
 
 .worker1-name {
-    font-size: 1.5em;
-    margin-top: 10px;
+    font-size: .9rem;
+    margin-top: 1rem;
 }
 
 .worker1-role {
@@ -756,25 +756,27 @@ textarea{
 
 .worker1-price {
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 1rem;
     color: #333;
 }
 
 .worker1-rating {
-    margin-top: 5px;
+    margin-top: .5rem;
     color: #ff9900;
 }
 
 /* Center all items */
 .worker1-services-count {
-    margin-top: 10px;
-    font-weight: bold;
+    margin-top: 6rem;
     color: #444;
 }
 
+.jobs-nav {
+    border: 1px solid black;
+}
 
 /* Client Dashboard */
-.dashboard{
+.dashboard {
 }
 .container-dash {
     width: 100vw;
