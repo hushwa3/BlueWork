@@ -9,6 +9,7 @@ using BlueWork.web.Data;
 using Microsoft.AspNetCore.Identity;
 using BlueWork.web.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Data.Entity;
 
 namespace BlueWork.web.Controllers
 {
@@ -23,6 +24,14 @@ namespace BlueWork.web.Controllers
         {
             _userManager = userManager;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var users = _userManager.Users;
+            return View(users);
+        }
+
 
         // GET: ApplicationUsers/Create
         public IActionResult Create()

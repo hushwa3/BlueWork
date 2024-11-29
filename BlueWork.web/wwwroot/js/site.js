@@ -1,13 +1,12 @@
-﻿// Get all the required DOM elements
-const loginBtn = document.getElementById('loginBtn');
+﻿const loginBtn = document.getElementById('loginBtn');
 const loginBtn1 = document.getElementById('loginBtn1');
 const pop1 = document.getElementById('pop1');
 const pop2 = document.getElementById('pop2');
-const pop3 = document.getElementById('pop3'); // Registration form popup
+const pop3 = document.getElementById('pop3'); /
 const signUp = document.getElementById('sign-up');
 const signIn1 = document.getElementById('sign-in1');
-const register = document.getElementById('register'); // Main Register button
-const register1 = document.getElementById('register1'); // Secondary Register button
+const register = document.getElementById('register'); 
+const register1 = document.getElementById('register1'); 
 const addPost = document.getElementById('add-post');
 const headlineCard = document.getElementById('headline-card');
 const cards = document.querySelectorAll('.option-card');
@@ -87,11 +86,11 @@ document.addEventListener('click', (event) => {
 if (register) {
     register.addEventListener('click', (event) => {
         event.stopPropagation();
-        closeAllPopups(); // Close any other popups
+        closeAllPopups(); 
         if (pop3) {
             $(pop1).fadeIn(500); 
-            $(pop3).fadeOut(500); // Show the registration form popup
-            $(backdrop).fadeIn(500); // Show the backdrop
+            $(pop3).fadeOut(500); 
+            $(backdrop).fadeIn(500); 
         }
     });
 }
@@ -196,11 +195,6 @@ if (nextDetails) {
             $(backdrop).fadeIn(500);
         }
     });
-}
-function handleLogout() {
-    // Add your logout logic here
-    console.log('Logging out...');
-    alert('Logging out...');
 }
 
 
