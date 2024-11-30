@@ -1,0 +1,79 @@
+﻿@model BlueWork.web.Models.JobPost
+@{
+    ViewData["Title"] = "Apply Job";
+}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-8">
+            <!-- Back Button -->
+            <div class="mb-3">
+                <a href="@Url.Action("SearchJobs", "Home")" class="text-dark text-decoration-none">
+                    <i class="fas fa-arrow-left"></i> Back to Jobs
+                </a>
+            </div>
+
+            <!-- Job Title -->
+            <h4 class="mb-3">@Model.Headline</h4>
+
+            <!-- Post Info -->
+            <div class="text-muted small mb-3">
+                <span>Posted 4 minutes ago</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa-solid fa-location-dot"></i> Worldwide</span>
+            </div>
+
+            <!-- Job Description -->
+            <div class="mb-4">
+                <p>@Model.Description</p>
+                <h5 class="mt-4">Complexity:</h5>
+                <ul><li>@Model.Complexity</li></ul>
+                <h5 class="mt-4">Duration:</h5>
+                <ul><li>@Model.Duration</li></ul>
+                <h5 class="mt-4">Experience:</h5>
+                <ul><li>@Model.Experience</li></ul>
+                <h5 class="mt-4">Hourly Rate: </h5>
+                <ul><li>₱@Model.HourlyRateFrom - ₱@Model.HourlyRateTo</li></ul>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-4">
+            <div class="card mb-3 mt-5">
+                <div class="card-body">
+                    <a href="@Url.Action("Apply", "Job", new { id = Model.Id })" class="btn btn-success w-100 mb-2">
+                        Apply Now
+                    </a>
+                    <button class="btn btn-outline-secondary w-100">
+                        <i class="far fa-heart"></i> Save job
+                    </button>
+                </div>
+            </div>
+
+            <!-- About the Client Section -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">About the client</h5>
+                    <p class="mb-2 fs-4">@Model.User.FirstName @Model.User.LastName</p>
+                    <p></p>
+                    <div class="mb-2">
+                        <i class="fas fa-check-circle text-success"></i> Payment method verified
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">1</span>
+                            <div class="text-muted">of 1 review</div>
+                        </div>
+                    </div>
+                    <p class="mb-2">6 jobs posted</p>
+                    <p class="mb-2">67% hire rate, 3 open jobs</p>
+                    <p class="mb-2">$649 total spent</p>
+                    <p class="mb-2">6 hires, 5 active</p>
+                    <p class="mb-2">Construction Company</p>
+                    <p class="mb-2">Small company (5-9 people)</p>
+                    <p class="text-muted small">Member since Sep 6, 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

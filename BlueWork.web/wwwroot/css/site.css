@@ -947,19 +947,23 @@ textarea{
 
 /* Search Jobs */
 
-.search-btn {
-    padding: .6rem;
+.search-btn1 {
     width: 4rem;
     background: #3182CE;
     color: white;
     border: none;
     border-radius: 0 10px 10px 0;
     cursor: pointer;
+    height: 3vh;
+    padding: 0;
 }
-
+.jobs-like{
+    margin-left: 3rem;
+}
 .job-search {
     width: 25rem;
     border: 1px solid #ccc;
+    height: 3vh;
     border-radius: 10px 0 0 10px;
 }
 

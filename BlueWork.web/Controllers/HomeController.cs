@@ -38,6 +38,24 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
+        public IActionResult WorkerProfile()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> ApplyJobAsync(int id)
+        {
+            var jobPost = await _context.JobPosts.FirstOrDefaultAsync(j => j.Id == id);
+
+            if (jobPost == null)
+            {
+                return NotFound("Job post not found.");
+            }
+
+            return View(jobPost);
+        }
+
         [HttpGet]
         [Authorize(Roles = "Client")]
         public async Task<IActionResult> Client_DashboardAsync()
@@ -65,7 +83,7 @@ namespace BlueWork.web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Client")]
         public async Task<IActionResult> JobPost(int id)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -91,12 +109,6 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult AddPost()
-        {
-            return View();
-
-        }
         [HttpPost]
         public IActionResult AddPost(AddPostModel.InputModel model)
         {
