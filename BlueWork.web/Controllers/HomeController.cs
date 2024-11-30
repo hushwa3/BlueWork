@@ -3,6 +3,7 @@ using BlueWork.web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -44,17 +45,20 @@ namespace BlueWork.web.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Worker")]
-        public async Task<IActionResult> ApplyJobAsync(int id)
+        public async Task<IActionResult> ApplyJob(int id)
         {
-            var jobPost = await _context.JobPosts.FirstOrDefaultAsync(j => j.Id == id);
+            // Fetch the job post with the related user data
+            var jobPost = await _context.JobPosts
+                .FirstOrDefaultAsync(j => j.Id == id);
 
             if (jobPost == null)
             {
-                return NotFound("Job post not found.");
+                return NotFound();
             }
 
             return View(jobPost);
         }
+
 
         [HttpGet]
         [Authorize(Roles = "Client")]

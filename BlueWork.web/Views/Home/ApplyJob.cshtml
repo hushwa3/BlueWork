@@ -8,8 +8,8 @@
         <div class="col-md-8">
             <!-- Back Button -->
             <div class="mb-3">
-                <a href="@Url.Action("SearchJobs", "Home")" class="text-dark text-decoration-none">
-                    <i class="fas fa-arrow-left"></i> Back to Jobs
+                <a href="@Url.Action("SearchJobs", "Home", new { id = Model.Id })" class="text-dark text-decoration-none">
+                    <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
 
@@ -25,15 +25,13 @@
 
             <!-- Job Description -->
             <div class="mb-4">
-                <p>@Model.Description</p>
-                <h5 class="mt-4">Complexity:</h5>
-                <ul><li>@Model.Complexity</li></ul>
-                <h5 class="mt-4">Duration:</h5>
-                <ul><li>@Model.Duration</li></ul>
-                <h5 class="mt-4">Experience:</h5>
-                <ul><li>@Model.Experience</li></ul>
-                <h5 class="mt-4">Hourly Rate: </h5>
-                <ul><li>₱@Model.HourlyRateFrom - ₱@Model.HourlyRateTo</li></ul>
+                <p/>@Model.Description</p>
+                <hr/>
+                <h5 class="mt-4">Project Details:</h5>
+                <ul><li>Complexity: @Model.Complexity</li></ul>
+                <ul><li>Duration: @Model.Duration</li></ul>
+                <ul><li>Experience: @Model.Experience</li></ul>
+                <ul><li>Hourly Rate: ₱@Model.HourlyRateFrom - @Model.HourlyRateTo</li></ul>
             </div>
         </div>
 
@@ -41,10 +39,8 @@
         <div class="col-md-4">
             <div class="card mb-3 mt-5">
                 <div class="card-body">
-                    <a href="@Url.Action("Apply", "Job", new { id = Model.Id })" class="btn btn-success w-100 mb-2">
-                        Apply Now
-                    </a>
-                    <button class="btn btn-outline-secondary w-100">
+                    <button class="btn w-100 mb-2 text-light">Apply now</button>
+                    <button class="btn btn-outline-secondary w-100 text-light">
                         <i class="far fa-heart"></i> Save job
                     </button>
                 </div>
@@ -54,7 +50,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">About the client</h5>
-                    <p class="mb-2 fs-4">@Model.User.FirstName @Model.User.LastName</p>
+                    <p class="mb-2 fs-4"></p>
                     <p></p>
                     <div class="mb-2">
                         <i class="fas fa-check-circle text-success"></i> Payment method verified
