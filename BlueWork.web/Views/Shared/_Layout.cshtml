@@ -24,10 +24,16 @@
                         @if (User.IsInRole("Worker"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SearchJobs">Search Jobs</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="SearchJobs">Search Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JobsView">Explore Jobs</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="JobsView">Explore Jobs</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Client"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Client_Dashboard">Post a Job</a>
                             </li>
                         }
                         <partial name="_LoginPartial" />

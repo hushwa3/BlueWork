@@ -966,3 +966,12 @@ textarea{
 .job-icon i {
     color: #0077B6;
 }
+/* Job Post Success */
+.congrats {
+    width: 20rem;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 700;
+}

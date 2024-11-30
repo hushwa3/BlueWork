@@ -121,7 +121,7 @@ namespace BlueWork.web.Controllers
             _context.JobPosts.Add(jobPost);
             _context.SaveChanges();
 
-            return RedirectToAction("JobPost");
+            return RedirectToAction("JobPostSuccess");
         }
 
 

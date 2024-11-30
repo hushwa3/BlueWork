@@ -2,7 +2,7 @@
 const loginBtn1 = document.getElementById('loginBtn1');
 const pop1 = document.getElementById('pop1');
 const pop2 = document.getElementById('pop2');
-const pop3 = document.getElementById('pop3'); /
+const pop3 = document.getElementById('pop3'); 
 const signUp = document.getElementById('sign-up');
 const signIn1 = document.getElementById('sign-in1');
 const register = document.getElementById('register'); 
