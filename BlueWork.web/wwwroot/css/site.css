@@ -716,7 +716,7 @@ textarea{
 .worker1-cards {
     display: flex;
     flex-wrap: wrap; /* Ensures cards wrap to the next row */
-    gap: 7rem; /* Adds space between cards */
+    justify-content: space-between;
     margin-bottom: 10rem;
 }
 
@@ -741,12 +741,9 @@ textarea{
         width: 100%; /* Makes the image responsive */
         height: auto;
         border-radius: 8px;
+        margin-bottom: 1rem;
     }
 
-.worker1-name {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-}
 
 .worker1-role {
     color: #777;

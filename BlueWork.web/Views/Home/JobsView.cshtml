@@ -19,7 +19,7 @@
             </nav>
         </div>
 
-        <div class="worker1-section" style="margin-left: 2rem">
+        <div class="worker1-section m-5">
             <h2 class="worker1-title">Construction Work</h2>
             <p class="worker1-description">Avail construction services that are top quality.</p>
             <div class="worker1-filters">
@@ -34,8 +34,10 @@
                 @foreach (var job in Model)
                 {
                 <div class="worker1-card" style="cursor: pointer;">
-                    <img src="/assets/construction-worker2.jpeg" alt="worker1-image" class="worker1-image" />
-                    <h3 class="worker1-name">@job.Headline</h3>
+                    <img src="/assets/construction-worker2.jpeg" alt="worker1-image" class="worker1-image mb-2" />
+                        <a href="@Url.Action("ApplyJob", "Home", new { id = job.Id })" class="job-link fw-bold fs-5 text-dark mt-3">
+                            @job.Headline
+                        </a>
                         <p class="worker1-role">@job.Description</p>
                         <p class="worker1-price">Rate: ₱@job.HourlyRateFrom - ₱@job.HourlyRateTo</p>
                 </div>
