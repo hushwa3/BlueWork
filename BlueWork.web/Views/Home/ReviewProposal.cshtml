@@ -3,8 +3,6 @@
 }
 
 <div class="container mt-5">
-    <!-- Title -->
-    <h2 class="mb-4">Borj Khalifa Skyscraper Construction</h2>
 
     <!-- Progress Bar -->
     <div class="row mb-4">
@@ -36,7 +34,10 @@
             <div class="worker-card-review mb-4">
                 <div class="d-flex justify-content-between align-items-start">
                     <div class="d-flex gap-3">
-                        <img src="/api/placeholder/100/100" alt="Profile Picture" class="rounded-circle profile-img-review">
+                        <div class="text-center">
+                            <i class="fa-solid fa-circle-user fa-3x rounded-circle profile-img-review"></i>
+                        </div>
+                        
                         <div>
                             <h5 class="mb-1">@applicant.GetProperty("FirstName").GetString() @applicant.GetProperty("LastName").GetString()</h5>
                             <p class="mb-1">Construction Worker</p>
