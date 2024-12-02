@@ -25,13 +25,14 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDbContext<BlueWorkDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
 
+builder.Services.AddDbContext<EntityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
+
 builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<EntityDbContext>();
 
-builder.Services.AddDbContext<EntityDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BlueWorkConnection")));
 
 var app = builder.Build();
 
@@ -48,7 +49,6 @@ else
             var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
             var exception = exceptionHandlerPathFeature?.Error;
 
-            Console.WriteLine($"Unhandled exception: {exception?.Message}");
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync("An internal server error occurred.");
         });
@@ -61,6 +61,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");

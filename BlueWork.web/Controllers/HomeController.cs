@@ -14,8 +14,7 @@ namespace BlueWork.web.Controllers
         private readonly BlueWorkDbContext _context;
 
         // Injecting dependencies
-        public HomeController(
-            BlueWorkDbContext context)
+        public HomeController(BlueWorkDbContext context)
         {
             _context = context;
         }
