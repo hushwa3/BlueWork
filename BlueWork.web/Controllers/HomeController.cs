@@ -6,17 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace BlueWork.web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly BlueWorkDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         // Injecting dependencies
-        public HomeController(BlueWorkDbContext context)
+        public HomeController(BlueWorkDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager=userManager;
         }
 
         public IActionResult Home()
@@ -47,16 +50,126 @@ namespace BlueWork.web.Controllers
         public async Task<IActionResult> ApplyJob(int id)
         {
             // Fetch the job post with the related user data
-            var jobPost = await _context.JobPosts
-                .FirstOrDefaultAsync(j => j.Id == id);
+            var jobPost = await _context.JobPosts.FirstOrDefaultAsync(j => j.Id == id);
 
             if (jobPost == null)
             {
                 return NotFound();
             }
 
+            // Pass any success message from TempData (after ApplyToJob)
+            ViewBag.Message = TempData["Message"];
+
             return View(jobPost);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> ApplyToJob(int id)
+        {
+            // Get the current user's information
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                TempData["Message"] = "An error occurred while applying for the job.";
+                return RedirectToAction("ApplyJob", new { id });
+            }
+
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+
+            // File path for storing applicants
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "JSON", "applicants.json");
+
+            // Read existing data
+            var applicants = new List<JsonElement>();
+            if (System.IO.File.Exists(filePath))
+            {
+                var json = await System.IO.File.ReadAllTextAsync(filePath);
+                applicants = JsonSerializer.Deserialize<List<JsonElement>>(json) ?? new List<JsonElement>();
+            }
+
+            // Check if the user has already applied for this job
+            if (applicants.Any(a =>
+            {
+                var jobId = a.GetProperty("JobId").GetInt32();
+                var applicantUserId = a.GetProperty("UserId").GetString();
+                return jobId == id && applicantUserId == userId;
+            }))
+            {
+                TempData["Message"] = "You have already applied for this job.";
+                return RedirectToAction("ApplyJob", new { id });
+            }
+
+            // Add the new applicant
+            var newApplicant = new
+            {
+                JobId = id,
+                UserId = userId,
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            // Serialize and write back to file
+            applicants.Add(JsonSerializer.SerializeToElement(newApplicant));
+            var updatedJson = JsonSerializer.Serialize(applicants);
+            await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
+
+            TempData["Message"] = "You have successfully applied for the job.";
+            return RedirectToAction("ApplyJob", new { id });
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> ReviewProposal(int jobId)
+        {
+            // Path to the JSON file
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "JSON", "applicants.json");
+
+            // Initialize applicants list
+            var applicants = new List<JsonElement>();
+
+            // Read and parse JSON file
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    var json = await System.IO.File.ReadAllTextAsync(filePath);
+                    applicants = JsonSerializer.Deserialize<List<JsonElement>>(json) ?? new List<JsonElement>();
+                }
+                catch (JsonException)
+                {
+                    // Handle invalid JSON by initializing an empty list
+                    applicants = new List<JsonElement>();
+                }
+            }
+
+            // Filter applicants for the specific JobId
+            var jobApplicants = applicants
+                .Where(a =>
+                {
+                    try
+                    {
+                        // Safely access and compare the JobId
+                        return a.TryGetProperty("JobId", out var jobIdProperty) && jobIdProperty.GetInt32() == jobId;
+                    }
+                    catch
+                    {
+                        return false; // Skip invalid entries
+                    }
+                })
+                .ToList();
+
+            // Pass filtered applicants and JobId to the view
+            ViewBag.Applicants = jobApplicants;
+            ViewBag.JobId = jobId;
+
+            return View();
+        }
+
 
 
         [HttpGet]
@@ -101,12 +214,6 @@ namespace BlueWork.web.Controllers
             return View(jobPost); 
         }
 
-
-        public IActionResult ReviewProposal()
-        {
-            return View();
-        }
-
         public IActionResult Hire()
         {
             return View();
@@ -139,6 +246,10 @@ namespace BlueWork.web.Controllers
             return RedirectToAction("JobPostSuccess");
         }
 
+        public IActionResult JobPostSuccess()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

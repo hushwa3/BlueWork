@@ -17,11 +17,14 @@
                         <div class="job-post progress-bar bg-primary fs-6" style="width: 33%;">
                             Your Job Postings
                         </div>
-                        <div class="job-post progress-bar bg-white text-dark border-start border-end fs-6" style="width: 33%;">
-                            <a class="navbar-brand text-dark fs-6" asp-area="" asp-controller="Home" asp-action="ReviewProposal">Review Proposals</a>
+                        <div class="job-post progress-bar bg-white text-dark fs-6" style="width: 33%;">
+                            <a href="@Url.Action("ReviewProposal", "Home", new { jobId = Model.Id })" class="navbar-brand text-dark fs-6" >
+                                Review Proposals
+                            </a>
                         </div>
+                       
                         <div class="job-post progress-bar bg-white text-dark fs-6" style="width: 34%;">
-                            <a class="navbar-brand text-dark fs-6" asp-area="" asp-controller="Home" asp-action="ReviewProposal">Hire</a>
+                            <a class="navbar-brand text-dark fs-6" asp-area="" asp-controller="Home" asp-action="Hire">Hire</a>
                         </div>
                     </div>
                 </div>

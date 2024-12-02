@@ -12,7 +12,12 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
-
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    @ViewBag.Message
+                </div>
+            }
             <!-- Job Title -->
             <h4 class="mb-3">@Model.Headline</h4>
 
@@ -39,7 +44,11 @@
         <div class="col-md-4">
             <div class="card mb-3 mt-5">
                 <div class="card-body">
-                    <button class="btn w-100 mb-2 text-light">Apply now</button>
+                    <form action="@Url.Action("ApplyToJob", "Home", new { id = Model.Id })" method="post">
+                        <button type="submit" class="btn btn-primary w-100 mb-2 text-light">
+                            Apply now
+                        </button>
+                    </form>
                     <button class="btn btn-outline-secondary w-100 text-light">
                         <i class="far fa-heart"></i> Save job
                     </button>
