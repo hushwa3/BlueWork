@@ -220,6 +220,7 @@ namespace BlueWork.web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Client")]
         public IActionResult AddPost(AddPostModel.InputModel model)
         {
             if (!ModelState.IsValid)
