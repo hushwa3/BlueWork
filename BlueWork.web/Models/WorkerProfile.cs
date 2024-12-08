@@ -1,6 +1,8 @@
 ﻿using Abp.Authorization.Users;
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BlueWork.web.Models
 {
@@ -8,17 +10,27 @@ namespace BlueWork.web.Models
     {
         [Key]
         public int WorkerID { get; set; }
+        [Required(ErrorMessage = "Location is required")]
+        public string LocationCity { get; set; }
+        [Required(ErrorMessage = "Speciality is required")]
+        public string Speciality { get; set; }
+        [Required(ErrorMessage = "Please Input languages")]
+        public string Languages { get; set; }
+        [Required(ErrorMessage = "Education is required")]
+        public string Education { get; set; }
+        [Required(ErrorMessage = "Course is required")]
+        public string course { get; set; }
+        [Required(ErrorMessage = "Graduation Year is required")]
+        public int year { get; set; }
+        [Required(ErrorMessage = "Please input hours per week")]
+        public int HoursPerWeek { get; set; }
+        [Required(ErrorMessage = "Select Offer Status")]
+        public string Offer { get; set; }
+        [Required(ErrorMessage = "Response time is required")]
+        public int responseTime { get; set; }
         [Required]
-        public int UserAccountId { get; set; }
-        public string Bio { get; set; }
-        public string Skills { get; set; }
-        public int ExperienceYears { get; set; }
-        public decimal Rating { get; set; }
+        public string UserId { get; set; }
 
 
-        // One-to-many relationship with JobApplication
-        public virtual ICollection<JobApplication> JobApplications { get; set; }
-
-        public virtual ICollection<SkillDevelopment> SkillDevelopments { get; set; }
     }
 }

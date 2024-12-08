@@ -41,10 +41,131 @@ namespace BlueWork.web.Controllers
         {
             return View();
         }
-        public IActionResult WorkerProfile()
+
+        [HttpGet]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> EditProfile()
         {
-            return View();
+            // Get the logged-in user
+            var user = await _userManager.GetUserAsync(User);
+
+            // Find the existing worker profile
+            var workerProfile = await _context.WorkerProfiles
+                .FirstOrDefaultAsync(w => w.UserId == user.Id);
+
+            // If no profile exists, return a not found error
+            if (workerProfile == null)
+            {
+                return NotFound("Worker profile not found.");
+            }
+
+            return View(workerProfile);
+
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> EditProfile(WorkerProfile workerProfile)
+        {
+            // Get the logged-in user
+            var user = await _userManager.GetUserAsync(User);
+
+            // Explicitly set the UserId to the current user's ID
+            workerProfile.UserId = user.Id;
+
+            // Remove the UserId field from ModelState validation
+            ModelState.Remove("UserId");
+
+            // Validate model state
+            if (!ModelState.IsValid)
+            {
+                return View(workerProfile);
+            }
+
+            try
+            {
+                // Find the existing worker profile
+                var existingProfile = await _context.WorkerProfiles
+                    .FirstOrDefaultAsync(w => w.UserId == user.Id);
+
+                if (existingProfile == null)
+                {
+                    return NotFound("Worker profile not found.");
+                }
+
+                // Manually update all properties
+                existingProfile.LocationCity = workerProfile.LocationCity;
+                existingProfile.Speciality = workerProfile.Speciality;
+                existingProfile.Languages = workerProfile.Languages;
+                existingProfile.Education = workerProfile.Education;
+                existingProfile.course = workerProfile.course;
+                existingProfile.year = workerProfile.year;
+                existingProfile.HoursPerWeek = workerProfile.HoursPerWeek;
+                existingProfile.Offer = workerProfile.Offer;
+                existingProfile.responseTime = workerProfile.responseTime;
+
+                // Explicitly update the entity
+                _context.WorkerProfiles.Update(existingProfile);
+
+                // Save changes
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Profile updated successfully!";
+                return RedirectToAction("WorkerProfile");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error updating profile: {ex.Message}");
+                Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
+
+                ModelState.AddModelError(string.Empty, "An error occurred while updating the profile.");
+                return View(workerProfile);
+            }
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> WorkerProfile()
+        {
+            // Get the logged-in user
+            var user = await _userManager.GetUserAsync(User);
+
+            // Check if a WorkerProfile exists
+            var workerProfile = await _context.WorkerProfiles
+                .FirstOrDefaultAsync(w => w.UserId == user.Id);
+
+            if (workerProfile == null)
+            {
+                // Create a default WorkerProfile with placeholder values
+                workerProfile = new WorkerProfile
+                {
+                    UserId = user.Id,
+                    LocationCity = "To be edited",
+                    Speciality = "To be edited",
+                    Languages = "To be edited",
+                    Education = "To be edited",
+                    course="To be edited",
+                    year=2000,
+                    HoursPerWeek = 0,
+                    Offer = "To be edited",
+                    responseTime = 0
+                };
+
+                // Save the default profile to the database
+                _context.WorkerProfiles.Add(workerProfile);
+                await _context.SaveChangesAsync();
+            }
+
+            // Pass FirstName and LastName to the view using ViewData
+            ViewData["FirstName"] = user.FirstName;
+            ViewData["LastName"] = user.LastName;
+
+            // Pass the WorkerProfile to the view
+            return View(workerProfile);
+
+        }
+
         [HttpGet]
         [Authorize(Roles = "Worker")]
         public async Task<IActionResult> ApplyJob(int id)

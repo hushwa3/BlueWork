@@ -1,19 +1,21 @@
-﻿@{
+﻿@model BlueWork.web.Models.WorkerProfile
+
+@{
     ViewData["Title"] = "Profile";
 }
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-<div class="container h-screen overflow-y-auto padding-bottom">
+<div class="container h-screen overflow-y-auto padding-bottom padding-top">
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6 border border-light">
         <div class="flex items-start gap-4 mb-6">
             <img src="/assets/default-pp.png" alt="Profile" class="w-20 h-20 rounded-full bg-gray-200" />
             <div class="flex-1">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h1 class="text-xl font-bold">PLACE HOLDER</h1>
+                        <h1 class="text-xl font-bold">@ViewData["FirstName"] @ViewData["LastName"]</h1>
                         <div class="flex items-center text-gray-600 text-sm">
                             <i class="fas fa-map-marker-alt mr-1"></i>
-                            <span>HOLDER PLACE City • 12:00AM Local Time</span>
+                            <span>@Model.LocationCity</span>
                         </div>
                         <div class="flex gap-2 mt-2">
                             <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Available Now</span>
@@ -21,37 +23,36 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button class="px-4 py-2 text-blue-600 border border-blue-600 rounded">Profile Settings</button>
+                        <a asp-controller="Home" asp-action="EditProfile" class="px-4 py-2 text-blue-600 border border-blue-600 rounded">Edit Profile</a>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="grid grid-cols-2 gap-6">
             <div class="space-y-6">
                 <div>
-                    <div class="text-sm text-l font-bold">Construction Work</div>
+                    <div class="text-sm text-l font-bold">@Model.Speciality</div>
                 </div>
 
                 <div>
-                    <h2 class="font-semibold mb-2">Hours per week</h2>
+                    <h2 class="font-semibold mb-2">@Model.HoursPerWeek Hours per week</h2>
                     <div class="bg-gray-100 p-3 rounded">
-                        <div class="text-sm">As needed - Open to offers</div>
-                        <div class="text-sm">1 day(s) response time</div>
+                        <div class="text-sm">@Model.Offer to offers</div>
+                        <div class="text-sm">@Model.responseTime day(s) response time</div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-3 gap-4 mb-6">
                     <div class="text-center">
-                        <div class="text-2xl font-bold">₱0</div>
+                        <div class="text-2xl font-bold">₱-</div>
                         <div class="text-sm text-gray-600">Total Earnings</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-bold">0</div>
+                        <div class="text-2xl font-bold">-</div>
                         <div class="text-sm text-gray-600">Total Jobs</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-bold">0</div>
+                        <div class="text-2xl font-bold">-</div>
                         <div class="text-sm text-gray-600">Total Hours</div>
                     </div>
                 </div>
@@ -59,24 +60,17 @@
                 <div>
                     <h2 class="font-semibold mb-2">Languages</h2>
                     <div class="bg-gray-100 p-3 rounded space-y-2">
-                        <div class="text-sm">English</div>
-                        <div class="text-sm">Cebuano</div>
-                        <div class="text-sm">Tagalog</div>
+                        <div class="text-sm">@Model.Languages</div>
                     </div>
-                </div>
-
-                <div>
-                    <h2 class="font-semibold mb-2">Verification</h2>
-                    <h2 class="font-semibold mb-2">ID: Unverified</h2>
                 </div>
 
                 <div>
                     <h2 class="font-semibold mb-2">Education</h2>
                     <div class="bg-gray-100 p-3 rounded space-y-4">
                         <div>
-                            <div class="text-sm font-medium">UNIVERSITY OF PLACE HOLDER</div>
-                            <div class="text-sm text-gray-500">BS IN PLACE HOLDING</div>
-                            <div class="text-sm text-gray-500">2024</div>
+                            <div class="text-sm font-medium">@Model.Education</div>
+                            <div class="text-sm text-gray-500">@Model.course</div>
+                            <div class="text-sm text-gray-500">@Model.year</div>
                         </div>
                     </div>
                 </div>
@@ -86,26 +80,21 @@
                 <h2 class="text-xl font-bold mb-4">Work History</h2>
                 <div class="space-y-4">
                     <div class="border rounded p-4">
-                        <div class="flex justify-between mb-2">
-                            <h3 class="font-semibold">Place Holder</h3>
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <i class="fas fa-star text-yellow-400"></i>
-                                <span class="ml-1">5.00</span>
+                        <div class="flex mb-2">
+                            <h3 class="font-semibold">No Jobs Completed yet</h3>
+                            <div class="items-center">
+                                <i class="fas fa-star text-gray-400"></i>
+                                <i class="fas fa-star text-gray-400"></i>
+                                <i class="fas fa-star text-gray-400"></i>
+                                <i class="fas fa-star text-gray-400"></i>
+                                <i class="fas fa-star text-gray-400"></i>
+                                <span class="ml-1">0.00</span>
                             </div>
                         </div>
-                        <p class="text-sm text-gray-600 mb-2">range date - date range</p>
+                        <p class="text-sm text-gray-600 mb-2">Job duration</p>
                         <p class="text-sm mb-2">
-                            "Place was excellent as holder! Placing holders and holding places, he's the holder to place!"
+                            "No jobs to show"
                         </p>
-                        <div class="flex justify-between text-sm text-gray-600">
-                            <span>₱0</span>
-                            <span>₱0.00/hr</span>
-                            <span>0hrs</span>
-                        </div>
                     </div>
 
                 </div>

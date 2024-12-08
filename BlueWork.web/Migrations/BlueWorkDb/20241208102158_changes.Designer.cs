@@ -4,6 +4,7 @@ using BlueWork.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlueWork.web.Migrations.BlueWorkDb
 {
     [DbContext(typeof(BlueWorkDbContext))]
-    partial class BlueWorkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241208102158_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,7 +351,7 @@ namespace BlueWork.web.Migrations.BlueWorkDb
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("course")
                         .IsRequired()
@@ -365,6 +368,8 @@ namespace BlueWork.web.Migrations.BlueWorkDb
                     b.HasIndex("JobApplicationApplicationID");
 
                     b.HasIndex("SkillDevelopmentSkillID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("WorkerProfiles");
                 });
@@ -434,6 +439,14 @@ namespace BlueWork.web.Migrations.BlueWorkDb
                     b.HasOne("BlueWork.web.Models.SkillDevelopment", null)
                         .WithMany("WorkerProfiles")
                         .HasForeignKey("SkillDevelopmentSkillID");
+
+                    b.HasOne("BlueWork.web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EmployerProfileJobListing", b =>
