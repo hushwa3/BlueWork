@@ -39,7 +39,11 @@
                         </div>
                         
                         <div>
-                            <h5 class="mb-1">@applicant.GetProperty("FirstName").GetString() @applicant.GetProperty("LastName").GetString()</h5>
+                            <h5 class="mb-1">
+                                <a class="text-dark" asp-action="ViewWorkerProfile" asp-controller="Home" asp-route-id="@applicant.UserId">
+                                    @applicant.FirstName @applicant.LastName
+                                </a>
+                            </h5>
                             <p class="mb-1">Construction Worker</p>
                             <p class="mb-2">Philippines</p>
                             <span class="available-badge-review">
@@ -53,8 +57,10 @@
                         </div>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary text-light">Hire</button>
-                        <button class="btn btn-primary">Message</button>
+                        <button class="btn btn-outline-secondary text-light border-0">Hire</button>
+                        <button class="btn btn-primary border-0">
+                            <a class="text-light" asp-action="ViewWorkerProfile" asp-controller="Home" asp-route-id="@applicant.UserId">View Profile</a>
+                            </button>
                     </div>
                 </div>
             </div>

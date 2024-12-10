@@ -982,3 +982,24 @@ textarea{
     font-size: 4rem;
     font-weight: 700;
 }
+
+.index1-container {
+    margin: 4rem auto;
+    max-width: 60rem;
+    height: 50rem;
+    padding: 5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.30);
+    margin-bottom: 10rem;
+}
+.editBtn{
+    background-color: #4A65AD;
+    color: white;
+    padding: .5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 10rem;
+    text-decoration: none;
+}

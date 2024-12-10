@@ -1,7 +1,7 @@
 ﻿@model BlueWork.web.Models.WorkerProfile
 
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Worker Profile";
 }
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -11,7 +11,7 @@
         <div class="flex-1">
             <div class="flex justify-between items-start">
                 <div>
-                    <h1 class="text-xl font-bold">@ViewData["FirstName"] @ViewData["LastName"]</h1>
+                    <h1 class="text-xl font-bold">@ViewBag.FirstName @ViewBag.LastName</h1>
                     <div class="flex items-center text-gray-600 text-sm">
                         <i class="fas fa-map-marker-alt mr-1"></i>
                         <span>@Model.LocationCity</span>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <a asp-controller="Home" asp-action="EditProfile" class="btn px-4 py-2 border border-blue-600 rounded editBtn"><i class="fa-regular fa-pen-to-square"></i>Edit Profile</a>
+                    <a asp-controller="Home" asp-action="ViewWorkerProfile" class="btn px-4 py-2 text-light border border-blue-600 rounded editBtn">Hire</a>
                 </div>
             </div>
         </div>

@@ -37,6 +37,74 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> ViewWorkerProfile(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound("Worker ID is required.");
+            }
+
+            // Path to the JSON file
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "JSON", "applicants.json");
+
+            // Initialize applicants list
+            var applicants = new List<JsonElement>();
+
+            // Read and parse the JSON file
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    var json = await System.IO.File.ReadAllTextAsync(filePath);
+                    applicants = JsonSerializer.Deserialize<List<JsonElement>>(json) ?? new List<JsonElement>();
+                }
+                catch (JsonException)
+                {
+                    // Handle invalid JSON by initializing an empty list
+                    applicants = new List<JsonElement>();
+                }
+            }
+
+            // Find the applicant matching the provided UserId
+            var applicant = applicants.FirstOrDefault(a =>
+            {
+                try
+                {
+                    return a.TryGetProperty("UserId", out var userIdProperty) && userIdProperty.GetString() == id;
+                }
+                catch
+                {
+                    return false; // Skip invalid entries
+                }
+            });
+
+            if (applicant.ValueKind == JsonValueKind.Undefined)
+            {
+                return NotFound("Worker profile not found in JSON.");
+            }
+
+            // Use the WorkerProfile model for additional data
+            var workerProfile = await _context.WorkerProfiles
+                .FirstOrDefaultAsync(w => w.UserId == id);
+
+            if (workerProfile == null)
+            {
+                return NotFound("Worker profile not found in the database.");
+            }
+
+            // Optionally, add JSON data to ViewBag
+            ViewBag.ApplicantData = applicant;
+            ViewBag.FirstName = applicant.GetProperty("FirstName").GetString();
+            ViewBag.LastName = applicant.GetProperty("LastName").GetString();
+
+            return View(workerProfile);
+        }
+
+
+
+
         public IActionResult WorkerProfile_Setup()
         {
             return View();
@@ -274,13 +342,20 @@ namespace BlueWork.web.Controllers
                 {
                     try
                     {
-                        // Safely access and compare the JobId
+                        // Extract and compare JobId safely
                         return a.TryGetProperty("JobId", out var jobIdProperty) && jobIdProperty.GetInt32() == jobId;
                     }
                     catch
                     {
                         return false; // Skip invalid entries
                     }
+                })
+                .Select(a => new
+                {
+                    JobId = a.GetProperty("JobId").GetInt32(),
+                    UserId = a.GetProperty("UserId").GetString(),
+                    FirstName = a.GetProperty("FirstName").GetString(),
+                    LastName = a.GetProperty("LastName").GetString()
                 })
                 .ToList();
 
@@ -290,6 +365,8 @@ namespace BlueWork.web.Controllers
 
             return View();
         }
+
+
 
 
 
