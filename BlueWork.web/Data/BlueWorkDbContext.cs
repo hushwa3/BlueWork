@@ -8,6 +8,7 @@ namespace BlueWork.web.Data
     public class BlueWorkDbContext(DbContextOptions<BlueWorkDbContext> options) : DbContext(options)
     {
         public DbSet<EmployerProfile> EmployerProfiles { get; set; }
+         public DbSet<ClientProfile> ClientProfiles { get; set; }
         public DbSet<WorkerProfile> WorkerProfiles { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<JobListing> JobListings { get; set; }

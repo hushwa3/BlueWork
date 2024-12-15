@@ -15,6 +15,7 @@ namespace BlueWork.web.Controllers
         private readonly BlueWorkDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
+
         // Injecting dependencies
         public HomeController(BlueWorkDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -32,11 +33,157 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
-        public IActionResult Client_Profile()
+        [HttpGet]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> EditClientProfile()
         {
-            return View();
+            try
+            {
+                // Fetch the currently logged-in user
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Fetch or initialize the ClientProfile
+                var profile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (profile == null)
+                {
+                    profile = new ClientProfile
+                    {
+                        UserId = user.Id,
+                        ClientName = $"{user.FirstName ?? "N/A"} {user.LastName ?? "N/A"}",
+                        Email = user.Email ?? "example@example.com",
+                        CompanyName = "To be edited",
+                        Location = "To be edited",
+                        Description = "To be edited",
+                        CompanySize = "To be edited",
+                        Industry = "To be edited",
+                        PaymentVerification = false
+                    };
+
+                    // Save the new profile
+                    _context.ClientProfiles.Add(profile);
+                    await _context.SaveChangesAsync();
+                }
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in EditClientProfile: {ex.Message}");
+                ModelState.AddModelError("", "An unexpected error occurred while loading the profile.");
+                return View("Error");
+            }
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> EditClientProfile(ClientProfile clientProfile)
+        {
+            try
+            {
+                // Fetch the currently logged-in user
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Ensure UserId consistency
+                clientProfile.UserId = user.Id;
+                ModelState.Remove("UserId");
+
+                if (!ModelState.IsValid)
+                {
+                    return View(clientProfile);
+                }
+
+                // Fetch the existing ClientProfile
+                var existingProfile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (existingProfile == null)
+                {
+                    return NotFound("Client profile not found.");
+                }
+
+                // Update properties
+                existingProfile.ClientName = clientProfile.ClientName;
+                existingProfile.Email = clientProfile.Email;
+                existingProfile.CompanyName = clientProfile.CompanyName;
+                existingProfile.Location = clientProfile.Location;
+                existingProfile.Description = clientProfile.Description;
+                existingProfile.CompanySize = clientProfile.CompanySize;
+                existingProfile.Industry = clientProfile.Industry;
+                existingProfile.PaymentVerification = clientProfile.PaymentVerification;
+
+                // Save changes
+                _context.ClientProfiles.Update(existingProfile);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Profile updated successfully!";
+                return RedirectToAction("ClientInfoProfile");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating profile: {ex.Message}");
+                ModelState.AddModelError("", "An error occurred while updating the profile.");
+                return View(clientProfile);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> ClientInfoProfile()
+        {
+            try
+            {
+                // Fetch the currently logged-in user
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Fetch or create the ClientProfile
+                var clientProfile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (clientProfile == null)
+                {
+                    // Create a default ClientProfile
+                    clientProfile = new ClientProfile
+                    {
+                        UserId = user.Id,
+                        ClientName = $"{user.FirstName ?? "N/A"} {user.LastName ?? "N/A"}",
+                        Email = user.Email ?? "example@example.com",
+                        CompanyName = "To be edited",
+                        Location = "To be edited",
+                        Description = "To be edited",
+                        CompanySize = "To be edited",
+                        Industry = "To be edited",
+                        PaymentVerification = false
+                    };
+
+                    _context.ClientProfiles.Add(clientProfile);
+                    await _context.SaveChangesAsync();
+                }
+
+                // Pass FirstName and LastName to the view using ViewData
+                ViewData["FirstName"] = user.FirstName ?? "N/A";
+                ViewData["LastName"] = user.LastName ?? "N/A";
+
+                return View(clientProfile);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in ClientInfoProfile: {ex.Message}");
+                ModelState.AddModelError("", "An error occurred while loading the client profile.");
+                return View("Error");
+            }
+        }
+        
         [HttpGet]
         [Authorize(Roles = "Client")]
         public async Task<IActionResult> ViewWorkerProfile(string id)
@@ -103,8 +250,6 @@ namespace BlueWork.web.Controllers
         }
 
 
-
-
         public IActionResult WorkerProfile_Setup()
         {
             return View();
@@ -114,45 +259,76 @@ namespace BlueWork.web.Controllers
         [Authorize(Roles = "Worker")]
         public async Task<IActionResult> EditProfile()
         {
-            // Get the logged-in user
-            var user = await _userManager.GetUserAsync(User);
-
-            // Find the existing worker profile
-            var workerProfile = await _context.WorkerProfiles
-                .FirstOrDefaultAsync(w => w.UserId == user.Id);
-
-            // If no profile exists, return a not found error
-            if (workerProfile == null)
+            try
             {
-                return NotFound("Worker profile not found.");
+                // Get the logged-in user
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Find the existing worker profile or create a default one
+                var workerProfile = await _context.WorkerProfiles
+                    .FirstOrDefaultAsync(w => w.UserId == user.Id);
+
+                if (workerProfile == null)
+                {
+                    workerProfile = new WorkerProfile
+                    {
+                        UserId = user.Id,
+                        LocationCity = "To be edited",
+                        Speciality = "To be edited",
+                        Languages = "To be edited",
+                        Education = "To be edited",
+                        course = "To be edited",
+                        year = DateTime.Now.Year,
+                        HoursPerWeek = 0,
+                        Offer = "To be edited",
+                        responseTime = 0
+                    };
+
+                    _context.WorkerProfiles.Add(workerProfile);
+                    await _context.SaveChangesAsync();
+                }
+
+                return View(workerProfile);
             }
-
-            return View(workerProfile);
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in EditProfile GET: {ex.Message}");
+                return View("Error");
+            }
         }
+
 
         [HttpPost]
         [Authorize(Roles = "Worker")]
         public async Task<IActionResult> EditProfile(WorkerProfile workerProfile)
         {
-            // Get the logged-in user
-            var user = await _userManager.GetUserAsync(User);
-
-            // Explicitly set the UserId to the current user's ID
-            workerProfile.UserId = user.Id;
-
-            // Remove the UserId field from ModelState validation
-            ModelState.Remove("UserId");
-
-            // Validate model state
-            if (!ModelState.IsValid)
-            {
-                return View(workerProfile);
-            }
-
             try
             {
-                // Find the existing worker profile
+                // Get the logged-in user
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Ensure the UserId is set correctly
+                workerProfile.UserId = user.Id;
+
+                // Remove UserId validation
+                ModelState.Remove(nameof(workerProfile.UserId));
+
+                if (!ModelState.IsValid)
+                {
+                    return View(workerProfile);
+                }
+
+                // Find the existing profile
                 var existingProfile = await _context.WorkerProfiles
                     .FirstOrDefaultAsync(w => w.UserId == user.Id);
 
@@ -161,7 +337,7 @@ namespace BlueWork.web.Controllers
                     return NotFound("Worker profile not found.");
                 }
 
-                // Manually update all properties
+                // Update properties
                 existingProfile.LocationCity = workerProfile.LocationCity;
                 existingProfile.Speciality = workerProfile.Speciality;
                 existingProfile.Languages = workerProfile.Languages;
@@ -172,10 +348,7 @@ namespace BlueWork.web.Controllers
                 existingProfile.Offer = workerProfile.Offer;
                 existingProfile.responseTime = workerProfile.responseTime;
 
-                // Explicitly update the entity
                 _context.WorkerProfiles.Update(existingProfile);
-
-                // Save changes
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Profile updated successfully!";
@@ -183,15 +356,15 @@ namespace BlueWork.web.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
-                Console.WriteLine($"Error updating profile: {ex.Message}");
-                Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
-
+                Console.WriteLine($"Error in EditProfile POST: {ex.Message}");
                 ModelState.AddModelError(string.Empty, "An error occurred while updating the profile.");
                 return View(workerProfile);
             }
-
         }
+
+
+
+
         [HttpGet]
         [Authorize(Roles = "Worker")]
         public async Task<IActionResult> WorkerProfile()

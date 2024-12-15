@@ -1,0 +1,64 @@
+﻿@model BlueWork.web.Models.ClientProfile
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+<!-- Profile Setup Form -->
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="form-card bg-white p-4 mx-auto" style="max-width: 800px;">
+            <h1 class="h3 mb-4 text-center">Edit Profile</h1>
+
+            <form asp-action="EditClientProfile" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-4">
+                    <h2 class="h5 mb-3">Personal Information</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.ClientName, new { @class = "form-label required-field" })
+                            @Html.TextBoxFor(m => m.ClientName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ClientName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label required-field" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h2 class="h5 mb-3">Company Information</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.CompanyName, new { @class = "form-label required-field" })
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Location, new { @class = "form-label required-field" })
+                            @Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12">
+                            @Html.LabelFor(m => m.Description, new { @class = "form-label required-field" })
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 4 })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h2 class="h5 mb-3">Payment Verification</h2>
+                    <div class="form-check">
+                        @Html.CheckBoxFor(m => m.PaymentVerification, new { @class = "form-check-input" })
+                        @Html.LabelFor(m => m.PaymentVerification, new { @class = "form-check-label" })
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

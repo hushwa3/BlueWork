@@ -30,6 +30,8 @@ namespace BlueWork.web.Models
         public int responseTime { get; set; }
         [Required]
         public string UserId { get; set; }
+        [ForeignKey("User")]
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

@@ -35,6 +35,9 @@
             @if (User.IsInRole("Client"))
             {
                 <li class="nav-item">
+                    <a class="text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="ClientInfoProfile">Manage Profile</a>
+                </li>
+                <li class="nav-item">
                     <a class="text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="Client_Dashboard">Dashboard</a>
                 </li>
             }

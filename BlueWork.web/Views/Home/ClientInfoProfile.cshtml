@@ -1,78 +1,106 @@
-﻿@{
-    ViewData["Title"] = "Client Profile";
+﻿@model BlueWork.web.Models.ClientProfile
+
+@{
+    ViewData["Title"] = "Client Info Profile";
+    var firstName = ViewData["FirstName"] as string ?? "N/A";
+    var lastName = ViewData["LastName"] as string ?? "N/A";
 }
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-<div class="container h-screen overflow-y-auto padding-bottom">
-    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6 border border-light">
-        <div class="flex items-start gap-4 mb-6">
-            <img src="/assets/default-pp.png" alt="Profile" class="w-20 h-20 rounded-full bg-gray-200" />
-            <div class="flex-1">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center">
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <span class="ml-1">5.00</span>
+<body class="bg-light">
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="profile-card">
+            @if (Model == null)
+            {
+                <div class="alert alert-warning">No profile data available. Please <a asp-action="EditClientProfile">edit your profile</a>.</div>
+            }
+            else
+            {
+                <!-- Profile Header -->
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div class="d-flex gap-3">
+                        <i class="fa-solid fa-circle-user fa-5x"></i>
+                        <div>
+                            <h1 class="h3 mb-1">@Model.CompanyName ?? "Company Name Not Set"</h1>
+                            <p class="text-muted mb-2">
+                                <i class="fas fa-map-marker-alt me-2"></i>@(Model.Location ?? "Location Not Set")
+                            </p>
+                            <div class="d-flex gap-2">
+                                <span class="badge badge-custom status-badge">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    Payment Verified: @(Model.PaymentVerification ? "Yes" : "No")
+                                </span>
+                                <span class="badge badge-custom bg-success">Active</span>
+                            </div>
                         </div>
-                        <h1 class="text-xl font-bold">PLACE HOLDER</h1>
-                        <div class="flex items-center text-gray-600 text-sm">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
-                            <span>HOLDER PLACE City • 12:00AM Local Time</span>
-                        </div>
-                        <div class="flex gap-2 mt-2">
-                            <span class="bg-blue-100 text-black-800 text-xs px-2 py-1 rounded">Phone Number Verified</span>
-                            <span class="bg-blue-100 text-black-800 text-xs px-2 py-1 rounded">Payment Method Verfied</span>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-6">
-            <div class="space-y-6">
-                <div class="grid grid-cols-4 gap-4 mb-6">
-                    <div class="text-center">
-                        <div class="text-2xl font-bold">₱0</div>
-                        <div class="text-sm text-gray-600">Total Money Spent</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold">0</div>
-                        <div class="text-sm text-gray-600">Jobs Posted</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold">0</div>
-                        <div class="text-sm text-gray-600">Jobs Ongoing</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold">0%</div>
-                        <div class="text-sm text-gray-600">Hire Rate</div>
-                    </div>
+                    <a asp-action="EditClientProfile" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i>Edit Profile
+                    </a>
                 </div>
 
-                <div>
-                    <h2 class="font-semibold mb-2">Languages</h2>
-                    <div class="bg-gray-100 p-3 rounded space-y-2">
-                        <div class="text-sm">English</div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h2 class="text-xl font-bold mb-1">Company Description</h2>
-                <p class="text-sm text-gray-600 mb-2">range date - date range</p>
-                <div class="space-y-4">
-                    <div class="border rounded p-2">
-                        <p class="text-sm mb-1">
-                            "Place was excellent as holder! Placing holders and holding places, he's the holder to place!"
+                <!-- Company Info -->
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <h5 class="mb-3">About the Company</h5>
+                        <p class="text-muted">
+                            @Model.Description ?? "Company description not available."
                         </p>
                     </div>
-
                 </div>
-            </div>
+
+                <!-- Stats Grid -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="company-stats">
+                            <h6 class="text-muted mb-2">Project Budget Range</h6>
+                            <h4 class="mb-0">$50K - $250K</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-stats">
+                            <h6 class="text-muted mb-2">Projects Completed</h6>
+                            <h4 class="mb-0">128</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-stats">
+                            <h6 class="text-muted mb-2">Total Spent</h6>
+                            <h4 class="mb-0">$1.2M+</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Company Details</h5>
+                        <div class="mb-4">
+                            <p class="mb-2"><strong>Company Size:</strong> @Model.CompanySize ?? "Not Set"</p>
+                            <p class="mb-2"><strong>Industry:</strong> @Model.Industry ?? "Not Set"</p>
+                            <p class="mb-2"><strong>Client Name:</strong> @($"{firstName} {lastName}")</p>
+                            <p class="mb-2"><strong>Email:</strong> @Model.Email ?? "Not Set"</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Rating & Reviews</h5>
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="star-rating me-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="h4 mb-0">4.8</span>
+                            </div>
+                            <p class="text-muted">Based on 47 contractor reviews</p>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-</div>
+</body>

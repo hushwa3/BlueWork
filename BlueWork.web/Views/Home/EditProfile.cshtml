@@ -5,6 +5,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+<!-- Validation Summary -->
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger">
@@ -20,7 +21,6 @@
     </div>
 }
 
-
 <div class="index1-container mx-auto px-4 py-8 h-100">
     <h1 class="text-2xl font-bold mb-6">Edit Worker Profile</h1>
     <form asp-action="EditProfile" method="post">
@@ -28,12 +28,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="form-group">
                 <label asp-for="LocationCity" class="block font-medium text-gray-700">Location City</label>
-                <input asp-for="LocationCity" class="mt-1 h-10 w-full p-3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 " />
+                <input asp-for="LocationCity" class="mt-1 h-10 w-full p-3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200" />
                 <span asp-validation-for="LocationCity" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Speciality" class=" font-medium text-gray-700">Speciality</label>
+                <label asp-for="Speciality" class="font-medium text-gray-700">Speciality</label>
                 <input asp-for="Speciality" class="mt-1 h-10 w-full p-3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200" />
                 <span asp-validation-for="Speciality" class="text-red-500 text-sm"></span>
             </div>
@@ -53,6 +53,7 @@
             <div class="form-group">
                 <label asp-for="course" class="block font-medium text-gray-700">Course</label>
                 <input asp-for="course" class="mt-1 h-10 w-full p-3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200" />
+                <span asp-validation-for="course" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="form-group">

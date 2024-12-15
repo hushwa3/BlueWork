@@ -1003,3 +1003,59 @@ textarea{
     width: 10rem;
     text-decoration: none;
 }
+
+/* Client Profile */
+.form-card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.5rem;
+}
+
+.required-field::after {
+    content: "*";
+    color: red;
+    margin-left: 4px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+/* Client Info Profile */
+.profile-card {
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    background: white;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 60rem;
+    height: 80vh;
+    margin-bottom: 10rem;
+}
+
+.badge-custom {
+    font-size: 0.8rem;
+    padding: 0.5em 1em;
+    margin-right: 0.5rem;
+}
+
+.status-badge {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.company-stats {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+}
+
+.star-rating {
+    color: #ffc107;
+}
