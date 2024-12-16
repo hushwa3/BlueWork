@@ -14,13 +14,17 @@ namespace BlueWork.web.Controllers
     {
         private readonly BlueWorkDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<HomeController> _logger;
 
 
         // Injecting dependencies
-        public HomeController(BlueWorkDbContext context, UserManager<ApplicationUser> userManager)
+        public HomeController(BlueWorkDbContext context, UserManager<ApplicationUser> userManager,
+             ILogger<HomeController> logger)
         {
             _context = context;
             _userManager=userManager;
+            _logger = logger;
+
         }
 
         public IActionResult Home()
@@ -33,106 +37,6 @@ namespace BlueWork.web.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Client")]
-        public async Task<IActionResult> EditClientProfile()
-        {
-            try
-            {
-                // Fetch the currently logged-in user
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-
-                // Fetch or initialize the ClientProfile
-                var profile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
-
-                if (profile == null)
-                {
-                    profile = new ClientProfile
-                    {
-                        UserId = user.Id,
-                        ClientName = $"{user.FirstName ?? "N/A"} {user.LastName ?? "N/A"}",
-                        Email = user.Email ?? "example@example.com",
-                        CompanyName = "To be edited",
-                        Location = "To be edited",
-                        Description = "To be edited",
-                        CompanySize = "To be edited",
-                        Industry = "To be edited",
-                        PaymentVerification = false
-                    };
-
-                    // Save the new profile
-                    _context.ClientProfiles.Add(profile);
-                    await _context.SaveChangesAsync();
-                }
-
-                return View(profile);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in EditClientProfile: {ex.Message}");
-                ModelState.AddModelError("", "An unexpected error occurred while loading the profile.");
-                return View("Error");
-            }
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Client")]
-        public async Task<IActionResult> EditClientProfile(ClientProfile clientProfile)
-        {
-            try
-            {
-                // Fetch the currently logged-in user
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-
-                // Ensure UserId consistency
-                clientProfile.UserId = user.Id;
-                ModelState.Remove("UserId");
-
-                if (!ModelState.IsValid)
-                {
-                    return View(clientProfile);
-                }
-
-                // Fetch the existing ClientProfile
-                var existingProfile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
-
-                if (existingProfile == null)
-                {
-                    return NotFound("Client profile not found.");
-                }
-
-                // Update properties
-                existingProfile.ClientName = clientProfile.ClientName;
-                existingProfile.Email = clientProfile.Email;
-                existingProfile.CompanyName = clientProfile.CompanyName;
-                existingProfile.Location = clientProfile.Location;
-                existingProfile.Description = clientProfile.Description;
-                existingProfile.CompanySize = clientProfile.CompanySize;
-                existingProfile.Industry = clientProfile.Industry;
-                existingProfile.PaymentVerification = clientProfile.PaymentVerification;
-
-                // Save changes
-                _context.ClientProfiles.Update(existingProfile);
-                await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Profile updated successfully!";
-                return RedirectToAction("ClientInfoProfile");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating profile: {ex.Message}");
-                ModelState.AddModelError("", "An error occurred while updating the profile.");
-                return View(clientProfile);
-            }
-        }
 
         [HttpGet]
         [Authorize(Roles = "Client")]
@@ -140,50 +44,169 @@ namespace BlueWork.web.Controllers
         {
             try
             {
-                // Fetch the currently logged-in user
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
                     return RedirectToAction("Login", "Account");
                 }
 
-                // Fetch or create the ClientProfile
-                var clientProfile = await _context.ClientProfiles.FirstOrDefaultAsync(c => c.UserId == user.Id);
+                var clientProfile = await _context.ClientProfiles
+                    .FirstOrDefaultAsync(c => c.UserId == user.Id);
 
                 if (clientProfile == null)
                 {
-                    // Create a default ClientProfile
-                    clientProfile = new ClientProfile
-                    {
-                        UserId = user.Id,
-                        ClientName = $"{user.FirstName ?? "N/A"} {user.LastName ?? "N/A"}",
-                        Email = user.Email ?? "example@example.com",
-                        CompanyName = "To be edited",
-                        Location = "To be edited",
-                        Description = "To be edited",
-                        CompanySize = "To be edited",
-                        Industry = "To be edited",
-                        PaymentVerification = false
-                    };
-
-                    _context.ClientProfiles.Add(clientProfile);
-                    await _context.SaveChangesAsync();
+                    return RedirectToAction("EditClientProfile");
                 }
 
-                // Pass FirstName and LastName to the view using ViewData
+                // Pass user data to view
                 ViewData["FirstName"] = user.FirstName ?? "N/A";
                 ViewData["LastName"] = user.LastName ?? "N/A";
+
+                // Display success message if present
+                if (TempData["SuccessMessage"] != null)
+                {
+                    ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+                }
 
                 return View(clientProfile);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in ClientInfoProfile: {ex.Message}");
-                ModelState.AddModelError("", "An error occurred while loading the client profile.");
+                _logger.LogError($"Error in ClientInfoProfile: {ex.Message}");
+                TempData["ErrorMessage"] = "An error occurred while loading the profile.";
                 return View("Error");
             }
         }
-        
+
+        [HttpGet]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> EditClientProfile()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                var profile = await _context.ClientProfiles
+                    .FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (profile == null)
+                {
+                    profile = new ClientProfile
+                    {
+                        UserId = user.Id,
+                        ClientName = $"{user.FirstName ?? ""} {user.LastName ?? ""}".Trim(),
+                        Email = user.Email,
+                        CompanyName = "",
+                        Location = "",
+                        Description = "",
+                        CompanySize = "",
+                        Industry = "",
+                        PaymentVerification = false
+                    };
+                }
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in EditClientProfile: {ex.Message}");
+                TempData["ErrorMessage"] = "An error occurred while loading the profile.";
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> EditClientProfile(ClientProfile model)
+        {
+            try
+            {
+                // Log the incoming model
+                _logger.LogInformation($"Received model: {model.ClientName}, {model.Email}, UserId: {model.UserId}");
+
+                // Validate the model
+                if (!ModelState.IsValid)
+                {
+                    foreach (var modelStateKey in ModelState.Keys)
+                    {
+                        var value = ModelState[modelStateKey];
+                        foreach (var error in value.Errors)
+                        {
+                            _logger.LogError($"Key: {modelStateKey}, Error: {error.ErrorMessage}");
+                        }
+                    }
+                    return View(model);
+                }
+
+                // Fetch the logged-in user
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "User not found. Please log in.";
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Log the user details
+                _logger.LogInformation($"Current UserId: {user.Id}");
+
+                // Fetch existing profile
+                var existingProfile = await _context.ClientProfiles
+                    .FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (existingProfile == null)
+                {
+                    // Create a new profile
+                    var newProfile = new ClientProfile
+                    {
+                        UserId = user.Id,
+                        ClientName = model.ClientName,
+                        Email = model.Email,
+                        CompanyName = model.CompanyName,
+                        Location = model.Location,
+                        Description = model.Description,
+                        CompanySize = model.CompanySize,
+                        Industry = model.Industry,
+                        PaymentVerification = model.PaymentVerification
+                    };
+
+                    await _context.ClientProfiles.AddAsync(newProfile);
+                    TempData["SuccessMessage"] = "Profile created successfully!";
+                }
+                else
+                {
+                    // Update existing profile
+                    existingProfile.ClientName = model.ClientName;
+                    existingProfile.Email = model.Email;
+                    existingProfile.CompanyName = model.CompanyName;
+                    existingProfile.Location = model.Location;
+                    existingProfile.Description = model.Description;
+                    existingProfile.CompanySize = model.CompanySize;
+                    existingProfile.Industry = model.Industry;
+                    existingProfile.PaymentVerification = model.PaymentVerification;
+
+                    _context.ClientProfiles.Update(existingProfile);
+                    TempData["SuccessMessage"] = "Profile updated successfully!";
+                }
+
+                // Save changes and log result
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Changes saved successfully to the database.");
+
+                return RedirectToAction(nameof(ClientInfoProfile));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error saving profile: {ex.Message}");
+                ModelState.AddModelError("", "An error occurred while saving the profile.");
+                return View(model);
+            }
+        }
+
+
         [HttpGet]
         [Authorize(Roles = "Client")]
         public async Task<IActionResult> ViewWorkerProfile(string id)
@@ -361,8 +384,6 @@ namespace BlueWork.web.Controllers
                 return View(workerProfile);
             }
         }
-
-
 
 
         [HttpGet]
